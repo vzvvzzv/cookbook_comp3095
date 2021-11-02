@@ -16,20 +16,12 @@
         <maven.compiler.target>11</maven.compiler.target>
     </properties>
 
-
     <dependencies>
-
-        <dependency>
-            <groupId>ca.gbc.comp3095</groupId>
-            <artifactId>cookbook</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
-
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
         </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
@@ -48,6 +40,5 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-
 
 </project>
