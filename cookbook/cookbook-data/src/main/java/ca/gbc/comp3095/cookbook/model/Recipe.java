@@ -2,13 +2,13 @@ package ca.gbc.comp3095.cookbook.model;
 
 public class Recipe extends BaseEntity{
 
-    private String recipeName;
+    private String recipename;
 
-    public String getRecipeName() {
-        return recipeName;
+    public String getRecipename() {
+        return recipename;
     }
 
-    public void setRecipeName(String recipeName) {
-        this.recipeName = recipeName;
+    public void setRecipename(String recipename) {
+        this.recipename = recipename;
     }
 }

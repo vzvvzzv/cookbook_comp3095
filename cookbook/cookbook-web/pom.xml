@@ -45,7 +45,18 @@
             <artifactId>cookbook-data</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
-      
+        <dependency>
+            <groupId>ca.gbc.comp3095</groupId>
+            <artifactId>cookbook-data</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>ca.gbc.comp3095</groupId>
+            <artifactId>cookbook-data</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
 
 </project>

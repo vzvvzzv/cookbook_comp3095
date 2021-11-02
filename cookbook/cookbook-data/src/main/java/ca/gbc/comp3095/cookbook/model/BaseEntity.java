@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class BaseEntity implements Serializable {
 
-    public Long id;
+    private Long id;
 
     public Long getId() {
         return id;
