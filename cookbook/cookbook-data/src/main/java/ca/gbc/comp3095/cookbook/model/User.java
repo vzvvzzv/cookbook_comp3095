@@ -1,6 +1,6 @@
 package ca.gbc.comp3095.cookbook.model;
 
-public class User {
+public class User extends BaseEntity{
 
     private String username;
     private String password;

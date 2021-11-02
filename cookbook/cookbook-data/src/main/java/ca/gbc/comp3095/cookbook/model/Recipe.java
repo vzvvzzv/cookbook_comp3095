@@ -1,17 +1,8 @@
 package ca.gbc.comp3095.cookbook.model;
 
-public class Recipe {
+public class Recipe extends BaseEntity{
 
-    private int id;
     private String recipeName;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public String getRecipeName() {
         return recipeName;
