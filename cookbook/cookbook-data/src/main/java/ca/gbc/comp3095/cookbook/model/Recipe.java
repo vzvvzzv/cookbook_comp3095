@@ -3,6 +3,7 @@ package ca.gbc.comp3095.cookbook.model;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "recipes")
 public class Recipe {
 
     @Id

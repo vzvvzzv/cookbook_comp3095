@@ -1,11 +1,9 @@
 package ca.gbc.comp3095.cookbook.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
+@Table(name = "users")
 public class User {
 
     // TO DO - Possibly Add Relationships later such as OneToMany with recipes

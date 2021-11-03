@@ -21,6 +21,9 @@ public class DataLoader implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
+        // DataLoader initialiation no longer used
+        // Using Spring boot data-h2.sql & scehma-h2.sql files
+        /*
         User user1 = new User();
         user1.setUsername("user");
         user1.setPassword("password");
@@ -48,6 +51,6 @@ public class DataLoader implements CommandLineRunner {
 
         System.out.println(userService.findAll());
         System.out.println(recipeService.findAll());
-
+        */
     }
 }
