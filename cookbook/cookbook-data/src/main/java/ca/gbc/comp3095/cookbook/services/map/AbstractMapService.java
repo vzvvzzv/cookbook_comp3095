@@ -1,33 +1,46 @@
 package ca.gbc.comp3095.cookbook.services.map;
 
-import ca.gbc.comp3095.cookbook.model.BaseEntity;
+import org.springframework.data.repository.CrudRepository;
 
 import java.util.*;
 
-public abstract class AbstractMapService<O extends BaseEntity, ID extends Long>{
+public abstract class AbstractMapService<T, ID extends Long>{
 
-    protected Map<Long, O> map = new HashMap<>();
+    protected Map<Long, T> map = new HashMap<>();
 
-    Set<O> findAll() {
+    /*
+    Set<T> findAll() {
         return new HashSet(map.values());
     }
+    */
 
-    O findById(ID id){
-        return map.get(id);
+    Set<T> findAll(CrudRepository repo) {
+        return new HashSet((Collection) repo.findAll());
     }
 
-    O save(O object){
-        if (object != null) {
-            if (object.getId() == null) {
-                object.setId(getNextId());
-            }
-            map.put(object.getId(), object);
-        } else {
-            throw new RuntimeException("Object cannot be null");
-        }
+    /*
+    T findById(ID id){
+        return map.get(id);
+    }
+    */
+
+    T findById(CrudRepository repo, ID id) {
+        return (T) repo.findById(id);
+    }
+
+    T save(CrudRepository repo, T object) {
+        repo.save(object);
         return object;
     }
 
+    /*
+    T save(ID id, T object){
+        map.put(id, object);
+        return object;
+    }
+     */
+
+    /*
     private Long getNextId() {
         Long nextId = null;
         try {
@@ -37,12 +50,13 @@ public abstract class AbstractMapService<O extends BaseEntity, ID extends Long>{
         }
         return nextId;
     }
+    */
 
     void deleteById(ID id){
         map.remove(id);
     }
 
-    void delete(O object){
+    void delete(T object){
         map.entrySet().removeIf(entry -> entry.getValue().equals(object));
     }
 }

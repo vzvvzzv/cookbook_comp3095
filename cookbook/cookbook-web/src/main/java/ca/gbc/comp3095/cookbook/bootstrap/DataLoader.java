@@ -42,6 +42,8 @@ public class DataLoader implements CommandLineRunner {
 
         recipeService.save(recipe1);
 
+
+        // Checks if Data exists, to be deleted later
         System.out.println("Data Loaded");
 
         System.out.println(userService.findAll());

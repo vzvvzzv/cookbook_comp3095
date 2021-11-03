@@ -1,11 +1,31 @@
 package ca.gbc.comp3095.cookbook.model;
 
-public class User extends BaseEntity{
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
+public class User {
+
+    // TO DO - Possibly Add Relationships later such as OneToMany with recipes
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
     private String username;
     private String password;
     private String firstname;
     private String lastname;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getUsername() {
         return username;
