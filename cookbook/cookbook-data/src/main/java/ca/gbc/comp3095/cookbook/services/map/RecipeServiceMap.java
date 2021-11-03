@@ -61,4 +61,11 @@ public class RecipeServiceMap extends AbstractMapService<Recipe, Long> implement
     public Recipe findById(Long id) {
         return super.findById(recipeRepository, id);
     }
+
+    @Override
+    public Recipe findByTitle(String title) {
+        return null;
+    }
+
+
 }

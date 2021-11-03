@@ -62,4 +62,9 @@ public class UserServiceMap extends AbstractMapService<User, Long> implements Us
     public User findById(Long id) {
         return findById(userRepository, id);
     }
+
+    @Override
+    public User findByUserName(String username) {
+        return null;
+    }
 }
