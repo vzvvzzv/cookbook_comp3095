@@ -9,7 +9,7 @@ public class User {
     // TO DO - Possibly Add Relationships later such as OneToMany with recipes
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String username;
