@@ -26,7 +26,6 @@ public class UserController {
     public String listUsers(Model model){
 
         model.addAttribute("users", userService.findAll());
-
         return "/users/index";
     }
 
@@ -42,32 +41,26 @@ public class UserController {
 
         session.invalidate();
         boolean checkBool = userService.checkCredentials(user);
-        System.out.println("Check Boolean: " + checkBool);
+        System.out.println("Check Boolean: " + checkBool); // Check
+
         if (checkBool) {
             // Create new session & set user as the attribute
             newSession = request.getSession();
             newSession.setAttribute("user", user);
 
-            // Check Redirect
-            System.out.println("Redirect to Profile");
-            return "redirect:/users/profile";
+            // Redirect to Recipes (App)
+            System.out.println("Redirect to Profile"); // Check
+            return "redirect:/recipes";
         } else {
-            System.out.println("Redirect to Login");
+            System.out.println("Redirect to Login"); // Check
             return "redirect:/users/login";
         }
     }
 
-    @RequestMapping("/profile")
-    public String displayProfile(){
-
-        // Checking if session persists
-        if (newSession == null) {
-            System.out.println(newSession);
-            return "redirect:/users/login";
-        }
-
-        // Checking Session
-        System.out.println(newSession);
-        return "/users/profile";
+    @RequestMapping("/logout")
+    public String logout(HttpSession session) {
+        session.invalidate();
+        newSession = null;
+        return "/users/logout";
     }
 }
