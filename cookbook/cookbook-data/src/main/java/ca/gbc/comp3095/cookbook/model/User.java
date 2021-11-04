@@ -1,6 +1,7 @@
 package ca.gbc.comp3095.cookbook.model;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -17,6 +18,10 @@ public class User {
     private String password;
     private String firstname;
     private String lastname;
+
+    @OneToMany(mappedBy ="user")
+    private List<Recipe> recipeList;
+
 
     public Long getId() {
         return id;
