@@ -64,7 +64,17 @@ public class UserServiceMap extends AbstractMapService<User, Long> implements Us
     }
 
     @Override
-    public User findByUserName(String username) {
-        return null;
+    public boolean checkCredentials(User user) {
+
+        User login_user = user;
+        User database_user = userRepository.findByUsername(user.getUsername());
+
+        if (database_user.equals(user)){
+            System.out.println("Credentials Match");
+            return true;
+        } else {
+            System.out.println("Credentials Do Not Match");
+            return false;
+        }
     }
 }
