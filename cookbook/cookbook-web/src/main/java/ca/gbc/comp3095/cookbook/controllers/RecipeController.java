@@ -44,7 +44,7 @@ public class RecipeController {
     }
 
     @RequestMapping({"/profile"})
-    public String profile() {
+    public String profile(Model model) {
 
         System.out.println(newSession); // Check
         //System.out.println(newSession.getAttribute("user"));
@@ -54,6 +54,17 @@ public class RecipeController {
         if (newSession == null) {
             return "redirect:/users/login";
         } else {
+            User tempUser = (User) newSession.getAttribute("user");
+            // Check
+            System.out.println(tempUser.getId() + " " + tempUser.getUsername() + " " +
+                    tempUser.getPassword() + " " + tempUser.getFirstname() + "," + tempUser.getLastname());
+
+            tempUser = userService.findByUsername(tempUser.getUsername());
+            // Check
+            System.out.println(tempUser.getId() + " " + tempUser.getUsername() + " " +
+                   tempUser.getPassword() + " " + tempUser.getFirstname() + "," + tempUser.getLastname());
+
+            model.addAttribute("users", tempUser);
             return "/recipes/profile";
         }
     }
