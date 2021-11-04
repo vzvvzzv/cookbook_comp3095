@@ -1,5 +1,6 @@
 package ca.gbc.comp3095.cookbook.controllers;
 
+import ca.gbc.comp3095.cookbook.model.Recipe;
 import ca.gbc.comp3095.cookbook.model.User;
 import ca.gbc.comp3095.cookbook.services.RecipeService;
 import ca.gbc.comp3095.cookbook.services.UserService;
@@ -8,6 +9,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpSession;
+import java.util.Arrays;
+import java.util.List;
 
 @RequestMapping("/recipes")
 @Controller
@@ -63,6 +66,13 @@ public class RecipeController {
             // Check
             System.out.println(tempUser.getId() + " " + tempUser.getUsername() + " " +
                    tempUser.getPassword() + " " + tempUser.getFirstname() + "," + tempUser.getLastname());
+
+            List<Recipe> recipeList = recipeService.findByUser(tempUser.getId());
+            // Checking recipeList Values
+            for (int i = 0; i < recipeList.size(); i++){
+                System.out.println(recipeList.get(i).getId() + " " + recipeList.get(i).getRecipename());
+            }
+
 
             model.addAttribute("users", tempUser);
             return "/recipes/profile";

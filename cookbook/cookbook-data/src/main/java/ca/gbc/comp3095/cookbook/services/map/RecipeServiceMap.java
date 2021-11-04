@@ -5,6 +5,7 @@ import ca.gbc.comp3095.cookbook.repositories.RecipeRepository;
 import ca.gbc.comp3095.cookbook.services.RecipeService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -67,5 +68,8 @@ public class RecipeServiceMap extends AbstractMapService<Recipe, Long> implement
         return null;
     }
 
-
+    @Override
+    public List<Recipe> findByUser(Long id) {
+        return recipeRepository.getListByUser(id);
+    }
 }
