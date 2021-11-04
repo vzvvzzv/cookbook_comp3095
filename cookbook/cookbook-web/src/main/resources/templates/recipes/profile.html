@@ -27,6 +27,21 @@
         </tbody>
     </table>
 
+    <table>
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Recipe Name</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each="recipe :${recipeList}">
+            <td th:text="${recipe.id}"></td>
+            <td th:text="${recipe.recipename}"></td>
+        </tr>
+        </tbody>
+    </table>
 
 </body>
 </html>

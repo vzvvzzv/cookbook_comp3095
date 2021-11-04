@@ -63,6 +63,14 @@ public class User {
         this.lastname = lastname;
     }
 
+    public List<Recipe> getRecipeList() {
+        return recipeList;
+    }
+
+    public void setRecipeList(List<Recipe> recipeList) {
+        this.recipeList = recipeList;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
