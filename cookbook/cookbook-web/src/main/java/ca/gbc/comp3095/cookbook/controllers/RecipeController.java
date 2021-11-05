@@ -99,7 +99,7 @@ public class RecipeController {
             return "redirect:/users/login";
         } else {
             Recipe tempRecipe = recipeService.findById(id);
-            System.out.println(tempRecipe.getRecipename()); // Check
+            System.out.println(tempRecipe.getRecipename() + " " + tempRecipe.getId()); // Check
             model.addAttribute("recipe", tempRecipe);
             return "/recipes/view-recipe";
         }
@@ -108,21 +108,31 @@ public class RecipeController {
     // TO DO: Work on Add to Favorites Feature
     @PostMapping({"/addtofavorites"})
     public String addToFavorites(@RequestParam Long recipeId) {
-        System.out.println(recipeId);
-        User tempUser = (User) newSession.getAttribute("user");
-        tempUser = userService.findByUsername(tempUser.getUsername());
-        Recipe tempRecipe = recipeService.findById(recipeId);
 
-        Set<Recipe> tempRecipeSet = tempUser.getFavoriteRecipes();
-        Set<User> tempUserSet = tempRecipe.getFav_users();
-        tempRecipeSet.add(tempRecipe);
-        tempUserSet.add(tempUser);
-        tempUser.setFavoriteRecipes(tempRecipeSet);
-        tempRecipe.setFav_users(tempUserSet);
-        userService.save(tempUser);
-        recipeService.save(tempRecipe);
 
-        return "redirect:/recipes/profile";
+        if (newSession == null) {
+            return "redirect:/users/login";
+        } else {
+            if(recipeId == -1L) {
+                return "redirect:/recipes/profile";
+            } else {
+                Recipe tempRecipe = recipeService.findById(recipeId);
+                System.out.println(tempRecipe.getId());
+                User tempUser = (User) newSession.getAttribute("user");
+                tempUser = userService.findByUsername(tempUser.getUsername());
+
+                Set<Recipe> tempRecipeSet = tempUser.getFavoriteRecipes();
+                Set<User> tempUserSet = tempRecipe.getFav_users();
+                tempRecipeSet.add(tempRecipe);
+                tempUserSet.add(tempUser);
+                tempUser.setFavoriteRecipes(tempRecipeSet);
+                tempRecipe.setFav_users(tempUserSet);
+                userService.save(tempUser);
+                recipeService.save(tempRecipe);
+
+                return "redirect:/recipes/profile";
+            }
+        }
     }
 
     @RequestMapping({"/logout"})

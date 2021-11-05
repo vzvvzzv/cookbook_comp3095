@@ -63,7 +63,9 @@ public class RecipeServiceMap extends AbstractMapService<Recipe, Long> implement
         Recipe toReturn =  super.findById(recipeRepository, id);
         //System.out.println(toReturn);
         if (toReturn == null) {
-            return new Recipe();
+            toReturn = new Recipe();
+            toReturn.setId(-1L);
+            return toReturn;
         } else {
             return toReturn;
         }
