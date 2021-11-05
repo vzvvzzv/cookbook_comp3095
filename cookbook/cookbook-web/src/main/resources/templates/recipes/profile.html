@@ -43,7 +43,7 @@
             <td th:text="${recipe.id}"></td>
             <td th:text="${recipe.recipeName}"></td>
             <td th:text="${recipe.user.username}"></td>
-            <td><a th:href="@{/recipes/view-recipe(id=${recipe.id})}">View Details</a></td>
+            <td><a th:href="@{/recipes/details(id=${recipe.id})}">View Details</a></td>
         </tr>
         </tbody>
     </table>
@@ -64,7 +64,7 @@
             <td th:text="${recipe.id}"></td>
             <td th:text="${recipe.recipeName}"></td>
             <td th:text="${recipe.user.username}"></td>
-            <td><a th:href="@{/recipes/view-recipe(id=${recipe.id})}">View Details</a></td>
+            <td><a th:href="@{/recipes/details(id=${recipe.id})}">View Details</a></td>
         </tr>
         </tbody>
     </table>

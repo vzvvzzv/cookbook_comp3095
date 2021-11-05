@@ -7,7 +7,7 @@
 <body>
     <h1 th:text="'Create Recipe'">Create Recipe</h1>
 
-    <form th:action="@{/recipes/process_recipe}" th:object="${recipe}"
+    <form th:action="@{/recipes/processRecipe}" th:object="${recipe}"
           method="post" style="max-width: 600px; margin: 0 auto;">
 
         <label class="col-4 col-form-label">Recipe Name: </label>

@@ -1,15 +1,10 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" >
 <head>
     <meta charset="UTF-8">
-    <title th:text="${recipe.recipeName}">View Recipe</title>
+    <title>Title</title>
 </head>
 <body>
-    <h1 th:text="${recipe.recipeName}"></h1>
-    <p th:text="${recipe.id}"></p>
-    <form th:action="@{/recipes/addtofavorites}" method="post">
-        <input type="hidden" th:value="${recipe.id}" name="recipeId">
-        <button type="submit">Add To Favorite</button>
-    </form>
+
 </body>
 </html>

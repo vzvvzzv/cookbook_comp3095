@@ -92,8 +92,8 @@ public class RecipeController {
         }
     }
 
-    @RequestMapping({"/view-recipe"})
-    public String viewRecipe(@RequestParam Long id, Model model){
+    @RequestMapping({"/details"})
+    public String details(@RequestParam Long id, Model model){
 
         if (newSession == null) {
             return "redirect:/users/login";
@@ -101,7 +101,7 @@ public class RecipeController {
             Recipe tempRecipe = recipeService.findById(id);
             System.out.println(tempRecipe.getRecipeName() + " " + tempRecipe.getId()); // Check
             model.addAttribute("recipe", tempRecipe);
-            return "/recipes/view-recipe";
+            return "/recipes/details";
         }
     }
 
@@ -142,8 +142,8 @@ public class RecipeController {
         return "/recipes/create-recipe";
     }
 
-    @RequestMapping("process_recipe")
-    public String process_recipe(Recipe recipe) {
+    @RequestMapping("processRecipe")
+    public String processRecipe(Recipe recipe) {
 
         // Get Current User
         User tempUser = (User) newSession.getAttribute("user");
