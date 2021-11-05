@@ -1,6 +1,7 @@
 package ca.gbc.comp3095.cookbook.model;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "recipes")
@@ -15,6 +16,9 @@ public class Recipe {
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
+
+    @ManyToMany(mappedBy = "favoriteRecipes")
+    private Set<User> fav_users;
 
     public Long getId() {
         return id;
