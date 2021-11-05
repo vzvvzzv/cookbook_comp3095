@@ -121,6 +121,7 @@ public class RecipeController {
                 User tempUser = (User) newSession.getAttribute("user");
                 tempUser = userService.findByUsername(tempUser.getUsername());
 
+                // Commit Into Database
                 Set<Recipe> tempRecipeSet = tempUser.getFavoriteRecipes();
                 Set<User> tempUserSet = tempRecipe.getFav_users();
                 tempRecipeSet.add(tempRecipe);
