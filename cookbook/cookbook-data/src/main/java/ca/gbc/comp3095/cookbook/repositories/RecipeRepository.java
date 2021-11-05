@@ -1,7 +1,6 @@
 package ca.gbc.comp3095.cookbook.repositories;
 
 import ca.gbc.comp3095.cookbook.model.Recipe;
-import ca.gbc.comp3095.cookbook.model.User;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
