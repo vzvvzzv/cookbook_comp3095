@@ -3,7 +3,12 @@ CREATE TABLE users(id INT PRIMARY KEY AUTO_INCREMENT,
     firstname VARCHAR(255), lastname VARCHAR(255));
 
 CREATE TABLE recipes(id INT PRIMARY KEY AUTO_INCREMENT,
-    recipename VARCHAR(255),
+    recipe_name VARCHAR(255),
+    ingredients CLOB,
+    instructions CLOB,
+    serves_how_many VARCHAR(255),
+    cook_and_prep_time VARCHAR(255),
+    creation_date DATE,
     user_id INT,
     FOREIGN KEY (user_id) REFERENCES users(id));
 

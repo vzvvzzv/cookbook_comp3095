@@ -76,13 +76,13 @@ public class RecipeController {
             System.out.println(recipeList);
             System.out.println(tempUser.getRecipeList());
             for (int i = 0; i < recipeList.size(); i++){
-                System.out.println(recipeList.get(i).getId() + " " + recipeList.get(i).getRecipename());
+                System.out.println(recipeList.get(i).getId() + " " + recipeList.get(i).getRecipeName());
             }
 
             // Get favorite recipes of user
             Set<Recipe> recipeSet = recipeService.findByFavUser(tempUser.getId());
             Recipe tempRecipe = recipeSet.iterator().next();
-            System.out.println(tempRecipe.getId() + " " + tempRecipe.getRecipename());
+            System.out.println(tempRecipe.getId() + " " + tempRecipe.getRecipeName());
 
 
             model.addAttribute("users", tempUser);
@@ -99,7 +99,7 @@ public class RecipeController {
             return "redirect:/users/login";
         } else {
             Recipe tempRecipe = recipeService.findById(id);
-            System.out.println(tempRecipe.getRecipename() + " " + tempRecipe.getId()); // Check
+            System.out.println(tempRecipe.getRecipeName() + " " + tempRecipe.getId()); // Check
             model.addAttribute("recipe", tempRecipe);
             return "/recipes/view-recipe";
         }

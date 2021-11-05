@@ -2,10 +2,10 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title th:text="${recipe.recipename}">View Recipe</title>
+    <title th:text="${recipe.recipeName}">View Recipe</title>
 </head>
 <body>
-    <h1 th:text="${recipe.recipename}"></h1>
+    <h1 th:text="${recipe.recipeName}"></h1>
     <p th:text="${recipe.id}"></p>
     <form th:action="@{/recipes/addtofavorites}" method="post">
         <input type="hidden" th:value="${recipe.id}" name="recipeId">
