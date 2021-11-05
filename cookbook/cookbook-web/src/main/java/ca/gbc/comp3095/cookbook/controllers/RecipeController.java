@@ -7,6 +7,7 @@ import ca.gbc.comp3095.cookbook.services.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
 import java.util.Arrays;
@@ -87,6 +88,19 @@ public class RecipeController {
             model.addAttribute("recipeList", recipeList);
             model.addAttribute("favRecipes", recipeSet);
             return "/recipes/profile";
+        }
+    }
+
+    @RequestMapping({"/view-recipe"})
+    public String viewRecipe(@RequestParam Long id, Model model){
+
+        if (newSession == null) {
+            return "redirect:/users/login";
+        } else {
+            Recipe tempRecipe = recipeService.findById(id);
+            System.out.println(tempRecipe.getRecipename()); // Check
+            model.addAttribute("recipe", tempRecipe);
+            return "/recipes/view-recipe";
         }
     }
 

@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>View Recipe</title>
+    <title th:text="${recipe.recipename}">View Recipe</title>
 </head>
 <body>
-
+    <h1 th:text="${recipe.recipename}"></h1>
 </body>
 </html>
