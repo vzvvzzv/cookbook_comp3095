@@ -136,6 +136,27 @@ public class RecipeController {
         }
     }
 
+    @RequestMapping("createRecipe")
+    public String createRecipe(Model model) {
+        model.addAttribute("recipe", new Recipe());
+        return "/recipes/create-recipe";
+    }
+
+    @RequestMapping("process_recipe")
+    public String process_recipe(Recipe recipe) {
+
+        // Get Current User
+        User tempUser = (User) newSession.getAttribute("user");
+        tempUser = userService.findByUsername(tempUser.getUsername());
+
+        // Set the Recipes Author
+        recipe.setUser(tempUser);
+
+        // Save Recipe to Database
+        recipeService.save(recipe);
+        return "redirect:/recipes/profile";
+    }
+
     @RequestMapping({"/logout"})
     public String logout() {
         newSession = null;
