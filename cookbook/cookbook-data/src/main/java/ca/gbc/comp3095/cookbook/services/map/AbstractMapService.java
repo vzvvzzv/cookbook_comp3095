@@ -25,7 +25,11 @@ public abstract class AbstractMapService<T, ID extends Long>{
     */
 
     T findById(CrudRepository repo, ID id) {
-        return (T) repo.findById(id);
+        try {
+            return (T) repo.findById(id).get();
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     T save(CrudRepository repo, T object) {

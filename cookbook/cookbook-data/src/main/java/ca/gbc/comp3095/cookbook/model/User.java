@@ -1,7 +1,9 @@
 package ca.gbc.comp3095.cookbook.model;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -17,6 +19,14 @@ public class User {
     private String password;
     private String firstname;
     private String lastname;
+
+    @OneToMany(mappedBy ="user")
+    private List<Recipe> recipeList;
+
+    @ManyToMany
+    @JoinTable(name = "users_favorite_recipes",
+    joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "recipe_id"))
+    private Set<Recipe> favoriteRecipes;
 
     public Long getId() {
         return id;
@@ -56,6 +66,22 @@ public class User {
 
     public void setLastname(String lastname) {
         this.lastname = lastname;
+    }
+
+    public List<Recipe> getRecipeList() {
+        return recipeList;
+    }
+
+    public void setRecipeList(List<Recipe> recipeList) {
+        this.recipeList = recipeList;
+    }
+
+    public Set<Recipe> getFavoriteRecipes() {
+        return favoriteRecipes;
+    }
+
+    public void setFavoriteRecipes(Set<Recipe> favoriteRecipes) {
+        this.favoriteRecipes = favoriteRecipes;
     }
 
     @Override

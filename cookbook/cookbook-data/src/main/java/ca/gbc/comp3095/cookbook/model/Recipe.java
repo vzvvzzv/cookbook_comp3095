@@ -1,6 +1,7 @@
 package ca.gbc.comp3095.cookbook.model;
 
 import javax.persistence.*;
+import java.util.Set;
 import java.util.Date;
 import java.util.Objects;
 
@@ -36,6 +37,13 @@ public class Recipe {
     }
 
 
+
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
+
+    @ManyToMany(mappedBy = "favoriteRecipes")
+    private Set<User> fav_users;
 
     public Long getId() {
         return id;
@@ -105,5 +113,21 @@ public class Recipe {
         if (o == null || getClass() != o.getClass()) return false;
         Recipe recipe = (Recipe) o;
         return Objects.equals(id, recipe.id);
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Set<User> getFav_users() {
+        return fav_users;
+    }
+
+    public void setFav_users(Set<User> fav_users) {
+        this.fav_users = fav_users;
     }
 }

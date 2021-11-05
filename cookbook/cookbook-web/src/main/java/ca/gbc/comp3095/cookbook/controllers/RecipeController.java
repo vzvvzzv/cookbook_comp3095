@@ -1,13 +1,19 @@
 package ca.gbc.comp3095.cookbook.controllers;
 
+import ca.gbc.comp3095.cookbook.model.Recipe;
 import ca.gbc.comp3095.cookbook.model.User;
 import ca.gbc.comp3095.cookbook.services.RecipeService;
 import ca.gbc.comp3095.cookbook.services.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Set;
 
 @RequestMapping("/recipes")
 @Controller
@@ -44,7 +50,7 @@ public class RecipeController {
     }
 
     @RequestMapping({"/profile"})
-    public String profile() {
+    public String profile(Model model) {
 
         System.out.println(newSession); // Check
         //System.out.println(newSession.getAttribute("user"));
@@ -54,7 +60,79 @@ public class RecipeController {
         if (newSession == null) {
             return "redirect:/users/login";
         } else {
+            User tempUser = (User) newSession.getAttribute("user");
+            // Check
+            System.out.println(tempUser.getId() + " " + tempUser.getUsername() + " " +
+                    tempUser.getPassword() + " " + tempUser.getFirstname() + "," + tempUser.getLastname());
+
+            tempUser = userService.findByUsername(tempUser.getUsername());
+            // Check
+            System.out.println(tempUser.getId() + " " + tempUser.getUsername() + " " +
+                   tempUser.getPassword() + " " + tempUser.getFirstname() + "," + tempUser.getLastname());
+
+            List<Recipe> recipeList = recipeService.findByUser(tempUser.getId());
+
+            // Checking recipeList Values
+            System.out.println(recipeList);
+            System.out.println(tempUser.getRecipeList());
+            for (int i = 0; i < recipeList.size(); i++){
+                System.out.println(recipeList.get(i).getId() + " " + recipeList.get(i).getRecipename());
+            }
+
+            // Get favorite recipes of user
+            Set<Recipe> recipeSet = recipeService.findByFavUser(tempUser.getId());
+            Recipe tempRecipe = recipeSet.iterator().next();
+            System.out.println(tempRecipe.getId() + " " + tempRecipe.getRecipename());
+
+
+            model.addAttribute("users", tempUser);
+            model.addAttribute("recipeList", recipeList);
+            model.addAttribute("favRecipes", recipeSet);
             return "/recipes/profile";
+        }
+    }
+
+    @RequestMapping({"/view-recipe"})
+    public String viewRecipe(@RequestParam Long id, Model model){
+
+        if (newSession == null) {
+            return "redirect:/users/login";
+        } else {
+            Recipe tempRecipe = recipeService.findById(id);
+            System.out.println(tempRecipe.getRecipename() + " " + tempRecipe.getId()); // Check
+            model.addAttribute("recipe", tempRecipe);
+            return "/recipes/view-recipe";
+        }
+    }
+
+    // TO DO: Work on Add to Favorites Feature
+    @PostMapping({"/addtofavorites"})
+    public String addToFavorites(@RequestParam Long recipeId) {
+
+
+        if (newSession == null) {
+            return "redirect:/users/login";
+        } else {
+            if(recipeId == -1L) {
+                return "redirect:/recipes/profile";
+            } else {
+                Recipe tempRecipe = recipeService.findById(recipeId);
+                System.out.println(tempRecipe.getId());
+                User tempUser = (User) newSession.getAttribute("user");
+                tempUser = userService.findByUsername(tempUser.getUsername());
+
+                // Commit Into Database
+                Set<Recipe> tempRecipeSet = tempUser.getFavoriteRecipes();
+                Set<User> tempUserSet = tempRecipe.getFav_users();
+                tempRecipeSet.add(tempRecipe);
+                tempUserSet.add(tempUser);
+                tempUser.setFavoriteRecipes(tempRecipeSet);
+                tempRecipe.setFav_users(tempUserSet);
+                userService.save(tempUser);
+                recipeService.save(tempRecipe);
+
+                return "redirect:/recipes/profile";
+            }
         }
     }
 

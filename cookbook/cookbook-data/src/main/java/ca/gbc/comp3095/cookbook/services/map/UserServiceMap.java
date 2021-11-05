@@ -1,6 +1,5 @@
 package ca.gbc.comp3095.cookbook.services.map;
 
-import ca.gbc.comp3095.cookbook.model.Recipe;
 import ca.gbc.comp3095.cookbook.model.User;
 import ca.gbc.comp3095.cookbook.repositories.UserRepository;
 import ca.gbc.comp3095.cookbook.services.UserService;
@@ -64,9 +63,14 @@ public class UserServiceMap extends AbstractMapService<User, Long> implements Us
     }
 
     @Override
+    public User findByUsername(String username) {
+        return userRepository.findByUsername(username);
+    }
+
+    @Override
     public boolean checkCredentials(User user) {
-        
-        User database_user = userRepository.findByUsername(user.getUsername());
+
+        User database_user = findByUsername(user.getUsername());
 
         if (database_user != null && database_user.equals(user)){
             System.out.println("Credentials Match");
