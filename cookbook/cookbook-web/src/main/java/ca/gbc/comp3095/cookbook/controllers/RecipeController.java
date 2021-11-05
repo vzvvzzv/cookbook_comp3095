@@ -6,6 +6,7 @@ import ca.gbc.comp3095.cookbook.services.RecipeService;
 import ca.gbc.comp3095.cookbook.services.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -102,6 +103,26 @@ public class RecipeController {
             model.addAttribute("recipe", tempRecipe);
             return "/recipes/view-recipe";
         }
+    }
+
+    // TO DO: Work on Add to Favorites Feature
+    @PostMapping({"/addtofavorites"})
+    public String addToFavorites(@RequestParam Long recipeId) {
+        System.out.println(recipeId);
+        User tempUser = (User) newSession.getAttribute("user");
+        tempUser = userService.findByUsername(tempUser.getUsername());
+        Recipe tempRecipe = recipeService.findById(recipeId);
+
+        Set<Recipe> tempRecipeSet = tempUser.getFavoriteRecipes();
+        Set<User> tempUserSet = tempRecipe.getFav_users();
+        tempRecipeSet.add(tempRecipe);
+        tempUserSet.add(tempUser);
+        tempUser.setFavoriteRecipes(tempRecipeSet);
+        tempRecipe.setFav_users(tempUserSet);
+        userService.save(tempUser);
+        recipeService.save(tempRecipe);
+
+        return "redirect:/recipes/profile";
     }
 
     @RequestMapping({"/logout"})

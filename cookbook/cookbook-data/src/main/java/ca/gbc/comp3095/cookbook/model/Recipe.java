@@ -43,4 +43,12 @@ public class Recipe {
     public void setUser(User user) {
         this.user = user;
     }
+
+    public Set<User> getFav_users() {
+        return fav_users;
+    }
+
+    public void setFav_users(Set<User> fav_users) {
+        this.fav_users = fav_users;
+    }
 }

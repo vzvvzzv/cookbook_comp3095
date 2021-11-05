@@ -33,6 +33,8 @@
         <tr>
             <th>Id</th>
             <th>Recipe Name</th>
+            <th>Creator</th>
+            <th>Recipe Details</th>
         </tr>
         </thead>
 
@@ -40,6 +42,8 @@
         <tr th:each="recipe :${recipeList}">
             <td th:text="${recipe.id}"></td>
             <td th:text="${recipe.recipename}"></td>
+            <td th:text="${recipe.user.username}"></td>
+            <td><a th:href="@{/recipes/view-recipe(id=${recipe.id})}">View Details</a></td>
         </tr>
         </tbody>
     </table>
