@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.servlet.http.HttpSession;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 
 @RequestMapping("/recipes")
 @Controller
@@ -75,6 +76,11 @@ public class RecipeController {
             for (int i = 0; i < recipeList.size(); i++){
                 System.out.println(recipeList.get(i).getId() + " " + recipeList.get(i).getRecipename());
             }
+
+            // Get favorite recipes of user
+            Set<Recipe> recipeSet = recipeService.findByFavUser(tempUser.getId());
+            Recipe tempRecipe = recipeSet.iterator().next();
+            System.out.println(tempRecipe.getId() + " " + tempRecipe.getRecipename());
 
 
             model.addAttribute("users", tempUser);

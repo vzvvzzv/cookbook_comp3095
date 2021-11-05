@@ -24,7 +24,7 @@ public class User {
     private List<Recipe> recipeList;
 
     @ManyToMany
-    @JoinTable(name = "users_favourite_recipes",
+    @JoinTable(name = "users_favorite_recipes",
     joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "recipe_id"))
     private Set<Recipe> favoriteRecipes;
 

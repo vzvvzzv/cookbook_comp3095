@@ -72,4 +72,9 @@ public class RecipeServiceMap extends AbstractMapService<Recipe, Long> implement
     public List<Recipe> findByUser(Long id) {
         return recipeRepository.getListByUser(id);
     }
+
+    @Override
+    public Set<Recipe> findByFavUser(Long id) {
+        return recipeRepository.getUserFav(id);
+    }
 }

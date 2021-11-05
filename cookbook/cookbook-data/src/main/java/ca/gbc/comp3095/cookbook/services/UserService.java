@@ -6,4 +6,5 @@ public interface UserService extends CrudService<User, Long>{
 
     boolean checkCredentials(User user);
     User findByUsername(String username);
+
 }
