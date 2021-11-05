@@ -2,6 +2,7 @@ package ca.gbc.comp3095.cookbook.model;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.Objects;
 
 @Entity
 @Table(name = "recipes")
@@ -19,6 +20,22 @@ public class Recipe {
     private String servesHowMany;
     private String cookAndPrepTime;
     private Date creationDate;
+
+    public Recipe() {
+// making this constructor makes line 8 error go away..
+    }
+
+    public Recipe(Long id, String recipeName, String ingredients, String instructions, String servesHowMany, String cookAndPrepTime, Date creationDate){
+        this.id = id;
+        this.recipeName = recipeName;
+        this.ingredients = ingredients;
+        this.servesHowMany = servesHowMany;
+        this.cookAndPrepTime = cookAndPrepTime;
+        this.instructions = instructions;
+        this.creationDate = creationDate;
+    }
+
+
 
     public Long getId() {
         return id;
@@ -74,5 +91,19 @@ public class Recipe {
 
     public void setCreationDate(Date creationDate) {
         this.creationDate = creationDate;
+    }
+    @Override
+    public String toString(){
+        return "Recipe: " + "id=" + id +
+            ", recipeName='" + recipeName  + ", ingredients='" + ingredients +
+            ", servesHowMany='" + servesHowMany + ", cookAndPrepTime='" + cookAndPrepTime  +
+            ", instructions=" + instructions + ", creationDate='" + creationDate;
+    }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Recipe recipe = (Recipe) o;
+        return Objects.equals(id, recipe.id);
     }
 }
