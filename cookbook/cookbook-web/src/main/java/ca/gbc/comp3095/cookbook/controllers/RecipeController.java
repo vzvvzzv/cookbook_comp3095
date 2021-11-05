@@ -85,6 +85,7 @@ public class RecipeController {
 
             model.addAttribute("users", tempUser);
             model.addAttribute("recipeList", recipeList);
+            model.addAttribute("favRecipes", recipeSet);
             return "/recipes/profile";
         }
     }

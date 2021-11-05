@@ -27,6 +27,7 @@
         </tbody>
     </table>
 
+    <p th:text="'Your Recipes'">Your Recipes</p>
     <table>
         <thead>
         <tr>
@@ -39,6 +40,25 @@
         <tr th:each="recipe :${recipeList}">
             <td th:text="${recipe.id}"></td>
             <td th:text="${recipe.recipename}"></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <p th:text="'Favorite Recipes'">Favorite Recipes</p>
+    <table>
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Recipe Name</th>
+            <th>Creator</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each="recipe :${favRecipes}">
+            <td th:text="${recipe.id}"></td>
+            <td th:text="${recipe.recipename}"></td>
+            <td th:text="${recipe.user.username}"></td>
         </tr>
         </tbody>
     </table>
