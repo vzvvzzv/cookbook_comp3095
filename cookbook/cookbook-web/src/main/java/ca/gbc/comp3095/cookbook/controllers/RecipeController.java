@@ -57,7 +57,7 @@ public class RecipeController {
                 (userService.checkCredentials((User) session.getAttribute("user")))) {
 
             newSession = session;
-            return "/recipes/index";
+            return "/recipes";
         } else {
             return "redirect:/users/login";
         }
