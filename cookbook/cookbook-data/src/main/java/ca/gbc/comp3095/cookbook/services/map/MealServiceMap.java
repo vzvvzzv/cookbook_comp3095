@@ -49,7 +49,10 @@ public class MealServiceMap extends AbstractMapService<Meal, Long> implements Me
         Calendar cal = Calendar.getInstance();
         cal.setTime(new Date());
         Date curDate = cal.getTime();
+        cal.add(Calendar.DATE, -1);
+        curDate = cal.getTime();
         System.out.println(curDate.toString());
+        cal.setTime(new Date());
         cal.add(Calendar.DATE, 7);
         Date weekDate = cal.getTime();
         System.out.println(weekDate.toString());
