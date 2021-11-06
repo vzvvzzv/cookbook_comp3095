@@ -9,3 +9,6 @@ INSERT INTO recipes(recipe_name, user_id) VALUES('Blueberry Pie', 1);
 
 INSERT INTO users_favorite_recipes(user_id, recipe_id) VALUES(1,2);
 INSERT INTO users_favorite_recipes(user_id, recipe_id) VALUES(2,1);
+
+INSERT INTO user_meal_recipe(meal_date, user_id, recipe_id)
+    VALUES((CURRENT_DATE + 7), 1, 1);

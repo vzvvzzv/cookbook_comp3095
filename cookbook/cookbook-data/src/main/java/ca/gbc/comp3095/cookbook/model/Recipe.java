@@ -45,6 +45,9 @@ public class Recipe {
     @ManyToMany(mappedBy = "favoriteRecipes")
     private Set<User> fav_users;
 
+    @OneToMany(mappedBy = "meal_recipe")
+    private Set<Meal> recipe_plannedMeals;
+
     public Long getId() {
         return id;
     }
@@ -129,5 +132,13 @@ public class Recipe {
 
     public void setFav_users(Set<User> fav_users) {
         this.fav_users = fav_users;
+    }
+
+    public Set<Meal> getRecipe_plannedMeals() {
+        return recipe_plannedMeals;
+    }
+
+    public void setRecipe_plannedMeals(Set<Meal> recipe_plannedMeals) {
+        this.recipe_plannedMeals = recipe_plannedMeals;
     }
 }

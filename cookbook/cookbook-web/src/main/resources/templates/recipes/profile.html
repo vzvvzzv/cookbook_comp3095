@@ -69,5 +69,28 @@
         </tbody>
     </table>
 
+    <p th:text="'Planned Meals'">Planned Meals/p>
+    <table>
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Recipe Name</th>
+            <th>Creator</th>
+            <th>Recipe Details</th>
+            <th>Planned Date</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each="meal :${mealSet}">
+            <td th:text="${meal.id}"></td>
+            <td th:text="${meal.meal_recipe.recipeName}"></td>
+            <td th:text="${meal.meal_recipe.user.username}"></td>
+            <td><a th:href="@{/recipes/details(id=${meal.meal_recipe.id})}">View Details</a></td>
+            <td th:text="${meal.meal_date}"></td>
+        </tr>
+        </tbody>
+    </table>
+
 </body>
 </html>

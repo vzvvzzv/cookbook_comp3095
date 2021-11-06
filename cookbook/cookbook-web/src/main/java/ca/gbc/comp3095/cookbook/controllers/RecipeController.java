@@ -1,7 +1,9 @@
 package ca.gbc.comp3095.cookbook.controllers;
 
+import ca.gbc.comp3095.cookbook.model.Meal;
 import ca.gbc.comp3095.cookbook.model.Recipe;
 import ca.gbc.comp3095.cookbook.model.User;
+import ca.gbc.comp3095.cookbook.services.MealService;
 import ca.gbc.comp3095.cookbook.services.RecipeService;
 import ca.gbc.comp3095.cookbook.services.UserService;
 import org.springframework.stereotype.Controller;
@@ -19,11 +21,13 @@ public class RecipeController {
 
     private final RecipeService recipeService;
     private final UserService userService;
+    private final MealService mealService;
     private HttpSession newSession;
 
-    public RecipeController(RecipeService recipeService, UserService userService) {
+    public RecipeController(RecipeService recipeService, UserService userService, MealService mealService) {
         this.recipeService = recipeService;
         this.userService = userService;
+        this.mealService = mealService;
         this.newSession = null;
     }
 
@@ -67,6 +71,9 @@ public class RecipeController {
             System.out.println(tempUser.getId() + " " + tempUser.getUsername() + " " +
                    tempUser.getPassword() + " " + tempUser.getFirstname() + "," + tempUser.getLastname());
 
+            System.out.println("Planned Meals");
+            Set<Meal> mealSet = mealService.findMeals(tempUser.getId());
+
             List<Recipe> recipeList = recipeService.findByUser(tempUser.getId());
 
             // Checking recipeList Values
@@ -85,6 +92,7 @@ public class RecipeController {
             model.addAttribute("users", tempUser);
             model.addAttribute("recipeList", recipeList);
             model.addAttribute("favRecipes", recipeSet);
+            model.addAttribute("mealSet", mealSet);
             return "/recipes/profile";
         }
     }
@@ -190,5 +198,50 @@ public class RecipeController {
     public String logout() {
         newSession = null;
         return "redirect:/users/logout";
+    }
+
+    @RequestMapping("/planMeal")
+    public String planMeal(@RequestParam(required = false) Long recipeId, Model model) {
+
+        Recipe tempRecipe = recipeService.findById(recipeId);
+        if (tempRecipe.getId() == -1L) {
+            return "redirect:/recipes/viewRecipe";
+        } else {
+            Date[] arrayDate = new Date[8];
+            Date curDate = new Date();
+            Calendar c = Calendar.getInstance();
+
+            for (int i = 0; i < 8; i++){
+                c.setTime(curDate);
+                c.add(Calendar.DATE, i);
+                Date newDate = c.getTime();
+                arrayDate[i] = newDate;
+            }
+
+            model.addAttribute("recipe", tempRecipe);
+            model.addAttribute("arrayDate", arrayDate);
+            return "/recipes/plan-meal";
+        }
+    }
+
+    @PostMapping("/processMeal")
+    public String processMeal(@RequestParam Long recipeId, Long addedDate){
+
+        System.out.println("Recipe ID: " + recipeId + " Added Date: " + addedDate);
+        Meal tempMeal = new Meal();
+
+        User tempUser = (User) newSession.getAttribute("user");
+        tempUser = userService.findByUsername(tempUser.getUsername());
+        Date plannedDate = new Date();
+        Calendar c = Calendar.getInstance();
+        c.setTime(plannedDate);
+        c.add(Calendar.DATE, Math.toIntExact(addedDate));
+        plannedDate = c.getTime();
+
+        tempMeal.setMeal_recipe(recipeService.findById(recipeId));
+        tempMeal.setMeal_user(tempUser);
+        tempMeal.setMeal_date(plannedDate);
+        mealService.save(tempMeal);
+        return "redirect:/recipes/profile";
     }
 }

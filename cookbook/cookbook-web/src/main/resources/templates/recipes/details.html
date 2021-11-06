@@ -11,5 +11,9 @@
     <input type="hidden" th:value="${recipe.id}" name="recipeId">
     <button type="submit">Add To Favorite</button>
 </form>
+<form th:action="@{/recipes/planMeal}" method="post">
+    <input type="hidden" th:value="${recipe.id}" name="recipeId">
+    <button type="submit">Plan a Meal With This Recipe</button>
+</form>
 </body>
 </html>
