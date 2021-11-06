@@ -79,9 +79,6 @@ public class RecipeController {
 
             // Get favorite recipes of user
             Set<Recipe> favRecipeSet = recipeService.findByFavUser(tempUser.getId());
-            Recipe tempRecipe = favRecipeSet.iterator().next();
-            System.out.println(tempRecipe.getId() + " " + tempRecipe.getRecipeName());
-
 
             model.addAttribute("users", tempUser);
             model.addAttribute("userRecipes", userRecipeSet);
