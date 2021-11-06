@@ -3,6 +3,7 @@ package ca.gbc.comp3095.cookbook.repositories;
 import ca.gbc.comp3095.cookbook.model.Recipe;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 import java.util.Set;
@@ -14,4 +15,7 @@ public interface RecipeRepository extends CrudRepository<Recipe, Long> {
 
     @Query("select r from Recipe r join r.fav_users u where u.id = :id")
     public Set<Recipe> getUserFav(Long id);
+
+    @Query("select r from Recipe r where LOWER(r.recipeName) LIKE %:recipeName%")
+    public Set<Recipe> getSetByKeyword(@Param("recipeName") String recipeName);
 }

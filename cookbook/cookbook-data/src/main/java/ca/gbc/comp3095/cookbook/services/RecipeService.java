@@ -10,4 +10,5 @@ public interface RecipeService extends CrudService<Recipe, Long> {
     Recipe findByTitle(String title);
     List<Recipe> findByUser(Long id);
     Set<Recipe> findByFavUser(Long id);
+    Set<Recipe> findByKeyword(String key);
 }
