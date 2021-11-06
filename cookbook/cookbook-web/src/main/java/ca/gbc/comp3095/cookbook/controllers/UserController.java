@@ -66,7 +66,7 @@ public class UserController {
             newSession.setAttribute("user", user);
 
             // Redirect to Recipes (App)
-            return "redirect:/recipes/index";
+            return "redirect:/recipes/";
         } else {
             return "redirect:/users/login";
         }
