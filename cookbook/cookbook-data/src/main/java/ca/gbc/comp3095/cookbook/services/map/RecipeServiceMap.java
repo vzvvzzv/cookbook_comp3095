@@ -5,6 +5,7 @@ import ca.gbc.comp3095.cookbook.repositories.RecipeRepository;
 import ca.gbc.comp3095.cookbook.services.RecipeService;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
@@ -84,5 +85,19 @@ public class RecipeServiceMap extends AbstractMapService<Recipe, Long> implement
     @Override
     public Set<Recipe> findByFavUser(Long id) {
         return recipeRepository.getUserFav(id);
+    }
+
+    @Override
+    public Set<Recipe> findByKeyword(String key) {
+        Set<Recipe> tempSet = recipeRepository.getSetByKeyword(key);
+        if (tempSet == null) {
+            tempSet = Collections.emptySet();
+            Recipe tempRecipe = tempSet.iterator().next();
+            System.out.println(tempRecipe.getId() + " " + tempRecipe.getRecipeName());
+            return tempSet;
+        } else {
+            System.out.println(tempSet);
+            return tempSet;
+        }
     }
 }

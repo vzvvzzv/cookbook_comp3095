@@ -1,10 +1,29 @@
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>View Recipes</title>
 </head>
 <body>
+    <table>
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Recipe Name</th>
+            <th>Creator</th>
+            <th>Recipe Details</th>
+        </tr>
+        </thead>
 
-</body>
+        <tbody>
+        <tr th:each="recipe :${recipes}">
+            <td th:text="${recipe.id}"></td>
+            <td th:text="${recipe.recipeName}"></td>
+            <td th:text="${recipe.user.username}"></td>
+            <td><a th:href="@{/recipes/details(id=${recipe.id})}">View Details</a></td>
+        </tr>
+        </tbody>
+    </table>
+
+    </body>
 </html>

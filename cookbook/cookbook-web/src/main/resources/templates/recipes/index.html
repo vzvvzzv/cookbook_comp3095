@@ -9,26 +9,7 @@
 <h3><a th:href="@{/recipes/profile}">Profile</a></h3>
 <h3><a th:href="@{/recipes/logout}">Log out</a></h3>
 <h3><a th:href="@{/recipes/createRecipe}">Create Recipe</a></h3>
-<table>
-    <thead>
-    <tr>
-        <th>
-            Id
-        </th>
-        <th>
-            Recipe Name
-        </th>
-    </tr>
-    </thead>
-
-    <tbody>
-    <tr th:each="recipe :${recipes}">
-        <td th:text="${recipe.id}"></td>
-        <td th:text="${recipe.recipeName}"></td>
-    </tr>
-    </tbody>
-
-</table>
+<h3><a th:href="@{/recipes/viewRecipe}">View Recipes</a></h3>
 
 </body>
 </html>

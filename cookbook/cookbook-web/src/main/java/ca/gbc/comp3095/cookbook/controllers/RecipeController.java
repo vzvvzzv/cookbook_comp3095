@@ -11,9 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @RequestMapping("/recipes")
 @Controller
@@ -41,7 +39,6 @@ public class RecipeController {
             System.out.println(session);
             System.out.println(session.getAttribute("user"));
 
-            model.addAttribute("recipes", recipeService.findAll());
             newSession = session;
             return "/recipes/index";
         } else {
@@ -163,6 +160,29 @@ public class RecipeController {
             // Save Recipe to Database
             recipeService.save(recipe);
             return "redirect:/recipes/profile";
+        }
+    }
+
+    @RequestMapping("/viewRecipe")
+    public String viewRecipe(Model model) {
+
+        model.addAttribute("recipes", recipeService.findAll());
+        return "/recipes/view-recipe";
+    }
+
+    @RequestMapping("/search")
+    public String searchRecipe(@RequestParam(required = false) String key, Model model) {
+
+        System.out.println(key);
+        if (key == null) {
+            Set<Recipe> recipeSet = Collections.emptySet();
+            model.addAttribute("recipeSet", recipeSet);
+            return "/recipes/find-recipe";
+        } else {
+            key = key.toLowerCase();
+            Set<Recipe> recipeSet = recipeService.findByKeyword(key);
+            model.addAttribute("recipeSet", recipeSet);
+            return "/recipes/find-recipe";
         }
     }
 

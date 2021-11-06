@@ -1,10 +1,38 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Find Recipe</title>
 </head>
 <body>
+    <h1 th:text="'Search For Recipe'">Search For Recipe</h1>
 
+    <form th:action="@{/recipes/search}" method="get" style="max-width: 600px; margin: 0 auto;">
+
+        <label class="col-4 col-form-label">Keyword: </label>
+        <input type="text" name="key" class="form-control" />
+        <br>
+        <button type="submit" class="btn btn-primary">Search</button>
+    </form>
+
+    <table>
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Recipe Name</th>
+            <th>Creator</th>
+            <th>Recipe Details</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each="recipe :${recipeSet}">
+            <td th:text="${recipe.id}"></td>
+            <td th:text="${recipe.recipeName}"></td>
+            <td th:text="${recipe.user.username}"></td>
+            <td><a th:href="@{/recipes/details(id=${recipe.id})}">View Details</a></td>
+        </tr>
+        </tbody>
+    </table>
 </body>
 </html>
