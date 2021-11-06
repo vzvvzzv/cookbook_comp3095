@@ -171,7 +171,7 @@ public class RecipeController {
         }
     }
 
-    @RequestMapping("/search")
+    @RequestMapping("/searchRecipe")
     public String searchRecipe(@RequestParam(required = false) String key, Model model) {
 
         if (newSessionCheck()){
