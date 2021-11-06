@@ -77,7 +77,6 @@ public class RecipeController {
             List<Recipe> recipeList = recipeService.findByUser(tempUser.getId());
 
             // Checking recipeList Values
-            System.out.println(recipeList);
             System.out.println(tempUser.getRecipeList());
             for (int i = 0; i < recipeList.size(); i++){
                 System.out.println(recipeList.get(i).getId() + " " + recipeList.get(i).getRecipeName());
