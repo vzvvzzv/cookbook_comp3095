@@ -191,4 +191,14 @@ public class RecipeController {
         newSession = null;
         return "redirect:/users/logout";
     }
+
+    /* To Use Later with Plan Meals
+    Calendar cal = Calendar.getInstance();
+    cal.setTime(new Date());
+    Date date = cal.getTime();
+    System.out.println(date.toString());
+    cal.add(Calendar.DATE, 7);
+    date = cal.getTime();
+    System.out.println(date.toString());
+     */
 }
