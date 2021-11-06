@@ -1,3 +1,12 @@
+/*********************************************************************************
+ * Project: Cookbook App
+ * Assignment: COMP3095 Assignment1
+ * Author(s): Chi Calvin Nguyen, Simon Ung, Deniz Dogan
+ * Student Number: 101203877, 101032525, 101269485
+ * Date: 2021-11-06
+ * Description: RecipeController displays pages in the /recipes subdirectory.
+ * RecipeController manages the application processes while the user is logged in
+ *********************************************************************************/
 package ca.gbc.comp3095.cookbook.controllers;
 
 import ca.gbc.comp3095.cookbook.model.Meal;
@@ -15,15 +24,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 import javax.servlet.http.HttpSession;
 import java.util.*;
 
-@RequestMapping("/recipes")
-@Controller
+@RequestMapping("/recipes") // Map controller to /recipes path in URL
+@Controller // Annotates this class as a Controller to be managed by Spring Boot
 public class RecipeController {
 
+    // Dependencies
     private final RecipeService recipeService;
     private final UserService userService;
     private final MealService mealService;
     private HttpSession newSession;
 
+    // Constructor Dependency Injection
     public RecipeController(RecipeService recipeService, UserService userService, MealService mealService) {
         this.recipeService = recipeService;
         this.userService = userService;
@@ -31,8 +42,12 @@ public class RecipeController {
         this.newSession = null;
     }
 
+    private boolean newSessionCheck(){
+        return newSession == null;
+    }
+
     @RequestMapping({"","/", "/index.html"})
-    public String index(Model model, HttpSession session) {
+    public String index(HttpSession session) {
 
         // Checks if there is a user attribute in session and checks if it is in the database
         // If it is true -> newSession will be the current session
@@ -40,8 +55,6 @@ public class RecipeController {
 
         if ((session.getAttribute("user") != null) &&
                 (userService.checkCredentials((User) session.getAttribute("user")))) {
-            System.out.println(session);
-            System.out.println(session.getAttribute("user"));
 
             newSession = session;
             return "/recipes/index";
@@ -53,35 +66,21 @@ public class RecipeController {
     @RequestMapping({"/profile"})
     public String profile(Model model) {
 
-        System.out.println(newSession); // Check
-        //System.out.println(newSession.getAttribute("user"));
-        // Checks if newSession is established (If it is not, redirect to the login page)
-        // If it is (only happens when the user has logged in, they can go to profile page)
-
-        if (newSession == null) {
+        if (newSessionCheck()) {
             return "redirect:/users/login";
         } else {
+            // Get user
             User tempUser = (User) newSession.getAttribute("user");
-            // Check
-            System.out.println(tempUser.getId() + " " + tempUser.getUsername() + " " +
-                    tempUser.getPassword() + " " + tempUser.getFirstname() + "," + tempUser.getLastname());
-
             tempUser = userService.findByUsername(tempUser.getUsername());
-            // Check
-            System.out.println(tempUser.getId() + " " + tempUser.getUsername() + " " +
-                   tempUser.getPassword() + " " + tempUser.getFirstname() + "," + tempUser.getLastname());
 
-            System.out.println("Planned Meals");
+            // get planned meals of user
             Set<Meal> mealSet = mealService.findMeals(tempUser.getId());
 
+            // Get recipes created by user
             Set<Recipe> userRecipeSet = recipeService.findByUser(tempUser.getId());
-
 
             // Get favorite recipes of user
             Set<Recipe> favRecipeSet = recipeService.findByFavUser(tempUser.getId());
-            Recipe tempRecipe = favRecipeSet.iterator().next();
-            System.out.println(tempRecipe.getId() + " " + tempRecipe.getRecipeName());
-
 
             model.addAttribute("users", tempUser);
             model.addAttribute("userRecipes", userRecipeSet);
@@ -94,29 +93,25 @@ public class RecipeController {
     @RequestMapping({"/details"})
     public String details(@RequestParam Long id, Model model){
 
-        if (newSession == null) {
+        if (newSessionCheck()) {
             return "redirect:/users/login";
         } else {
             Recipe tempRecipe = recipeService.findById(id);
-            System.out.println(tempRecipe.getRecipeName() + " " + tempRecipe.getId()); // Check
             model.addAttribute("recipe", tempRecipe);
             return "/recipes/details";
         }
     }
 
-    // TO DO: Work on Add to Favorites Feature
     @PostMapping({"/addtofavorites"})
     public String addToFavorites(@RequestParam Long recipeId) {
 
-
-        if (newSession == null) {
+        if (newSessionCheck()) {
             return "redirect:/users/login";
         } else {
             if(recipeId == -1L) {
                 return "redirect:/recipes/profile";
             } else {
                 Recipe tempRecipe = recipeService.findById(recipeId);
-                System.out.println(tempRecipe.getId());
                 User tempUser = (User) newSession.getAttribute("user");
                 tempUser = userService.findByUsername(tempUser.getUsername());
 
@@ -138,7 +133,7 @@ public class RecipeController {
     @RequestMapping("createRecipe")
     public String createRecipe(Model model) {
 
-        if (newSession == null) {
+        if (newSessionCheck()) {
             return "redirect:/users/login";
         } else {
             model.addAttribute("recipe", new Recipe());
@@ -149,7 +144,7 @@ public class RecipeController {
     @RequestMapping("processRecipe")
     public String processRecipe(Recipe recipe) {
 
-        if (newSession == null) {
+        if (newSessionCheck()) {
             return "redirect:/users/login";
         } else {
             // Get Current User
@@ -168,22 +163,28 @@ public class RecipeController {
     @RequestMapping("/viewRecipe")
     public String viewRecipe(Model model) {
 
-        model.addAttribute("recipes", recipeService.findAll());
-        return "/recipes/view-recipe";
+        if (newSessionCheck()){
+            return "redirect:/users/login";
+        } else {
+            model.addAttribute("recipes", recipeService.findAll());
+            return "/recipes/view-recipe";
+        }
     }
 
     @RequestMapping("/search")
     public String searchRecipe(@RequestParam(required = false) String key, Model model) {
 
-        System.out.println(key);
-        if (key == null) {
-            Set<Recipe> recipeSet = Collections.emptySet();
-            model.addAttribute("recipeSet", recipeSet);
-            return "/recipes/search-recipe";
+        if (newSessionCheck()){
+            return "redirect:/users/login";
         } else {
-            key = key.toLowerCase();
-            Set<Recipe> recipeSet = recipeService.findByKeyword(key);
-            model.addAttribute("recipeSet", recipeSet);
+            if (key == null) {
+                Set<Recipe> recipeSet = Collections.emptySet();
+                model.addAttribute("recipeSet", recipeSet);
+            } else {
+                key = key.toLowerCase();
+                Set<Recipe> recipeSet = recipeService.findByKeyword(key);
+                model.addAttribute("recipeSet", recipeSet);
+            }
             return "/recipes/search-recipe";
         }
     }
@@ -197,45 +198,52 @@ public class RecipeController {
     @RequestMapping("/planMeal")
     public String planMeal(@RequestParam(required = false) Long recipeId, Model model) {
 
-        Recipe tempRecipe = recipeService.findById(recipeId);
-        if (tempRecipe.getId() == -1L) {
-            return "redirect:/recipes/viewRecipe";
+        if (newSessionCheck()) {
+            return "redirect:/users/login";
         } else {
-            Date[] arrayDate = new Date[8];
-            Date curDate = new Date();
-            Calendar c = Calendar.getInstance();
+            Recipe tempRecipe = recipeService.findById(recipeId);
+            if (tempRecipe.getId() == -1L) {
+                return "redirect:/recipes/viewRecipe";
+            } else {
+                Date[] arrayDate = new Date[8];
+                Date curDate = new Date();
+                Calendar c = Calendar.getInstance();
 
-            for (int i = 0; i < 8; i++){
-                c.setTime(curDate);
-                c.add(Calendar.DATE, i);
-                Date newDate = c.getTime();
-                arrayDate[i] = newDate;
+                for (int i = 0; i < 8; i++){
+                    c.setTime(curDate);
+                    c.add(Calendar.DATE, i);
+                    Date newDate = c.getTime();
+                    arrayDate[i] = newDate;
+                }
+
+                model.addAttribute("recipe", tempRecipe);
+                model.addAttribute("arrayDate", arrayDate);
+                return "/recipes/plan-meal";
             }
-
-            model.addAttribute("recipe", tempRecipe);
-            model.addAttribute("arrayDate", arrayDate);
-            return "/recipes/plan-meal";
         }
     }
 
     @PostMapping("/processMeal")
     public String processMeal(@RequestParam Long recipeId, Long addedDate){
 
-        System.out.println("Recipe ID: " + recipeId + " Added Date: " + addedDate);
-        Meal tempMeal = new Meal();
+        if (newSessionCheck()) {
+            return "redirect:/users/login";
+        } else {
+            Meal tempMeal = new Meal();
 
-        User tempUser = (User) newSession.getAttribute("user");
-        tempUser = userService.findByUsername(tempUser.getUsername());
-        Date plannedDate = new Date();
-        Calendar c = Calendar.getInstance();
-        c.setTime(plannedDate);
-        c.add(Calendar.DATE, Math.toIntExact(addedDate));
-        plannedDate = c.getTime();
+            User tempUser = (User) newSession.getAttribute("user");
+            tempUser = userService.findByUsername(tempUser.getUsername());
+            Date plannedDate = new Date();
+            Calendar c = Calendar.getInstance();
+            c.setTime(plannedDate);
+            c.add(Calendar.DATE, Math.toIntExact(addedDate));
+            plannedDate = c.getTime();
 
-        tempMeal.setMeal_recipe(recipeService.findById(recipeId));
-        tempMeal.setMeal_user(tempUser);
-        tempMeal.setMeal_date(plannedDate);
-        mealService.save(tempMeal);
-        return "redirect:/recipes/profile";
+            tempMeal.setMeal_recipe(recipeService.findById(recipeId));
+            tempMeal.setMeal_user(tempUser);
+            tempMeal.setMeal_date(plannedDate);
+            mealService.save(tempMeal);
+            return "redirect:/recipes/profile";
+        }
     }
 }
