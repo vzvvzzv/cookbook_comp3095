@@ -41,7 +41,6 @@ public class RecipeController {
             System.out.println(session);
             System.out.println(session.getAttribute("user"));
 
-            model.addAttribute("recipes", recipeService.findAll());
             newSession = session;
             return "/recipes/index";
         } else {
@@ -164,6 +163,13 @@ public class RecipeController {
             recipeService.save(recipe);
             return "redirect:/recipes/profile";
         }
+    }
+
+    @RequestMapping("/viewRecipe")
+    public String viewRecipe(Model model) {
+
+        model.addAttribute("recipes", recipeService.findAll());
+        return "/recipes/view-recipe";
     }
 
     @RequestMapping({"/logout"})
