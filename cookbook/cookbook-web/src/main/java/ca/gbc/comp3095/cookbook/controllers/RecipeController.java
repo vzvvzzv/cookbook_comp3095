@@ -184,12 +184,12 @@ public class RecipeController {
         if (key == null) {
             Set<Recipe> recipeSet = Collections.emptySet();
             model.addAttribute("recipeSet", recipeSet);
-            return "/recipes/find-recipe";
+            return "/recipes/search-recipe";
         } else {
             key = key.toLowerCase();
             Set<Recipe> recipeSet = recipeService.findByKeyword(key);
             model.addAttribute("recipeSet", recipeSet);
-            return "/recipes/find-recipe";
+            return "/recipes/search-recipe";
         }
     }
 
