@@ -1,3 +1,12 @@
+/*********************************************************************************
+ * Project: Cookbook App
+ * Assignment: COMP3095 Assignment1
+ * Author(s): Chi Calvin Nguyen, Simon Ung, Deniz Dogan
+ * Student Number: 101203877, 101032525, 101269485
+ * Date: 2021-11-06
+ * Description: Meal.java is a model which holds data (used with the h2-database) for the app. The relationship of Meal
+ *              is a joining table between Recipe & User with a Date property for the planned Meal
+ *********************************************************************************/
 package ca.gbc.comp3095.cookbook.model;
 
 import javax.persistence.*;
@@ -7,21 +16,24 @@ import java.util.Date;
 @Table(name = "user_meal_recipe")
 public class Meal {
 
-    @Id
+    @Id // Id - primary key
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "meal_date", nullable = false)
     private Date meal_date;
 
+    // ManyToOne relationship with User (links recipe and user)
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User meal_user;
 
+    // ManyToOne relationship with Recipe (links recipe and user)
     @ManyToOne
     @JoinColumn(name = "recipe_id", nullable = false)
     private Recipe meal_recipe;
 
+    // Getters & Setters
     public Long getId() {
         return id;
     }

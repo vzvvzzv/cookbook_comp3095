@@ -1,3 +1,12 @@
+/*********************************************************************************
+ * Project: Cookbook App
+ * Assignment: COMP3095 Assignment1
+ * Author(s): Chi Calvin Nguyen, Simon Ung, Deniz Dogan
+ * Student Number: 101203877, 101032525, 101269485
+ * Date: 2021-11-06
+ * Description: UserServiceMap.java is a class which extends the AbstractMapService and works with
+ * User & Long objects. Overrides methods & implements user specific logic
+ *********************************************************************************/
 package ca.gbc.comp3095.cookbook.services.map;
 
 import ca.gbc.comp3095.cookbook.model.User;
@@ -7,22 +16,18 @@ import org.springframework.stereotype.Service;
 
 import java.util.Set;
 
-@Service
+@Service // Annotates this class as a Service to be managed by Spring Boot
 public class UserServiceMap extends AbstractMapService<User, Long> implements UserService {
 
+    // UserRepository dependency
     private final UserRepository userRepository;
 
+    // Constructor Dependency Injection
     public UserServiceMap(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
-    /*
-    @Override
-    public Set<User> findAll() {
-        return super.findAll();
-    }
-    */
-
+    // Possibly change findAll(), deleteById, and delete later
     @Override
     public Set<User> findAll() {
         return super.findAll(userRepository);
@@ -38,45 +43,34 @@ public class UserServiceMap extends AbstractMapService<User, Long> implements Us
         super.delete(user);
     }
 
-    /*
-    @Override
-    public User save(User user) {
-        return super.save(user.getId(), user);
-    }
-    */
-
+    // Saves user to database by calling super.save and passing userRepository & user
     @Override
     public User save(User user) {
         return super.save(userRepository, user);
     }
 
-    /*
-    @Override
-    public User findById(Long id) {
-        return findById(id);
-    }
-    */
-
+    // Finds user from database by id
     @Override
     public User findById(Long id) {
         return findById(userRepository, id);
     }
 
+    // finds user from database using username
     @Override
     public User findByUsername(String username) {
         return userRepository.findByUsername(username);
     }
 
+    // Gets a user from the database with matching username & checks if the database_user is equal
+    // If it matches return true, if it doesn't match return false
     @Override
     public boolean checkCredentials(User user) {
 
         User database_user = findByUsername(user.getUsername());
 
         if (database_user != null && database_user.equals(user)){
-            System.out.println("Credentials Match");
             return true;
         } else {
-            System.out.println("Credentials Do Not Match");
             return false;
         }
     }

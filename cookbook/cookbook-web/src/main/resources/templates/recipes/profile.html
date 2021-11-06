@@ -39,7 +39,7 @@
         </thead>
 
         <tbody>
-        <tr th:each="recipe :${recipeList}">
+        <tr th:each="recipe :${userRecipes}">
             <td th:text="${recipe.id}"></td>
             <td th:text="${recipe.recipeName}"></td>
             <td th:text="${recipe.user.username}"></td>

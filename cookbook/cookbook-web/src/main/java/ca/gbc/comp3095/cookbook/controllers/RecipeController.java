@@ -74,23 +74,18 @@ public class RecipeController {
             System.out.println("Planned Meals");
             Set<Meal> mealSet = mealService.findMeals(tempUser.getId());
 
-            List<Recipe> recipeList = recipeService.findByUser(tempUser.getId());
+            Set<Recipe> userRecipeSet = recipeService.findByUser(tempUser.getId());
 
-            // Checking recipeList Values
-            System.out.println(tempUser.getRecipeList());
-            for (int i = 0; i < recipeList.size(); i++){
-                System.out.println(recipeList.get(i).getId() + " " + recipeList.get(i).getRecipeName());
-            }
 
             // Get favorite recipes of user
-            Set<Recipe> recipeSet = recipeService.findByFavUser(tempUser.getId());
-            Recipe tempRecipe = recipeSet.iterator().next();
+            Set<Recipe> favRecipeSet = recipeService.findByFavUser(tempUser.getId());
+            Recipe tempRecipe = favRecipeSet.iterator().next();
             System.out.println(tempRecipe.getId() + " " + tempRecipe.getRecipeName());
 
 
             model.addAttribute("users", tempUser);
-            model.addAttribute("recipeList", recipeList);
-            model.addAttribute("favRecipes", recipeSet);
+            model.addAttribute("userRecipes", userRecipeSet);
+            model.addAttribute("favRecipes", favRecipeSet);
             model.addAttribute("mealSet", mealSet);
             return "/recipes/profile";
         }
