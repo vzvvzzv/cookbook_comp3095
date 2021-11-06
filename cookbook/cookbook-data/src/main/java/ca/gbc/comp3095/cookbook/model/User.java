@@ -28,6 +28,9 @@ public class User {
     joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "recipe_id"))
     private Set<Recipe> favoriteRecipes;
 
+    @OneToMany(mappedBy = "meal_user")
+    private Set<Meal> user_plannedMeals;
+
     public Long getId() {
         return id;
     }
@@ -82,6 +85,14 @@ public class User {
 
     public void setFavoriteRecipes(Set<Recipe> favoriteRecipes) {
         this.favoriteRecipes = favoriteRecipes;
+    }
+
+    public Set<Meal> getUser_plannedMeals() {
+        return user_plannedMeals;
+    }
+
+    public void setUser_plannedMeals(Set<Meal> user_plannedMeals) {
+        this.user_plannedMeals = user_plannedMeals;
     }
 
     @Override

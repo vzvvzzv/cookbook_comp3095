@@ -1,10 +1,26 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Plan Meal</title>
+    <title th:text="${recipe.recipeName}">Plan Meal</title>
 </head>
 <body>
-
+<h1 th:text="${recipe.recipeName}"></h1>
+<p th:text="${recipe.id}"></p>
+<form th:action="@{/recipes/processMeal}" method="post">
+    <input type="hidden" th:value="${recipe.id}" name="recipeId">
+    <input list="addedDateOptions" id="addedDateChoice" name="addedDate" />
+    <datalist id="addedDateOptions" >
+        <option th:text="${arrayDate[0]}" th:value="0">
+        <option th:text="${arrayDate[1]}" th:value="1"></option>
+        <option th:text="${arrayDate[2]}" th:value="2"></option>
+        <option th:text="${arrayDate[3]}" th:value="3"></option>
+        <option th:text="${arrayDate[4]}" th:value="4"></option>
+        <option th:text="${arrayDate[5]}" th:value="5"></option>
+        <option th:text="${arrayDate[6]}" th:value="6"></option>
+        <option th:text="${arrayDate[7]}" th:value="7"></option>
+    </datalist>
+    <button type="Submit">Save Plan</button>
+</form>
 </body>
 </html>
