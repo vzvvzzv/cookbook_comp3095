@@ -153,6 +153,7 @@ public class RecipeController {
 
             // Set the Recipes Author
             recipe.setUser(tempUser);
+            recipe.setCreationDate(new Date());
 
             // Save Recipe to Database
             recipeService.save(recipe);
