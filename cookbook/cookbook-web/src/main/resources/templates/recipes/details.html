@@ -19,7 +19,7 @@
 <!-- Responsive navbar-->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container px-lg-5">
-        <a class="navbar-brand" href="#!">CookBookPro</a>
+        <a class="navbar-brand" th:href="@{/}"href="#!">CookBookPro</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
@@ -28,6 +28,8 @@
                 <a class="nav-link active" th:href="@{/users/login}"href="#">Login</a>
                 <a class="nav-link active" th:href="@{/users}"href="#">Users</a>
                 <a class="nav-link active" th:href="@{/recipes}"href="#">Recipes</a>
+                <a class="nav-link active" th:href="@{/users/logout}"href="#">Logout</a>
+
             </ul>
         </div>
     </div>
@@ -37,34 +39,39 @@
     <div class="container px-lg-5">
         <div class="p-4 p-lg-5 bg-light rounded-3 text-center">
             <div class="m-4 m-lg-5">
-                <h1 class="display-5 fw-bold">Welcome to CookBookPro!</h1>
-                <p class="fs-4">Bootstrap utility classes are used to create this jumbotron since the old component has been removed from the framework. Why create custom CSS when you can use utilities?</p>
+                <h1 class="display-5 fw-bold" th:text="'Recipe Details'">Recipe Details</h1>
+                <br>
+                <body>
+                <h5 th:text="${recipe.recipeName}"></h5>
+                <br>
+                <h5 th:text="'Ingredients:'">Ingredients:</h5>
+                <p th:text="${recipe.ingredients}"></p>
+                <h5 th:text="'Instructions:'">Instructions:</h5>
+                <p th:text="${recipe.instructions}"></p>
+                <h5 th:text="'Servings:'">Servings:</h5>
+                <p th:text="${recipe.servesHowMany}"></p>
+                <h5 th:text="'Total Time:'">Total Time:</h5>
+                <p th:text="${recipe.cookAndPrepTime}"></p>
+                <h5 th:text="'Created On:'">Created On:</h5>
+                <p th:text="${#dates.format(recipe.creationDate, 'yyyy-MM-dd')}"></p>
+
+                <form th:action="@{/recipes/addtofavorites}" method="post">
+                    <input type="hidden" th:value="${recipe.id}" name="recipeId">
+                    <button class="btn btn-primary" type="submit">Add To Favorite</button>
+                </form>
+                <br>
+                <form th:action="@{/recipes/planMeal}" method="post">
+                    <input type="hidden" th:value="${recipe.id}" name="recipeId">
+                    <button class="btn btn-primary" type="submit">Plan a Meal With This Recipe</button>
+                </form>
+                <br><br><br>
+                <a th:href="@{/recipes}">Return to Recipe Dashboard</a>
+                </body>
             </div>
         </div>
     </div>
 </header>
-<body>
-    <h1 th:text="${recipe.recipeName}"></h1>
-    <h5 th:text="'Ingredients:'">Ingredients:</h5>
-    <p th:text="${recipe.ingredients}"></p>
-    <h5 th:text="'Instructions:'">Instructions:</h5>
-    <p th:text="${recipe.instructions}"></p>
-    <h5 th:text="'Servings:'">Servings:</h5>
-    <p th:text="${recipe.servesHowMany}"></p>
-    <h5 th:text="'Total Time:'">Total Time:</h5>
-    <p th:text="${recipe.cookAndPrepTime}"></p>
-    <h5 th:text="'Created On:'">Created On:</h5>
-    <p th:text="${#dates.format(recipe.creationDate, 'yyyy-MM-dd')}"></p>
 
-    <form th:action="@{/recipes/addtofavorites}" method="post">
-        <input type="hidden" th:value="${recipe.id}" name="recipeId">
-        <button type="submit">Add To Favorite</button>
-    </form>
-    <form th:action="@{/recipes/planMeal}" method="post">
-        <input type="hidden" th:value="${recipe.id}" name="recipeId">
-        <button type="submit">Plan a Meal With This Recipe</button>
-    </form>
-</body>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
