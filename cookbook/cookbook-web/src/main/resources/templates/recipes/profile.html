@@ -70,7 +70,6 @@
     <table>
         <thead>
         <tr>
-            <th>Id</th>
             <th>Recipe Name</th>
             <th>Creator</th>
             <th>Recipe Details</th>
@@ -79,7 +78,6 @@
 
         <tbody>
         <tr th:each="recipe :${userRecipes}">
-            <td th:text="${recipe.id}"></td>
             <td th:text="${recipe.recipeName}"></td>
             <td th:text="${recipe.user.username}"></td>
             <td><a th:href="@{/recipes/details(id=${recipe.id})}">View Details</a></td>
@@ -91,7 +89,6 @@
     <table>
         <thead>
         <tr>
-            <th>Id</th>
             <th>Recipe Name</th>
             <th>Creator</th>
             <th>Recipe Details</th>
@@ -100,7 +97,6 @@
 
         <tbody>
         <tr th:each="recipe :${favRecipes}">
-            <td th:text="${recipe.id}"></td>
             <td th:text="${recipe.recipeName}"></td>
             <td th:text="${recipe.user.username}"></td>
             <td><a th:href="@{/recipes/details(id=${recipe.id})}">View Details</a></td>
@@ -112,7 +108,6 @@
     <table>
         <thead>
         <tr>
-            <th>Id</th>
             <th>Recipe Name</th>
             <th>Creator</th>
             <th>Recipe Details</th>
@@ -122,11 +117,10 @@
 
         <tbody>
         <tr th:each="meal :${mealSet}">
-            <td th:text="${meal.id}"></td>
             <td th:text="${meal.meal_recipe.recipeName}"></td>
             <td th:text="${meal.meal_recipe.user.username}"></td>
             <td><a th:href="@{/recipes/details(id=${meal.meal_recipe.id})}">View Details</a></td>
-            <td th:text="${meal.meal_date}"></td>
+            <td th:text="${#dates.format(meal.meal_date, 'yyyy-MM-dd')}"></td>
         </tr>
         </tbody>
     </table>
