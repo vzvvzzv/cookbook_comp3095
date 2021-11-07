@@ -47,18 +47,20 @@
     <table>
         <thead>
         <tr>
-            <th>Id</th>
             <th>Recipe Name</th>
             <th>Creator</th>
+            <th>Serves</th>
+            <th>Created On</th>
             <th>Recipe Details</th>
         </tr>
         </thead>
 
         <tbody>
         <tr th:each="recipe :${recipes}">
-            <td th:text="${recipe.id}"></td>
             <td th:text="${recipe.recipeName}"></td>
             <td th:text="${recipe.user.username}"></td>
+            <td th:text="${recipe.servesHowMany}"></td>
+            <td th:text="${#dates.format(recipe.creationDate, 'yyyy-MM-dd')}"></td>
             <td><a th:href="@{/recipes/details(id=${recipe.id})}">View Details</a></td>
         </tr>
         </tbody>

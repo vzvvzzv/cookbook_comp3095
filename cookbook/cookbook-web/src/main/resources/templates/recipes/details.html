@@ -44,16 +44,26 @@
     </div>
 </header>
 <body>
-<h1 th:text="${recipe.recipeName}"></h1>
-<p th:text="${recipe.id}"></p>
-<form th:action="@{/recipes/addtofavorites}" method="post">
-    <input type="hidden" th:value="${recipe.id}" name="recipeId">
-    <button type="submit">Add To Favorite</button>
-</form>
-<form th:action="@{/recipes/planMeal}" method="post">
-    <input type="hidden" th:value="${recipe.id}" name="recipeId">
-    <button type="submit">Plan a Meal With This Recipe</button>
-</form>
+    <h1 th:text="${recipe.recipeName}"></h1>
+    <h5 th:text="'Ingredients:'">Ingredients:</h5>
+    <p th:text="${recipe.ingredients}"></p>
+    <h5 th:text="'Instructions:'">Instructions:</h5>
+    <p th:text="${recipe.instructions}"></p>
+    <h5 th:text="'Servings:'">Servings:</h5>
+    <p th:text="${recipe.servesHowMany}"></p>
+    <h5 th:text="'Total Time:'">Total Time:</h5>
+    <p th:text="${recipe.cookAndPrepTime}"></p>
+    <h5 th:text="'Created On:'">Created On:</h5>
+    <p th:text="${#dates.format(recipe.creationDate, 'yyyy-MM-dd')}"></p>
+
+    <form th:action="@{/recipes/addtofavorites}" method="post">
+        <input type="hidden" th:value="${recipe.id}" name="recipeId">
+        <button type="submit">Add To Favorite</button>
+    </form>
+    <form th:action="@{/recipes/planMeal}" method="post">
+        <input type="hidden" th:value="${recipe.id}" name="recipeId">
+        <button type="submit">Plan a Meal With This Recipe</button>
+    </form>
 </body>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
