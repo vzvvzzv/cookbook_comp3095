@@ -39,34 +39,25 @@
     <div class="container px-lg-5">
         <div class="p-4 p-lg-5 bg-light rounded-3 text-center">
             <div class="m-4 m-lg-5">
-                <h1 class="display-5 fw-bold" th:text="'View Recipe'">View Recipe</h1>
-                <br>
-                <p class="fs-4">Click View Details to Plan a Meal in advance and or favourite a recipe!</p>
+                <h1 class="display-5 fw-bold" th:text="'Viewing Steps'">Viewing Steps</h1>
                 <br>
                 <body>
-                <table class="table table-striped">
-                    <thead>
-                    <tr>
-                        <th scope="col">Recipe Name</th>
-                        <th scope="col">Creator</th>
-                        <th scope="col">Serves</th>
-                        <th scope="col">Created On</th>
-                        <th scope="col">Ingredients</th>
-                        <th scope="col">Steps</th>
+                <h5 th:text="${recipe.recipeName}"></h5>
+                <br>
+                <h5 th:text="'Steps:'">Steps:</h5>
+                <p th:text="${recipe.instructions}"></p>
+                <h5 th:text="'Created On:'">Created On:</h5>
+                <p th:text="${#dates.format(recipe.creationDate, 'yyyy-MM-dd')}"></p>
 
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr th:each="recipe :${recipes}">
-                        <td th:text="${recipe.recipeName}"></td>
-                        <td th:text="${recipe.user.username}"></td>
-                        <td th:text="${recipe.servesHowMany}"></td>
-                        <td th:text="${#dates.format(recipe.creationDate, 'yyyy-MM-dd')}"></td>
-                        <td><a th:href="@{/recipes/view-ingredients(id=${recipe.id})}">View Ingredients</a></td>
-                        <td><a th:href="@{/recipes/view-steps(id=${recipe.id})}">View Steps</a></td>
-                    </tbody>
-
-                </table>
+                <form th:action="@{/recipes/addtofavorites}" method="post">
+                    <input type="hidden" th:value="${recipe.id}" name="recipeId">
+                    <button class="btn btn-primary" type="submit">Add To Favorite</button>
+                </form>
+                <br>
+                <form th:action="@{/recipes/planMeal}" method="post">
+                    <input type="hidden" th:value="${recipe.id}" name="recipeId">
+                    <button class="btn btn-primary" type="submit">Plan a Meal With This Recipe</button>
+                </form>
                 <br><br><br>
                 <a th:href="@{/recipes}">Return to Recipe Dashboard</a>
                 </body>
@@ -74,7 +65,6 @@
         </div>
     </div>
 </header>
-
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>

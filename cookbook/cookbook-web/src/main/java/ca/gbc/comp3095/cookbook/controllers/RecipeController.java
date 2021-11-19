@@ -90,15 +90,26 @@ public class RecipeController {
         }
     }
 
-    @RequestMapping({"/details"})
-    public String details(@RequestParam Long id, Model model){
+    @RequestMapping({"/view-ingredients"})
+    public String viewIngredients(@RequestParam Long id, Model model){
 
         if (newSessionCheck()) {
             return "redirect:/users/login";
         } else {
             Recipe tempRecipe = recipeService.findById(id);
             model.addAttribute("recipe", tempRecipe);
-            return "/recipes/details";
+            return "/recipes/view-ingredients";
+        }
+    }
+    @RequestMapping({"/view-steps"})
+    public String viewSteps(@RequestParam Long id, Model model){
+
+        if (newSessionCheck()) {
+            return "redirect:/users/login";
+        } else {
+            Recipe tempRecipe = recipeService.findById(id);
+            model.addAttribute("recipe", tempRecipe);
+            return "/recipes/view-steps";
         }
     }
 
