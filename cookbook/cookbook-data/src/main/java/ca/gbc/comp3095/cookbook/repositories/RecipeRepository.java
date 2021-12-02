@@ -31,4 +31,7 @@ public interface RecipeRepository extends CrudRepository<Recipe, Long> {
     // Returns set of recipes where recipeName matches wildcard (for searching)
     @Query("select r from Recipe r where LOWER(r.recipeName) LIKE %:recipeName%")
     Set<Recipe> getSetByKeyword(@Param("recipeName") String recipeName);
+
+    @Query("select r from Recipe r join r.fav_users u where lower(r.recipeName) like %:recipeName% and u.id = :id")
+    Set<Recipe> getSetFavByKeyword(Long id, @Param("recipeName") String recipeName);
 }

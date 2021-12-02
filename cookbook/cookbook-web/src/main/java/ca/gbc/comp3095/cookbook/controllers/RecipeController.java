@@ -78,15 +78,7 @@ public class RecipeController {
             // get planned meals of user
             Set<Meal> mealSet = mealService.findMeals(tempUser.getId());
 
-            // Get recipes created by user
-            Set<Recipe> userRecipeSet = recipeService.findByUser(tempUser.getId());
-
-            // Get favorite recipes of user
-            Set<Recipe> favRecipeSet = recipeService.findByFavUser(tempUser.getId());
-
             model.addAttribute("users", tempUser);
-            model.addAttribute("userRecipes", userRecipeSet);
-            model.addAttribute("favRecipes", favRecipeSet);
             model.addAttribute("mealSet", mealSet);
             return "/recipes/profile";
         }
@@ -263,6 +255,66 @@ public class RecipeController {
             tempMeal.setMealName(mealName);
             mealService.save(tempMeal);
             return "redirect:/recipes/profile";
+        }
+    }
+
+    @RequestMapping("/favouriteRecipe")
+    public String favouriteRecipe(@RequestParam(required = false) String key, Model model) {
+
+        if (newSessionCheck()){
+            return "redirect:/users/login";
+        } else {
+            // Get user
+            User tempUser = (User) newSession.getAttribute("user");
+            tempUser = userService.findByUsername(tempUser.getUsername());
+
+            System.out.println(key);
+            Set<Recipe> favRecipeSet = null;
+
+            if (key != null) {
+                key = key.toLowerCase();
+                favRecipeSet = recipeService.findFavByKeyword(tempUser.getId(), key);
+            } else {
+                favRecipeSet = recipeService.findByFavUser(tempUser.getId());
+            }
+            model.addAttribute("favRecipes", favRecipeSet);
+            return "/recipes/favourite-recipe";
+        }
+
+        /*
+        if (newSessionCheck()) {
+            return "redirect:/users/login";
+        } else {
+            // Get user
+            User tempUser = (User) newSession.getAttribute("user");
+            tempUser = userService.findByUsername(tempUser.getUsername());
+
+            // Get favorite recipes of user
+            Set<Recipe> favRecipeSet = recipeService.findByFavUser(tempUser.getId());
+
+            model.addAttribute("favRecipes", favRecipeSet);
+
+            return "/recipes/favourite-recipe";
+        }
+         */
+    }
+
+    @RequestMapping("/myRecipe")
+    public String myRecipe(Model model) {
+
+        if (newSessionCheck()) {
+            return "redirect:/users/login";
+        } else {
+            // Get user
+            User tempUser = (User) newSession.getAttribute("user");
+            tempUser = userService.findByUsername(tempUser.getUsername());
+
+            // Get recipes created by user
+            Set<Recipe> userRecipeSet = recipeService.findByUser(tempUser.getId());
+
+            model.addAttribute("userRecipes", userRecipeSet);
+
+            return "/recipes/my-recipe";
         }
     }
 }
