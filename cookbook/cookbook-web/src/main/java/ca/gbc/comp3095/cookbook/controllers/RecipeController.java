@@ -225,7 +225,7 @@ public class RecipeController {
     }
 
     @PostMapping("/processMeal")
-    public String processMeal(@RequestParam Long recipeId, Long addedDate){
+    public String processMeal(@RequestParam Long recipeId, Long addedDate, String mealName){
 
         if (newSessionCheck()) {
             return "redirect:/users/login";
@@ -243,6 +243,8 @@ public class RecipeController {
             tempMeal.setMeal_recipe(recipeService.findById(recipeId));
             tempMeal.setMeal_user(tempUser);
             tempMeal.setMeal_date(plannedDate);
+            tempMeal.setCreationDate(new Date());
+            tempMeal.setMealName(mealName);
             mealService.save(tempMeal);
             return "redirect:/recipes/profile";
         }
