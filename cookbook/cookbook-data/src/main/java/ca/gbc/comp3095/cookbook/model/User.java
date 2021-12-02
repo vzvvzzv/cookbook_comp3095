@@ -15,33 +15,20 @@ import java.util.Set;
 
 @Entity
 @Table(name = "users")
-public class User {
+public class User extends BaseEntity{
 
     @Id // Id - primary key
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // Properties
+    // PROPERTIES
     private String username;
     private String password;
     private String firstname;
     private String lastname;
+    private String email;
 
-    // OneToMany relationship with Recipes (User can create many recipes)
-    @OneToMany(mappedBy ="user")
-    private List<Recipe> recipeList;
-
-    // ManyToMany relationship with Recipes (recipes the user favorited)
-    @ManyToMany
-    @JoinTable(name = "users_favorite_recipes",
-    joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "recipe_id"))
-    private Set<Recipe> favoriteRecipes;
-
-    // OneToMany relationship with Meals (user can have many meals)
-    @OneToMany(mappedBy = "meal_user")
-    private Set<Meal> user_plannedMeals;
-
-    // Getters & Setters
+    // GETTERS & SETTERS
     public Long getId() {
         return id;
     }
@@ -106,6 +93,30 @@ public class User {
         this.user_plannedMeals = user_plannedMeals;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    // RELATIONSHIPS
+    // OneToMany relationship with Recipes (User can create many recipes)
+    @OneToMany(mappedBy ="user")
+    private List<Recipe> recipeList;
+
+    // ManyToMany relationship with Recipes (recipes the user favorited)
+    @ManyToMany
+    @JoinTable(name = "users_favorite_recipes",
+            joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "recipe_id"))
+    private Set<Recipe> favoriteRecipes;
+
+    // OneToMany relationship with Meals (user can have many meals)
+    @OneToMany(mappedBy = "meal_user")
+    private Set<Meal> user_plannedMeals;
+
+    // METHODS
     // equals() method, determines based off of username & password
     @Override
     public boolean equals(Object o) {

@@ -1,7 +1,7 @@
-INSERT INTO users(username, password, firstname, lastname)
-VALUES ('user', 'password', 'John', 'Doe');
-INSERT INTO users(username, password, firstname, lastname)
-VALUES ('user2', 'password2', 'Alice', 'White');
+INSERT INTO users(username, password, firstname, lastname, email)
+VALUES ('user', 'password', 'John', 'Doe', 'test1@email.com');
+INSERT INTO users(username, password, firstname, lastname, email)
+VALUES ('user2', 'password2', 'Alice', 'White', 'test2@email.com');
 
 INSERT INTO recipes(recipe_name, ingredients, instructions, serves_how_many, cook_and_prep_time, creation_date, user_id)
     VALUES('Apple Pie',

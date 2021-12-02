@@ -1,6 +1,6 @@
 CREATE TABLE users(id INT PRIMARY KEY AUTO_INCREMENT,
     username VARCHAR(255), password VARCHAR(255),
-    firstname VARCHAR(255), lastname VARCHAR(255));
+    firstname VARCHAR(255), lastname VARCHAR(255), email VARCHAR(255));
 
 CREATE TABLE recipes(id INT PRIMARY KEY AUTO_INCREMENT,
     recipe_name VARCHAR(255),
