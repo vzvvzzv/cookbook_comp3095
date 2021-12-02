@@ -5,7 +5,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "ingredients")
-public class Ingredients extends BaseEntity {
+public class Ingredient extends BaseEntity {
 
     @Id // Id - primary key
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,7 +16,7 @@ public class Ingredients extends BaseEntity {
     private String quantity;
 
     // RELATIONSHIPS
-    @ManyToMany(mappedBy = "ingredientsSet")
+    @ManyToMany(mappedBy = "ingredientSet")
     private Set<Recipe> recipeSet;
 
     // TO DO RELATIONSHIPS SHOPPING LIST
