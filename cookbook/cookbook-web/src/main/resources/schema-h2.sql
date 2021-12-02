@@ -21,7 +21,9 @@ CREATE TABLE users_favorite_recipes(id INT PRIMARY KEY AUTO_INCREMENT,
     FOREIGN KEY (recipe_id) REFERENCES recipes(id));
 
 CREATE TABLE user_meal_recipe(id INT PRIMARY KEY AUTO_INCREMENT,
+    meal_name VARCHAR(255),
     meal_date DATE NOT NULL,
+    creation_date DATE NOT NULL,
     user_id INT NOT NULL,
     recipe_id INT NOT NULL,
     FOREIGN KEY (user_id) REFERENCES users(id),

@@ -15,7 +15,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "users")
-public class User extends BaseEntity{
+public class User extends BaseEntity {
 
     @Id // Id - primary key
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,6 +27,21 @@ public class User extends BaseEntity{
     private String firstname;
     private String lastname;
     private String email;
+
+    // RELATIONSHIPS
+    // OneToMany relationship with Recipes (User can create many recipes)
+    @OneToMany(mappedBy ="user")
+    private List<Recipe> recipeList;
+
+    // ManyToMany relationship with Recipes (user's favorite recipes)
+    @ManyToMany
+    @JoinTable(name = "users_favorite_recipes",
+            joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "recipe_id"))
+    private Set<Recipe> favoriteRecipes;
+
+    // OneToMany relationship with Meals (user can have many meals)
+    @OneToMany(mappedBy = "meal_user")
+    private Set<Meal> user_plannedMeals;
 
     // GETTERS & SETTERS
     public Long getId() {
@@ -100,21 +115,6 @@ public class User extends BaseEntity{
     public void setEmail(String email) {
         this.email = email;
     }
-
-    // RELATIONSHIPS
-    // OneToMany relationship with Recipes (User can create many recipes)
-    @OneToMany(mappedBy ="user")
-    private List<Recipe> recipeList;
-
-    // ManyToMany relationship with Recipes (recipes the user favorited)
-    @ManyToMany
-    @JoinTable(name = "users_favorite_recipes",
-            joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "recipe_id"))
-    private Set<Recipe> favoriteRecipes;
-
-    // OneToMany relationship with Meals (user can have many meals)
-    @OneToMany(mappedBy = "meal_user")
-    private Set<Meal> user_plannedMeals;
 
     // METHODS
     // equals() method, determines based off of username & password

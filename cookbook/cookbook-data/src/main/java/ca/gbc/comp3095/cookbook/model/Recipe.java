@@ -16,13 +16,13 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "recipes")
-public class Recipe extends BaseEntity{
+public class Recipe extends BaseEntity {
 
     @Id // Id - primary key
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // Properties
+    // PROPERTIES
     private String recipeName;
     @Lob // annotation tells database to store the property as a large object
     private String ingredients;
@@ -36,7 +36,7 @@ public class Recipe extends BaseEntity{
 
     private Date creationDate;
 
-    // Constructors
+    // CONSTRUCTORS
     public Recipe() {
     }
 
@@ -54,6 +54,7 @@ public class Recipe extends BaseEntity{
         this.creationDate = creationDate;
     }
 
+    // RELATIONSHIPS
     // ManyToOne relationship with User (creator of the recipe)
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
@@ -67,7 +68,7 @@ public class Recipe extends BaseEntity{
     @OneToMany(mappedBy = "meal_recipe")
     private Set<Meal> recipe_plannedMeals;
 
-    // Getters & Setters
+    // GETTERS & SETTERS
     public Long getId() {
         return id;
     }
@@ -164,6 +165,7 @@ public class Recipe extends BaseEntity{
         this.recipe_plannedMeals = recipe_plannedMeals;
     }
 
+    // METHODS
     // toString() Method
     @Override
     public String toString(){

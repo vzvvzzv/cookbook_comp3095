@@ -55,6 +55,11 @@
                 <p th:text="${#dates.format(recipe.creationDate, 'yyyy-MM-dd')}"></p>
                 <form th:action="@{/recipes/processMeal}" method="post">
                     <input type="hidden" th:value="${recipe.id}" name="recipeId">
+
+                    <label class="col-4 col-form-label" th:text="'Meal Name:'">Meal Name:</label>
+                    <input type="text" th:name="mealName" class="form-control" required />
+                    <br>
+
                     <select id="addedDate" name="addedDate">
                         <option th:text="${#dates.format(arrayDate[0], 'yyyy-MM-dd')}" th:value="0">
                         <option th:text="${#dates.format(arrayDate[1], 'yyyy-MM-dd')}" th:value="1"></option>

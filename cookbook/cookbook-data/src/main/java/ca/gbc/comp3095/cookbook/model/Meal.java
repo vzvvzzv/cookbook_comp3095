@@ -20,9 +20,14 @@ public class Meal {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    // PROPERTIES
+    private String mealName;
+    @Column(name = "creation_date", nullable = false)
+    private Date creationDate;
     @Column(name = "meal_date", nullable = false)
     private Date meal_date;
 
+    // RELATIONSHIPS
     // ManyToOne relationship with User (links recipe and user)
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
@@ -33,7 +38,7 @@ public class Meal {
     @JoinColumn(name = "recipe_id", nullable = false)
     private Recipe meal_recipe;
 
-    // Getters & Setters
+    // GETTERS & SETTERS
     public Long getId() {
         return id;
     }
@@ -64,5 +69,21 @@ public class Meal {
 
     public void setMeal_recipe(Recipe meal_recipe) {
         this.meal_recipe = meal_recipe;
+    }
+
+    public String getMealName() {
+        return mealName;
+    }
+
+    public void setMealName(String mealName) {
+        this.mealName = mealName;
+    }
+
+    public Date getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(Date creationDate) {
+        this.creationDate = creationDate;
     }
 }
