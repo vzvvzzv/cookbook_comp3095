@@ -68,6 +68,11 @@ public class Recipe extends BaseEntity {
     @OneToMany(mappedBy = "meal_recipe")
     private Set<Meal> recipe_plannedMeals;
 
+    @ManyToMany
+    @JoinTable(name = "recipes_ingredients",
+            joinColumns = @JoinColumn(name = "recipe_id"), inverseJoinColumns = @JoinColumn(name = "ingredient_id"))
+    private Set<Ingredients> ingredientsSet;
+
     // GETTERS & SETTERS
     public Long getId() {
         return id;
@@ -163,6 +168,14 @@ public class Recipe extends BaseEntity {
 
     public void setRecipe_plannedMeals(Set<Meal> recipe_plannedMeals) {
         this.recipe_plannedMeals = recipe_plannedMeals;
+    }
+
+    public Set<Ingredients> getIngredientsSet() {
+        return ingredientsSet;
+    }
+
+    public void setIngredientsSet(Set<Ingredients> ingredientsSet) {
+        this.ingredientsSet = ingredientsSet;
     }
 
     // METHODS
