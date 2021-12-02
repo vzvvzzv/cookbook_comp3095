@@ -7,4 +7,5 @@ public interface IngredientRepository extends CrudRepository<Ingredient, Long> {
 
     // TO DO: QUERY SELECT INGREDIENTS BY RECIPE ID
 
+    // TO DO: QUERY SELECT INGREDIENTS BY SHOPPING LIST ID
 }

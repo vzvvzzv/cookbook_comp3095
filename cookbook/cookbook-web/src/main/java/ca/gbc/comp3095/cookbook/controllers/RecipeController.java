@@ -12,10 +12,7 @@ package ca.gbc.comp3095.cookbook.controllers;
 import ca.gbc.comp3095.cookbook.model.Meal;
 import ca.gbc.comp3095.cookbook.model.Recipe;
 import ca.gbc.comp3095.cookbook.model.User;
-import ca.gbc.comp3095.cookbook.services.IngredientService;
-import ca.gbc.comp3095.cookbook.services.MealService;
-import ca.gbc.comp3095.cookbook.services.RecipeService;
-import ca.gbc.comp3095.cookbook.services.UserService;
+import ca.gbc.comp3095.cookbook.services.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -34,14 +31,18 @@ public class RecipeController {
     private final UserService userService;
     private final MealService mealService;
     private final IngredientService ingredientService;
+    private final ShoppingListService shoppingListService;
     private HttpSession newSession;
 
     // Constructor Dependency Injection
-    public RecipeController(RecipeService recipeService, UserService userService, MealService mealService, IngredientService ingredientService) {
+    public RecipeController(RecipeService recipeService, UserService userService,
+                            MealService mealService, IngredientService ingredientService,
+                            ShoppingListService shoppingListService) {
         this.recipeService = recipeService;
         this.userService = userService;
         this.mealService = mealService;
         this.ingredientService = ingredientService;
+        this.shoppingListService = shoppingListService;
         this.newSession = null;
     }
 

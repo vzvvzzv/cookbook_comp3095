@@ -71,7 +71,7 @@ public class Recipe extends BaseEntity {
     @ManyToMany
     @JoinTable(name = "recipes_ingredients",
             joinColumns = @JoinColumn(name = "recipe_id"), inverseJoinColumns = @JoinColumn(name = "ingredient_id"))
-    private Set<Ingredient> ingredientSet;
+    private Set<Ingredient> recipeIngredientSet;
 
     // GETTERS & SETTERS
     public Long getId() {
@@ -170,12 +170,12 @@ public class Recipe extends BaseEntity {
         this.recipe_plannedMeals = recipe_plannedMeals;
     }
 
-    public Set<Ingredient> getIngredientsSet() {
-        return ingredientSet;
+    public Set<Ingredient> getRecipeIngredientSet() {
+        return recipeIngredientSet;
     }
 
-    public void setIngredientsSet(Set<Ingredient> ingredientSet) {
-        this.ingredientSet = ingredientSet;
+    public void setRecipeIngredientSet(Set<Ingredient> recipeIngredientSet) {
+        this.recipeIngredientSet = recipeIngredientSet;
     }
 
     // METHODS
