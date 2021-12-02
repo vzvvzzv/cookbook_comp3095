@@ -46,6 +46,9 @@ public class User extends BaseEntity {
     @OneToMany(mappedBy = "shoppingListUser")
     private Set<ShoppingList> userShoppingListSet;
 
+    @OneToMany(mappedBy = "eventUser")
+    private Set<Event> userEventSet;
+
     // GETTERS & SETTERS
     public Long getId() {
         return id;
