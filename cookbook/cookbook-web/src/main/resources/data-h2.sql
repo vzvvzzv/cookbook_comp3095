@@ -51,6 +51,9 @@ INSERT INTO ingredients(ingredient_name, quantity)
 INSERT INTO ingredients(ingredient_name, quantity)
     VALUES('Flour', '500g');
 
+INSERT INTO shopping_list(shopping_list_name, user_id)
+    VALUES('First Shopping List', 1);
+
 INSERT INTO users_favorite_recipes(user_id, recipe_id) VALUES(1,2);
 INSERT INTO users_favorite_recipes(user_id, recipe_id) VALUES(2,1);
 
@@ -59,3 +62,6 @@ INSERT INTO user_meal_recipe(meal_name, creation_date, meal_date, user_id, recip
 
 INSERT INTO recipes_ingredients(recipe_id, ingredient_id) VALUES(1,1);
 INSERT INTO recipes_ingredients(recipe_id, ingredient_id) VALUES(1,2);
+
+INSERT INTO shopping_list_ingredients(shopping_list_id, ingredient_id) VALUES(1,1);
+INSERT INTO shopping_list_ingredients(shopping_list_id, ingredient_id) VALUES(1,2);

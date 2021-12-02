@@ -30,7 +30,7 @@ public class User extends BaseEntity {
 
     // RELATIONSHIPS
     // OneToMany relationship with Recipes (User can create many recipes)
-    @OneToMany(mappedBy ="user")
+    @OneToMany(mappedBy = "user")
     private List<Recipe> recipeList;
 
     // ManyToMany relationship with Recipes (user's favorite recipes)
@@ -42,6 +42,9 @@ public class User extends BaseEntity {
     // OneToMany relationship with Meals (user can have many meals)
     @OneToMany(mappedBy = "meal_user")
     private Set<Meal> user_plannedMeals;
+
+    @OneToMany(mappedBy = "shoppingListUser")
+    private Set<ShoppingList> userShoppingListSet;
 
     // GETTERS & SETTERS
     public Long getId() {

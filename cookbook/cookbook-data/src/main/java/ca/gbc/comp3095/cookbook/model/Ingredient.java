@@ -16,10 +16,12 @@ public class Ingredient extends BaseEntity {
     private String quantity;
 
     // RELATIONSHIPS
-    @ManyToMany(mappedBy = "ingredientSet")
-    private Set<Recipe> recipeSet;
+    @ManyToMany(mappedBy = "recipeIngredientSet")
+    private Set<Recipe> ingredientRecipeSet;
 
     // TO DO RELATIONSHIPS SHOPPING LIST
+    @ManyToMany(mappedBy = "shopIngredientSet")
+    private Set<ShoppingList> ingredientShopListSet;
 
     // GETTERS & SETTERS
 
@@ -47,11 +49,19 @@ public class Ingredient extends BaseEntity {
         this.quantity = quantity;
     }
 
-    public Set<Recipe> getRecipeSet() {
-        return recipeSet;
+    public Set<Recipe> getIngredientRecipeSet() {
+        return ingredientRecipeSet;
     }
 
-    public void setRecipeSet(Set<Recipe> recipeSet) {
-        this.recipeSet = recipeSet;
+    public void setIngredientRecipeSet(Set<Recipe> ingredientRecipeSet) {
+        this.ingredientRecipeSet = ingredientRecipeSet;
+    }
+
+    public Set<ShoppingList> getIngredientShopListSet() {
+        return ingredientShopListSet;
+    }
+
+    public void setIngredientShopListSet(Set<ShoppingList> ingredientShopListSet) {
+        this.ingredientShopListSet = ingredientShopListSet;
     }
 }
