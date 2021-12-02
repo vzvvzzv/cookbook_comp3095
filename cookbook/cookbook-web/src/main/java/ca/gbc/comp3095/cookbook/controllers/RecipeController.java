@@ -12,6 +12,7 @@ package ca.gbc.comp3095.cookbook.controllers;
 import ca.gbc.comp3095.cookbook.model.Meal;
 import ca.gbc.comp3095.cookbook.model.Recipe;
 import ca.gbc.comp3095.cookbook.model.User;
+import ca.gbc.comp3095.cookbook.services.IngredientService;
 import ca.gbc.comp3095.cookbook.services.MealService;
 import ca.gbc.comp3095.cookbook.services.RecipeService;
 import ca.gbc.comp3095.cookbook.services.UserService;
@@ -32,13 +33,15 @@ public class RecipeController {
     private final RecipeService recipeService;
     private final UserService userService;
     private final MealService mealService;
+    private final IngredientService ingredientService;
     private HttpSession newSession;
 
     // Constructor Dependency Injection
-    public RecipeController(RecipeService recipeService, UserService userService, MealService mealService) {
+    public RecipeController(RecipeService recipeService, UserService userService, MealService mealService, IngredientService ingredientService) {
         this.recipeService = recipeService;
         this.userService = userService;
         this.mealService = mealService;
+        this.ingredientService = ingredientService;
         this.newSession = null;
     }
 
