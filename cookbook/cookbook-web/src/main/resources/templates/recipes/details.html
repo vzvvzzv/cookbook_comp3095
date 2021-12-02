@@ -49,9 +49,11 @@
                 <h5 th:text="'Instructions:'">Instructions:</h5>
                 <p th:text="${recipe.instructions}"></p>
                 <h5 th:text="'Servings:'">Servings:</h5>
-                <p th:text="${recipe.servesHowMany}"></p>
-                <h5 th:text="'Total Time:'">Total Time:</h5>
-                <p th:text="${recipe.cookAndPrepTime}"></p>
+                <p th:text="${recipe.serving}"></p>
+                <h5 th:text="'Prep Time:'">Prep Time:</h5>
+                <p th:text="${recipe.prepTime}"></p>
+                <h5 th:text="'Cook Time:'">Cook Time:</h5>
+                <p th:text="${recipe.cookTime}"></p>
                 <h5 th:text="'Created On:'">Created On:</h5>
                 <p th:text="${#dates.format(recipe.creationDate, 'yyyy-MM-dd')}"></p>
 

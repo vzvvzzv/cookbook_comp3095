@@ -16,7 +16,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "recipes")
-public class Recipe {
+public class Recipe extends BaseEntity{
 
     @Id // Id - primary key
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,21 +28,29 @@ public class Recipe {
     private String ingredients;
     @Lob
     private String instructions;
-    private String servesHowMany;
-    private String cookAndPrepTime;
+    private String difficulty;
+
+    private Integer prepTime;
+    private Integer cookTime;
+    private Integer serving;
+
     private Date creationDate;
 
     // Constructors
     public Recipe() {
     }
 
-    public Recipe(Long id, String recipeName, String ingredients, String instructions, String servesHowMany, String cookAndPrepTime, Date creationDate){
+
+    public Recipe(Long id, String recipeName, String ingredients, String instructions, String difficulty,
+                  Integer prepTime, Integer cookTime, Integer serving, Date creationDate) {
         this.id = id;
         this.recipeName = recipeName;
         this.ingredients = ingredients;
-        this.servesHowMany = servesHowMany;
-        this.cookAndPrepTime = cookAndPrepTime;
         this.instructions = instructions;
+        this.difficulty = difficulty;
+        this.prepTime = prepTime;
+        this.cookTime = cookTime;
+        this.serving = serving;
         this.creationDate = creationDate;
     }
 
@@ -92,20 +100,36 @@ public class Recipe {
         this.instructions = instructions;
     }
 
-    public String getServesHowMany() {
-        return servesHowMany;
+    public String getDifficulty() {
+        return difficulty;
     }
 
-    public void setServesHowMany(String servesHowMany) {
-        this.servesHowMany = servesHowMany;
+    public void setDifficulty(String difficulty) {
+        this.difficulty = difficulty;
     }
 
-    public String getCookAndPrepTime() {
-        return cookAndPrepTime;
+    public Integer getPrepTime() {
+        return prepTime;
     }
 
-    public void setCookAndPrepTime(String cookAndPrepTime) {
-        this.cookAndPrepTime = cookAndPrepTime;
+    public void setPrepTime(Integer prepTime) {
+        this.prepTime = prepTime;
+    }
+
+    public Integer getCookTime() {
+        return cookTime;
+    }
+
+    public void setCookTime(Integer cookTime) {
+        this.cookTime = cookTime;
+    }
+
+    public Integer getServing() {
+        return serving;
+    }
+
+    public void setServing(Integer serving) {
+        this.serving = serving;
     }
 
     public Date getCreationDate() {
@@ -145,7 +169,7 @@ public class Recipe {
     public String toString(){
         return "Recipe: " + "id=" + id +
                 ", recipeName='" + recipeName  + ", ingredients='" + ingredients +
-                ", servesHowMany='" + servesHowMany + ", cookAndPrepTime='" + cookAndPrepTime  +
+                ", servesHowMany='" + serving + ", cookTime='" + cookTime  + ", prepTime='" + prepTime  +
                 ", instructions=" + instructions + ", creationDate='" + creationDate;
     }
 
