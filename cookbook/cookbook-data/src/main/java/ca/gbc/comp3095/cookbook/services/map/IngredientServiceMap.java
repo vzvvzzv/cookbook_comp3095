@@ -37,7 +37,12 @@ public class IngredientServiceMap extends AbstractMapService<Ingredient, Long> i
     }
 
     @Override
-    public Ingredient save(Ingredient Object) {
-        return null;
+    public Ingredient save(Ingredient ingredient) {
+        return super.save(ingredientRepository, ingredient);
+    }
+
+    @Override
+    public Set<Ingredient> findAllByRecipeId(Long recipeId) {
+        return ingredientRepository.getSetByRecipe(recipeId);
     }
 }
