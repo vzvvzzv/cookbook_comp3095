@@ -14,6 +14,10 @@ CREATE TABLE recipes(id INT PRIMARY KEY AUTO_INCREMENT,
     user_id INT,
     FOREIGN KEY (user_id) REFERENCES users(id));
 
+CREATE TABLE ingredients(id INT PRIMARY KEY AUTO_INCREMENT,
+    ingredient_name VARCHAR(255),
+    quantity VARCHAR(255));
+
 CREATE TABLE users_favorite_recipes(id INT PRIMARY KEY AUTO_INCREMENT,
     user_id INT NOT NULL,
     recipe_id INT NOT NULL,
@@ -28,3 +32,9 @@ CREATE TABLE user_meal_recipe(id INT PRIMARY KEY AUTO_INCREMENT,
     recipe_id INT NOT NULL,
     FOREIGN KEY (user_id) REFERENCES users(id),
     FOREIGN KEY (recipe_id) REFERENCES recipes(id));
+
+CREATE TABLE recipes_ingredients(id INT PRIMARY KEY AUTO_INCREMENT,
+    recipe_id INT NOT NULL,
+    ingredient_id INT NOT NULL,
+    FOREIGN KEY(recipe_id) REFERENCES recipes(id),
+    FOREIGN KEY(ingredient_id) REFERENCES ingredients(id));

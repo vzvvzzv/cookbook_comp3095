@@ -46,8 +46,16 @@ INSERT INTO recipes(recipe_name, ingredients, instructions, serving, prep_time, 
            '2021-11-7',
            1);
 
+INSERT INTO ingredients(ingredient_name, quantity)
+    VALUES('Egg', '5');
+INSERT INTO ingredients(ingredient_name, quantity)
+    VALUES('Flour', '500g');
+
 INSERT INTO users_favorite_recipes(user_id, recipe_id) VALUES(1,2);
 INSERT INTO users_favorite_recipes(user_id, recipe_id) VALUES(2,1);
 
 INSERT INTO user_meal_recipe(meal_name, creation_date, meal_date, user_id, recipe_id)
     VALUES('My First Meal', (CURRENT_DATE), (CURRENT_DATE + 7), 1, 1);
+
+INSERT INTO recipes_ingredients(recipe_id, ingredient_id) VALUES(1,1);
+INSERT INTO recipes_ingredients(recipe_id, ingredient_id) VALUES(1,2);

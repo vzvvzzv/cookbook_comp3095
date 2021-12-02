@@ -14,7 +14,7 @@ import java.util.Date;
 
 @Entity
 @Table(name = "user_meal_recipe")
-public class Meal {
+public class Meal extends BaseEntity {
 
     @Id // Id - primary key
     @GeneratedValue(strategy = GenerationType.IDENTITY)
