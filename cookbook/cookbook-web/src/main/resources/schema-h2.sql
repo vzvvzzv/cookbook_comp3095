@@ -23,6 +23,12 @@ CREATE TABLE shopping_list(id INT PRIMARY KEY AUTO_INCREMENT,
     user_id INT,
     FOREIGN KEY (user_id) references users(id));
 
+CREATE TABLE events(id INT PRIMARY KEY AUTO_INCREMENT,
+    event_name VARCHAR(255),
+    event_details CLOB,
+    user_id INT,
+    FOREIGN KEY (user_id) REFERENCES users(id));
+
 CREATE TABLE users_favorite_recipes(id INT PRIMARY KEY AUTO_INCREMENT,
     user_id INT NOT NULL,
     recipe_id INT NOT NULL,
