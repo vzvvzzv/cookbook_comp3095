@@ -39,21 +39,26 @@
     <div class="container px-lg-5">
         <div class="p-4 p-lg-5 bg-light rounded-3 text-center">
             <div class="m-4 m-lg-5">
-                <h1 class="display-5 fw-bold" th:text="'Recipe Dashboard'">Recipe Dashboard</h1>
-                <br>
-                <body>
-<!--                <h1 th:text="'List Recipes'">Recipes Actions</h1>-->
-                <br><br><br>
-                <h3><a th:href="@{/recipes/profile}">Profile</a></h3><br>
-                <h3><a th:href="@{/recipes/createRecipe}">Create Recipe</a></h3><br>
-                <h3><a th:href="@{/recipes/myRecipe}">Your Recipes</a></h3><br>
-                <h3><a th:href="@{/recipes/favouriteRecipe}">Favourite Recipes</a></h3><br>
-                <h3><a th:href="@{/recipes/viewRecipe}">View Recipes</a></h3><br>
-                <h3><a th:href="@{/recipes/searchRecipe}">Search Recipe</a></h3><br>
-                <h3><a th:href="@{/recipes/planMeal}">Plan Meal</a></h3><br>
-                <h3><a th:href="@{/recipes/logout}">Log out</a></h3>
 
-                </body>
+                <h3 th:text="'Your Recipes'">Your Recipes</h3><br>
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th scope="col">Recipe Name</th>
+                        <th scope="col">Creator</th>
+                        <th scope="col">Recipe Details</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="recipe :${userRecipes}">
+                        <td th:text="${recipe.recipeName}"></td>
+                        <td th:text="${recipe.user.username}"></td>
+                        <td><a th:href="@{/recipes/details(id=${recipe.id})}">View Details</a></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <br><br><br>
+                <a th:href="@{/recipes}">Return to Recipe Dashboard</a>
             </div>
         </div>
     </div>

@@ -9,6 +9,7 @@
  *********************************************************************************/
 package ca.gbc.comp3095.cookbook.controllers;
 
+import ca.gbc.comp3095.cookbook.model.Ingredient;
 import ca.gbc.comp3095.cookbook.model.Meal;
 import ca.gbc.comp3095.cookbook.model.Recipe;
 import ca.gbc.comp3095.cookbook.model.User;
@@ -31,18 +32,15 @@ public class RecipeController {
     private final UserService userService;
     private final MealService mealService;
     private final IngredientService ingredientService;
-    private final ShoppingListService shoppingListService;
     private HttpSession newSession;
 
     // Constructor Dependency Injection
     public RecipeController(RecipeService recipeService, UserService userService,
-                            MealService mealService, IngredientService ingredientService,
-                            ShoppingListService shoppingListService) {
+                            MealService mealService, IngredientService ingredientService) {
         this.recipeService = recipeService;
         this.userService = userService;
         this.mealService = mealService;
         this.ingredientService = ingredientService;
-        this.shoppingListService = shoppingListService;
         this.newSession = null;
     }
 
@@ -80,15 +78,7 @@ public class RecipeController {
             // get planned meals of user
             Set<Meal> mealSet = mealService.findMeals(tempUser.getId());
 
-            // Get recipes created by user
-            Set<Recipe> userRecipeSet = recipeService.findByUser(tempUser.getId());
-
-            // Get favorite recipes of user
-            Set<Recipe> favRecipeSet = recipeService.findByFavUser(tempUser.getId());
-
             model.addAttribute("users", tempUser);
-            model.addAttribute("userRecipes", userRecipeSet);
-            model.addAttribute("favRecipes", favRecipeSet);
             model.addAttribute("mealSet", mealSet);
             return "/recipes/profile";
         }
@@ -101,7 +91,9 @@ public class RecipeController {
             return "redirect:/users/login";
         } else {
             Recipe tempRecipe = recipeService.findById(id);
+            Set<Ingredient> tempIngredientSet = ingredientService.findAllByRecipeId(id);
             model.addAttribute("recipe", tempRecipe);
+            model.addAttribute("ingredients", tempIngredientSet);
             return "/recipes/details";
         }
     }
@@ -135,18 +127,27 @@ public class RecipeController {
     }
 
     @RequestMapping("createRecipe")
-    public String createRecipe(Model model) {
+    public String createRecipe(Model model, HttpSession session) {
+
+        Set<Ingredient> recipeIngredients = null;
 
         if (newSessionCheck()) {
             return "redirect:/users/login";
         } else {
+            if (session.getAttribute("recipeIngredients") != null) {
+                recipeIngredients = (Set) session.getAttribute("recipeIngredients");
+            } else {
+                recipeIngredients = Collections.emptySet();
+            }
+            model.addAttribute("ingredient", new Ingredient());
+            model.addAttribute("ingredients", recipeIngredients);
             model.addAttribute("recipe", new Recipe());
             return "/recipes/create-recipe";
         }
     }
 
     @RequestMapping("processRecipe")
-    public String processRecipe(Recipe recipe) {
+    public String processRecipe(Recipe recipe, HttpSession session) {
 
         if (newSessionCheck()) {
             return "redirect:/users/login";
@@ -154,14 +155,17 @@ public class RecipeController {
             // Get Current User
             User tempUser = (User) newSession.getAttribute("user");
             tempUser = userService.findByUsername(tempUser.getUsername());
+            Set<Ingredient> tempIngredientSet = (Set) session.getAttribute("recipeIngredients");
 
             // Set the Recipes Author
             recipe.setUser(tempUser);
             recipe.setCreationDate(new Date());
+            recipe.setRecipeIngredientSet(tempIngredientSet);
 
-            // Save Recipe to Database
-            recipeService.save(recipe);
-            return "redirect:/recipes/profile";
+            // Session for processIngredients
+            session.setAttribute("recipeProcess", recipe);
+
+            return "redirect:/ingredients/processIngredient";
         }
     }
 
@@ -251,6 +255,66 @@ public class RecipeController {
             tempMeal.setMealName(mealName);
             mealService.save(tempMeal);
             return "redirect:/recipes/profile";
+        }
+    }
+
+    @RequestMapping("/favouriteRecipe")
+    public String favouriteRecipe(@RequestParam(required = false) String key, Model model) {
+
+        if (newSessionCheck()){
+            return "redirect:/users/login";
+        } else {
+            // Get user
+            User tempUser = (User) newSession.getAttribute("user");
+            tempUser = userService.findByUsername(tempUser.getUsername());
+
+            System.out.println(key);
+            Set<Recipe> favRecipeSet = null;
+
+            if (key != null) {
+                key = key.toLowerCase();
+                favRecipeSet = recipeService.findFavByKeyword(tempUser.getId(), key);
+            } else {
+                favRecipeSet = recipeService.findByFavUser(tempUser.getId());
+            }
+            model.addAttribute("favRecipes", favRecipeSet);
+            return "/recipes/favourite-recipe";
+        }
+
+        /*
+        if (newSessionCheck()) {
+            return "redirect:/users/login";
+        } else {
+            // Get user
+            User tempUser = (User) newSession.getAttribute("user");
+            tempUser = userService.findByUsername(tempUser.getUsername());
+
+            // Get favorite recipes of user
+            Set<Recipe> favRecipeSet = recipeService.findByFavUser(tempUser.getId());
+
+            model.addAttribute("favRecipes", favRecipeSet);
+
+            return "/recipes/favourite-recipe";
+        }
+         */
+    }
+
+    @RequestMapping("/myRecipe")
+    public String myRecipe(Model model) {
+
+        if (newSessionCheck()) {
+            return "redirect:/users/login";
+        } else {
+            // Get user
+            User tempUser = (User) newSession.getAttribute("user");
+            tempUser = userService.findByUsername(tempUser.getUsername());
+
+            // Get recipes created by user
+            Set<Recipe> userRecipeSet = recipeService.findByUser(tempUser.getId());
+
+            model.addAttribute("userRecipes", userRecipeSet);
+
+            return "/recipes/my-recipe";
         }
     }
 }

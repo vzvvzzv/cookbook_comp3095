@@ -62,43 +62,7 @@
 
                 </table>
                 <br><br><br>
-                <h3 th:text="'Your Recipes'">Your Recipes</h3><br>
-                <table class="table table-striped">
-                    <thead>
-                    <tr>
-                        <th scope="col">Recipe Name</th>
-                        <th scope="col">Creator</th>
-                        <th scope="col">Recipe Details</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr th:each="recipe :${userRecipes}">
-                        <td th:text="${recipe.recipeName}"></td>
-                        <td th:text="${recipe.user.username}"></td>
-                        <td><a th:href="@{/recipes/details(id=${recipe.id})}">View Details</a></td>
-                    </tr>
-                    </tbody>
-                </table>
-                <br><br><br>
-                <h3 th:text="'Favorite Recipes'">Favorite Recipes</h3><br>
-                <table class="table table-striped">
-                    <thead>
-                    <tr>
-                        <th scope="col">Recipe Name</th>
-                        <th scope="col">Creator</th>
-                        <th scope="col">Recipe Details</th>
-                    </tr>
-                    </thead>
 
-                    <tbody>
-                    <tr th:each="recipe :${favRecipes}">
-                        <td th:text="${recipe.recipeName}"></td>
-                        <td th:text="${recipe.user.username}"></td>
-                        <td><a th:href="@{/recipes/details(id=${recipe.id})}">View Details</a></td>
-                    </tr>
-                    </tbody>
-                </table>
-<br><br><br>
                 <h3 th:text="'Planned Meals'">Planned Meals</h3><br>
                 <table class="table table-striped">
                     <thead>

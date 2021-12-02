@@ -44,6 +44,23 @@
                 <body>
                 <h5 th:text="${recipe.recipeName}"></h5>
                 <br>
+
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th scope="col">Ingredient Name</th>
+                        <th scope="col">Quantity</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="ingredient :${ingredients}">
+                        <td th:text="${ingredient.ingredientName}"></td>
+                        <td th:text="${ingredient.quantity}"></td>
+                    </tbody>
+
+                </table>
+                <br>
+
                 <h5 th:text="'Ingredients:'">Ingredients:</h5>
                 <p th:text="${recipe.ingredients}"></p>
                 <h5 th:text="'Instructions:'">Instructions:</h5>

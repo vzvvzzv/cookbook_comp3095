@@ -86,4 +86,13 @@ public class RecipeServiceMap extends AbstractMapService<Recipe, Long> implement
         }
         return tempSet;
     }
+
+    @Override
+    public Set<Recipe> findFavByKeyword(Long id, String key) {
+        Set<Recipe> tempSet = recipeRepository.getSetFavByKeyword(id, key);
+        if (tempSet == null) {
+            tempSet = Collections.emptySet();
+        }
+        return tempSet;
+    }
 }

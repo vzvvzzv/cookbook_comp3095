@@ -24,4 +24,7 @@ public interface RecipeService extends CrudService<Recipe, Long> {
 
     // finds recipes by keyword and returns set of recipes (for search using wildcards)
     Set<Recipe> findByKeyword(String key);
+
+    // finds users favourite recipes by keyword and returns set of recipes (for search using wildcards)
+    Set<Recipe> findFavByKeyword(Long id, String key);
 }

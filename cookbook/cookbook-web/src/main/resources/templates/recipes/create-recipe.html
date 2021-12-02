@@ -45,6 +45,53 @@
                 <h1 class="display-5 fw-bold" th:text="'Create Recipe'">Create Recipe</h1>
                 <br>
 
+                <h5 class="display-5 fw-bold" th:text="'Add Ingredients'">Add Ingredients</h5>
+                <br>
+
+                <form th:action="@{/ingredients/addIngredient}" th:object="${ingredient}"
+                    method="post" style="max-width: 600px; margin: 0 auto;">
+
+                    <label class="col-4 col-form-label" th:text="'Ingredient Name:'">Ingredient Name:</label>
+                    <input type="text" th:field="*{ingredientName}" class="form-control" required />
+                    <br>
+
+                    <label class="col-4 col-form-label" th:text="'Quantity:'">Quantity:</label>
+                    <input type="text" th:field="*{quantity}" class="form-control" required />
+                    <br>
+
+                    <button type="submit" class="btn btn-primary">Add Ingredient</button>
+
+                </form>
+
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th scope="col">Ingredient Name</th>
+                        <th scope="col">Quantity</th>
+                        <th scope="col">Delete</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="ingredient :${ingredients}">
+                        <td th:text="${ingredient.ingredientName}"></td>
+                        <td th:text="${ingredient.quantity}"></td>
+                        <td>
+                            <form th:action="@{/ingredients/removeIngredient}" th:va="${ingredient}"
+                                method="post" style="max-width: 600px; margin: 0 auto;">
+
+                                <input type="hidden" th:name="ingredientName"
+                                       th:value="${ingredient.ingredientName}" class="form-control" required />
+                                <input type="hidden" th:name="quantity"
+                                       th:value="${ingredient.quantity}" class="form-control" required />
+
+                                <button type="submit" class="btn btn-primary">Delete</button>
+
+                            </form>
+                        </td>
+                    </tbody>
+
+                </table>
+
                 <form th:action="@{/recipes/processRecipe}" th:object="${recipe}"
                       method="post" style="max-width: 600px; margin: 0 auto;">
 

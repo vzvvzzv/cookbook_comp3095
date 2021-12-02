@@ -64,4 +64,12 @@ public class Ingredient extends BaseEntity {
     public void setIngredientShopListSet(Set<ShoppingList> ingredientShopListSet) {
         this.ingredientShopListSet = ingredientShopListSet;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Ingredient that = (Ingredient) o;
+        return ingredientName.equals(that.ingredientName) && quantity.equals(that.quantity);
+    }
 }
