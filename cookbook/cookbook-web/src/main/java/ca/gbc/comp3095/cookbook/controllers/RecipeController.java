@@ -16,6 +16,7 @@ import ca.gbc.comp3095.cookbook.model.User;
 import ca.gbc.comp3095.cookbook.services.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -280,23 +281,6 @@ public class RecipeController {
             model.addAttribute("favRecipes", favRecipeSet);
             return "/recipes/favourite-recipe";
         }
-
-        /*
-        if (newSessionCheck()) {
-            return "redirect:/users/login";
-        } else {
-            // Get user
-            User tempUser = (User) newSession.getAttribute("user");
-            tempUser = userService.findByUsername(tempUser.getUsername());
-
-            // Get favorite recipes of user
-            Set<Recipe> favRecipeSet = recipeService.findByFavUser(tempUser.getId());
-
-            model.addAttribute("favRecipes", favRecipeSet);
-
-            return "/recipes/favourite-recipe";
-        }
-         */
     }
 
     @RequestMapping("/myRecipe")
@@ -315,6 +299,34 @@ public class RecipeController {
             model.addAttribute("userRecipes", userRecipeSet);
 
             return "/recipes/my-recipe";
+        }
+    }
+
+    @RequestMapping("/updateRecipe/{recipeId}")
+    public String updateRecipe(@PathVariable Long recipeId, Model model, HttpSession session) {
+
+        if (newSessionCheck()) {
+            return "redirect:/users/login";
+        } else {
+            // Get user
+            User tempUser = (User) newSession.getAttribute("user");
+            tempUser = userService.findByUsername(tempUser.getUsername());
+            Recipe tempRecipe = recipeService.findById(recipeId);
+            User recipeUser = tempRecipe.getUser();
+
+            // Checks if current user is the one who created the recipe
+            if (tempUser.equals(recipeUser)){
+
+                Set<Ingredient> tempIngredientSet = ingredientService.findAllByRecipeId(tempRecipe.getId());
+                session.setAttribute("recipeIngredients", tempIngredientSet);
+
+                model.addAttribute("ingredient", new Ingredient());
+                model.addAttribute("ingredients", tempIngredientSet);
+                model.addAttribute("currentRecipe", tempRecipe);
+                return "/recipes/update-recipe";
+            } else {
+                return "redirect:/recipes/";
+            }
         }
     }
 }

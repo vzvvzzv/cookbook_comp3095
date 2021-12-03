@@ -42,14 +42,17 @@
 
 
                 <body>
-                <h1 class="display-5 fw-bold" th:text="'Create Recipe'">Create Recipe</h1>
+                <h1 class="display-5 fw-bold" th:text="'Update Recipe'">Create Recipe</h1>
                 <br>
 
                 <h5 class="display-5 fw-bold" th:text="'Add Ingredients'">Add Ingredients</h5>
                 <br>
 
-                <form th:action="@{/ingredients/addIngredient}" th:object="${ingredient}"
-                    method="post" style="max-width: 600px; margin: 0 auto;">
+                <form th:action="@{/ingredients/addUpdateIngredient}" th:object="${ingredient}"
+                      method="post" style="max-width: 600px; margin: 0 auto;">
+
+                    <input th:type="hidden" th:name="recipeId" th:value="${currentRecipe.id}"
+                           class="form-control" required/>
 
                     <label class="col-4 col-form-label" th:text="'Ingredient Name:'">Ingredient Name:</label>
                     <input type="text" th:field="*{ingredientName}" class="form-control" required />
@@ -68,23 +71,42 @@
                     <tr>
                         <th scope="col">Ingredient Name</th>
                         <th scope="col">Quantity</th>
-                        <th scope="col">Action</th>
+                        <th scope="col">Update</th>
+                        <th scope="col">Delete</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr th:each="ingredient :${ingredients}">
                         <td th:text="${ingredient.ingredientName}"></td>
                         <td th:text="${ingredient.quantity}"></td>
+
                         <td>
-                            <form th:action="@{/ingredients/removeIngredient}" th:va="${ingredient}"
-                                method="post" style="max-width: 600px; margin: 0 auto;">
+                            <form th:action="@{/ingredients/editIngredient}" method="get"
+                                  style="max-width: 600px; margin: 0 auto;">
+
+                                <input type="hidden" th:name="recipeId"
+                                       th:value="${currentRecipe.id}" class="form-control" required/>
+
+                                <input type="hidden" th:name="ingredientId"
+                                       th:value="${ingredient.id}" class="form-control" required />
+
+                                <button type="submit" class="btn btn-primary">Edit</button>
+                            </form>
+                        </td>
+
+                        <td>
+                            <form th:action="@{/ingredients/deleteIngredient}" th:value="${ingredient}"
+                                  method="post" style="max-width: 600px; margin: 0 auto;">
+
+                                <input type="hidden" th:name="recipeId"
+                                       th:value="${currentRecipe.id}" class="form-control" required />
 
                                 <input type="hidden" th:name="ingredientName"
                                        th:value="${ingredient.ingredientName}" class="form-control" required />
                                 <input type="hidden" th:name="quantity"
                                        th:value="${ingredient.quantity}" class="form-control" required />
 
-                                <button type="submit" class="btn btn-primary">Remove</button>
+                                <button type="submit" class="btn btn-primary">Delete</button>
 
                             </form>
                         </td>
@@ -92,38 +114,40 @@
 
                 </table>
 
-                <form th:action="@{/recipes/processRecipe}" th:object="${recipe}"
+                <form th:action="@{/recipes/processRecipe}" th:object="${currentRecipe}"
                       method="post" style="max-width: 600px; margin: 0 auto;">
 
+                    <input type="hidden" th:name="id" th:id="id" th:value="${currentRecipe.id}" />
+
                     <label class="col-4 col-form-label" th:text="'Recipe Name:'">Recipe Name:</label>
-                    <input type="text" th:field="*{recipeName}" class="form-control" required />
+                    <input type="text" th:name="recipeName" th:id="recipeName" th:value="${currentRecipe.recipeName}" class="form-control" required />
                     <br>
 
                     <label class="col-4 col-form-label" th:text="'Ingredients:'">Ingredients:</label>
-                    <textarea th:field="*{ingredients}" class="form-control" th:required="required" rows="15" cols="40" placeholder="Input ingredients here.
-">
-        </textarea>
+                    <textarea th:name="ingredients" th:id="ingredients"
+                              class="form-control" th:required="required" rows="15" cols="40"
+                    >[[${currentRecipe.ingredients}]]</textarea>
                     <br>
 
                     <label class="col-4 col-form-label" th:text="'Instructions:'">Instructions: </label>
-                    <textarea th:field="*{instructions}" class="form-control" th:required="required" rows="30" cols="60"placeholder="Input Instructions here.
-">
-        </textarea>
+                    <textarea th:name="instructions" th:id="instructions"
+                              class="form-control" th:required="required" rows="30" cols="60"
+                    >[[${currentRecipe.instructions}]]</textarea>
                     <br>
 
                     <label class="col-4 col-form-label" th:text="'Serves:'">Serves:</label>
-                    <input type="text" th:field="*{serving}" class="form-control" required />
+                    <input type="text" th:name="serving" th:id="serving" th:value="${currentRecipe.serving}" class="form-control" required />
                     <br>
 
                     <label class="col-4 col-form-label" th:text="'Prep Time:'">Prep Time:</label>
-                    <input type="text" th:field="*{prepTime}" class="form-control" required />
+                    <input type="text" th:name="prepTime" th:id="prepTime" th:value="${currentRecipe.prepTime}"  class="form-control" required />
                     <br>
 
                     <label class="col-4 col-form-label" th:text="'Cook Time:'">Cook Time:</label>
-                    <input type="text" th:field="*{cookTime}" class="form-control" required />
+                    <input type="text" th:name="cookTime" th:id="cookTime" th:value="${currentRecipe.cookTime}"  class="form-control" required />
                     <br>
 
-                    <button type="submit" class="btn btn-primary">Create Recipe</button>
+                    <button type="submit" class="btn btn-primary">Update Recipe</button>
                 </form>
                 <br><br><br>
                 <a th:href="@{/recipes}">Return to Recipe Dashboard</a>

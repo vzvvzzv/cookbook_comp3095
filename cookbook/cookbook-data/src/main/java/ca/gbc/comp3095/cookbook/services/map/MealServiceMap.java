@@ -37,12 +37,12 @@ public class MealServiceMap extends AbstractMapService<Meal, Long> implements Me
 
     @Override
     public void deleteById(Long id) {
-        super.deleteById(id);
+        super.deleteById(mealRepository, id);
     }
 
     @Override
     public void delete(Meal meal) {
-        super.delete(meal);
+        super.delete(mealRepository, meal);
     }
 
     @Override

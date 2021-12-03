@@ -35,12 +35,12 @@ public class RecipeServiceMap extends AbstractMapService<Recipe, Long> implement
 
     @Override
     public void deleteById(Long id) {
-        super.deleteById(id);
+        super.deleteById(recipeRepository, id);
     }
 
     @Override
     public void delete(Recipe recipe) {
-        super.delete(recipe);
+        super.delete(recipeRepository, recipe);
     }
 
     // Saves recipe to database by calling super.save and passing recipeRepository & recipe

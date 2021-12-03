@@ -5,6 +5,7 @@ import ca.gbc.comp3095.cookbook.model.Recipe;
 import ca.gbc.comp3095.cookbook.services.IngredientService;
 import ca.gbc.comp3095.cookbook.services.RecipeService;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -95,5 +96,72 @@ public class IngredientController {
         session.removeAttribute("recipeProcess");
 
         return "redirect:/recipes/profile";
+    }
+
+    @RequestMapping("/addUpdateIngredient")
+    public String addUpdateIngredient(@RequestParam Long recipeId, Ingredient ingredient, HttpSession session){
+
+        System.out.println(ingredient.getIngredientName() + " " + ingredient.getQuantity()); // Check
+
+        Set<Ingredient> recipeIngredients = ingredientService.findAllByRecipeId(recipeId);
+        Recipe tempRecipe = recipeService.findById(recipeId);
+
+        recipeIngredients.add(ingredient);
+        tempRecipe.setRecipeIngredientSet(recipeIngredients);
+        ingredientService.save(ingredient);
+        recipeService.save(tempRecipe);
+
+        return "redirect:/recipes/updateRecipe/" + recipeId;
+    }
+
+    @RequestMapping("/deleteIngredient")
+    public String deleteIngredient(@RequestParam Long recipeId, @RequestParam String ingredientName,
+                                   @RequestParam String quantity, HttpSession session){
+
+        Ingredient ingredientRemove = new Ingredient();
+        ingredientRemove.setIngredientName(ingredientName);
+        ingredientRemove.setQuantity(quantity);
+
+        Set<Ingredient> recipeIngredients = ingredientService.findAllByRecipeId(recipeId);
+        Iterator ingredientFind = recipeIngredients.iterator();
+        Recipe tempRecipe = recipeService.findById(recipeId);
+
+        while (ingredientFind.hasNext()) {
+            Ingredient temp = (Ingredient) ingredientFind.next();
+            if (ingredientRemove.equals(temp)) {
+
+                recipeIngredients.remove(temp); // Remove ingredient from set
+                tempRecipe.setRecipeIngredientSet(recipeIngredients); // set updated set to recipe
+                recipeService.save(tempRecipe); // save recipe to database
+                ingredientService.deleteById(temp.getId()); // delete ingredient from database
+
+                break;
+            }
+        }
+
+        return "redirect:/recipes/updateRecipe/" + recipeId;
+    }
+
+    @RequestMapping("/editIngredient")
+    public String editIngredient(@RequestParam Long recipeId, @RequestParam Long ingredientId,
+                                 Model model, HttpSession session) {
+
+        System.out.println(ingredientId);
+        Ingredient tempIngredient = ingredientService.findById(ingredientId);
+
+        session.setAttribute("recipeId", recipeId);
+        model.addAttribute("currentIngredient", tempIngredient);
+
+        return "/ingredients/edit-ingredient";
+    }
+
+    @RequestMapping("/processEditIngredient")
+    public String processEditIngredient(Ingredient ingredient, HttpSession session){
+
+        ingredientService.save(ingredient);
+        Long recipeId = (Long) session.getAttribute("recipeId");
+        session.removeAttribute("recipeId");
+
+        return "redirect:/recipes/updateRecipe/" + recipeId;
     }
 }

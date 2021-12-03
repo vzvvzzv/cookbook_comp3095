@@ -23,17 +23,17 @@ public class IngredientServiceMap extends AbstractMapService<Ingredient, Long> i
 
     @Override
     public void deleteById(Long id) {
-
+        super.deleteById(ingredientRepository, id);
     }
 
     @Override
     public void delete(Ingredient object) {
-
+        super.delete(ingredientRepository, object);
     }
 
     @Override
-    public Ingredient findById(Long aLong) {
-        return null;
+    public Ingredient findById(Long id) {
+        return super.findById(ingredientRepository, id);
     }
 
     @Override
