@@ -9,9 +9,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 @RequestMapping("/shoppingLists")
@@ -93,5 +95,27 @@ public class ShoppingListController {
         shoppingListService.save(shoppingList);
 
         return "redirect:/shoppingLists/";
+    }
+
+    @RequestMapping("/deleteIngredientFromList")
+    public String deleteIngredientFromList(@RequestParam Long shoppingListId, @RequestParam Long ingredientId) {
+
+        ShoppingList tempShoppingList = shoppingListService.findById(shoppingListId);
+        Set<Ingredient> tempIngredientSet = tempShoppingList.getShopIngredientSet();
+
+        Iterator findIngredient = tempIngredientSet.iterator();
+
+        while (findIngredient.hasNext()) {
+            Ingredient temp = (Ingredient) findIngredient.next();
+            if (temp.getId() == ingredientId) {
+                tempIngredientSet.remove(temp);
+                break;
+            }
+        }
+
+        tempShoppingList.setShopIngredientSet(tempIngredientSet);
+        shoppingListService.save(tempShoppingList);
+
+        return "redirect:/shoppingLists/details/" + shoppingListId;
     }
 }
