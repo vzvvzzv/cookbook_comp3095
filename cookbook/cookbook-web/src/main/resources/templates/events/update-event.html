@@ -39,29 +39,28 @@
     <div class="container px-lg-5">
         <div class="p-4 p-lg-5 bg-light rounded-3 text-center">
             <div class="m-4 m-lg-5">
-                <h1 class="display-5 fw-bold" th:text="'View Event'">View Event</h1>
+                <h1 class="display-5 fw-bold" th:text="'Update Event'">Update Event</h1>
                 <br>
 
                 <body>
-                <table class="table table-striped">
-                    <thead>
-                    <tr>
-                        <th scope="col">Event Name</th>
-                        <th scope="col">Event Details</th>
-                        <th scope="col">Event Created By</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr th:each="event :${events}">
-                        <td th:text="${event.eventName}"></td>
-                        <td th:text="${event.eventDetails}"></td>
-                        <td th:text="${event.eventUser.username}"></td>
-                        <td><a th:href="@{/events/updateEvent(id=${event.id})}">Update Event</a></td>
-                        <td><a th:href="@{/events/deleteEvent(id=${event.id})}">Delete Event</a></td>
 
 
 
-                    </tbody>
+                <form th:action="@{/events/addUpdateEvent}" th:object="${event}"
+                      method="post" style="max-width: 600px; margin: 0 auto;">
+
+                    <label class="col-4 col-form-label" th:text="'Event Name:'">Event Name:</label>
+                    <input th:type="hidden" th:name="eventId" th:value="${currentEvent.id}"
+                           class="form-control" required/>
+
+                    <label class="col-4 col-form-label" th:text="'Event Details:'">Event Details:</label>
+                    <input type="text" th:field="*{eventDetails}" class="form-control" required />
+                    <br>
+
+
+                    <button type="submit" class="btn btn-primary">Update Event</button>
+
+                </form>
 
                 </table>
                 <br><br><br>

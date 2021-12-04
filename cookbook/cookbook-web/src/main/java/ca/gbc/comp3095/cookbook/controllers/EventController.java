@@ -30,7 +30,6 @@ public class EventController {
     }
 
 
-
     @RequestMapping("/viewEvent")
     public String viewEvent(Model model) {
 
@@ -38,47 +37,17 @@ public class EventController {
         return "/events/view-event";
     }
 
-//    @RequestMapping("/addEvent")
-//    public String addEvent(Event event, HttpSession session){
+//    @RequestMapping("/updateEvent")
+//    public String updateEvent(Model model) {
 //
-//        System.out.println(event.getEventName() + " " + event.getEventUser()); // Check
 //
-//        Set<Event> userEvent = null;
-//
-//        if (session.getAttribute("userEvent") != null) {
-//            userEvent = (Set) session.getAttribute("userEvent");
-//        } else {
-//            userEvent = new HashSet<Event>();
-//        }
-//        userEvent.add(event);
-//        session.setAttribute("userEvent", userEvent);
-//
-//        return "redirect:/events/edit-events";
-//    }
-//    @RequestMapping("/removeEvent")
-//    public String removeEvent(@RequestParam String eventName, @RequestParam String eventUser,
-//                                   HttpSession session){
-//
-//        System.out.println(eventName + " " + eventUser); // Check
-//
-//        Event eventRemove = new Event();
-//        eventRemove.setEventName(eventName);
-//        eventRemove.setEventUser(eventUser);
-//
-//        Set<Event> userEvent = (Set) session.getAttribute("userEvent");
-//        Iterator eventFind = userEvent.iterator();
-//
-//        while (eventFind.hasNext()) {
-//            Event temp = (Event) eventFind.next();
-//            if (eventRemove.equals(temp)) {
-//                userEvent.remove(temp);
-//                break;
-//            }
-//        }
-//
-//        session.setAttribute("userEvent", userEvent);
-//
-//        return "redirect:/events/edit-events";
 //    }
 
+//    @RequestMapping("/deleteEvent")
+//    public String deleteEvent(Model model) {
+//
+//
+//    }
 }
+
+
