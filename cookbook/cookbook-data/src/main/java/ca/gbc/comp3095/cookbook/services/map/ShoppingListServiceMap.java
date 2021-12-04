@@ -1,5 +1,6 @@
 package ca.gbc.comp3095.cookbook.services.map;
 
+import ca.gbc.comp3095.cookbook.model.Recipe;
 import ca.gbc.comp3095.cookbook.model.ShoppingList;
 import ca.gbc.comp3095.cookbook.repositories.ShoppingListRepository;
 import ca.gbc.comp3095.cookbook.services.ShoppingListService;
@@ -18,26 +19,38 @@ public class ShoppingListServiceMap extends AbstractMapService<ShoppingList, Lon
 
     @Override
     public Set<ShoppingList> findAll() {
-        return null;
+        return super.findAll(shoppingListRepository);
     }
 
     @Override
     public void deleteById(Long id) {
-
+        super.deleteById(shoppingListRepository, id);
     }
 
     @Override
     public void delete(ShoppingList object) {
-
+        super.delete(shoppingListRepository, object);
     }
 
     @Override
-    public ShoppingList findById(Long aLong) {
-        return null;
+    public ShoppingList findById(Long id) {
+        ShoppingList toReturn =  super.findById(shoppingListRepository, id);
+
+        if (toReturn == null) {
+            toReturn = new ShoppingList();
+            toReturn.setId(-1L);
+        }
+
+        return toReturn;
     }
 
     @Override
-    public ShoppingList save(ShoppingList Object) {
-        return null;
+    public ShoppingList save(ShoppingList shoppingList) {
+        return super.save(shoppingListRepository, shoppingList);
+    }
+
+    @Override
+    public Set<ShoppingList> findAllByUserId(Long id) {
+        return shoppingListRepository.findAllByUserId(id);
     }
 }

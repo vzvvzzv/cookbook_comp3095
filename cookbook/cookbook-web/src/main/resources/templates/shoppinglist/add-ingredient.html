@@ -39,23 +39,36 @@
     <div class="container px-lg-5">
         <div class="p-4 p-lg-5 bg-light rounded-3 text-center">
             <div class="m-4 m-lg-5">
-                <h1 class="display-5 fw-bold" th:text="'Recipe Dashboard'">Recipe Dashboard</h1>
+                <h1 class="display-5 fw-bold"
+                    th:text="'Add Ingredient To Shopping List'">Add Ingredient To Shopping List</h1>
                 <br>
                 <body>
-<!--                <h1 th:text="'List Recipes'">Recipes Actions</h1>-->
-                <br><br><br>
-                <h3><a th:href="@{/recipes/profile}">Profile</a></h3><br>
-                <h3><a th:href="@{/recipes/createRecipe}">Create Recipe</a></h3><br>
-                <h3><a th:href="@{/recipes/myRecipe}">Your Recipes</a></h3><br>
-                <h3><a th:href="@{/recipes/favouriteRecipe}">Favourite Recipes</a></h3><br>
-                <h3><a th:href="@{/shoppingLists/index}">Shopping Lists</a></h3><br>
-                <h3><a th:href="@{/recipes/viewRecipe}">View Recipes</a></h3><br>
-                <h3><a th:href="@{/recipes/searchRecipe}">Search Recipe</a></h3><br>
-                <h3><a th:href="@{/recipes/planMeal}">Plan Meal</a></h3><br>
-                <h3><a th:href="@{/events/viewEvent}">View Events</a></h3><br>
-                <h3><a th:href="@{/recipes/logout}">Log out</a></h3>
+                <h5 th:text="${ingredient.ingredientName}"></h5>
+                <br>
+                <h5 th:text="'Quantity'">Quantity:</h5>
+                <p th:text="${ingredient.quantity}"></p>
+
+                <br>
+
+                <form th:action="@{/shoppingLists/processAddToList}" method="post">
+                    <input type="hidden" th:value="${recipeId}" name="recipeId">
+                    <input type="hidden" th:value="${ingredient.id}" name="ingredientId">
+
+
+                    <select id="shoppingListId" name="shoppingListId">
+                        <option th:each="shoppingList : ${userShoppingLists}" th:value="${shoppingList.id}"
+                                th:text="${shoppingList.shoppingListName}"></option>
+                    </select>
+
+                    <button class="btn btn-primary" type="Submit">Save To Shopping List</button>
+
+                    <br><br><br>
+                    <a th:href="@{/recipes}">Return to Recipe Dashboard</a>
+                </form>
 
                 </body>
+
+
             </div>
         </div>
     </div>

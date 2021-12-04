@@ -39,22 +39,23 @@
     <div class="container px-lg-5">
         <div class="p-4 p-lg-5 bg-light rounded-3 text-center">
             <div class="m-4 m-lg-5">
-                <h1 class="display-5 fw-bold" th:text="'Recipe Dashboard'">Recipe Dashboard</h1>
-                <br>
-                <body>
-<!--                <h1 th:text="'List Recipes'">Recipes Actions</h1>-->
-                <br><br><br>
-                <h3><a th:href="@{/recipes/profile}">Profile</a></h3><br>
-                <h3><a th:href="@{/recipes/createRecipe}">Create Recipe</a></h3><br>
-                <h3><a th:href="@{/recipes/myRecipe}">Your Recipes</a></h3><br>
-                <h3><a th:href="@{/recipes/favouriteRecipe}">Favourite Recipes</a></h3><br>
-                <h3><a th:href="@{/shoppingLists/index}">Shopping Lists</a></h3><br>
-                <h3><a th:href="@{/recipes/viewRecipe}">View Recipes</a></h3><br>
-                <h3><a th:href="@{/recipes/searchRecipe}">Search Recipe</a></h3><br>
-                <h3><a th:href="@{/recipes/planMeal}">Plan Meal</a></h3><br>
-                <h3><a th:href="@{/events/viewEvent}">View Events</a></h3><br>
-                <h3><a th:href="@{/recipes/logout}">Log out</a></h3>
 
+
+                <body>
+                <h1 class="display-5 fw-bold" th:text="'Create a New Shopping List'">Create a New Shopping List</h1>
+                <br>
+
+                <form th:action="@{/shoppingLists/processShoppingList}" th:object="${shoppingList}"
+                      method="post" style="max-width: 600px; margin: 0 auto;">
+
+                    <label class="col-4 col-form-label" th:text="'Shopping List Name:'">Shopping List Name:</label>
+                    <input type="text" th:field="*{shoppingListName}" class="form-control" required />
+                    <br>
+
+                    <button type="submit" class="btn btn-primary">Create New Shopping List</button>
+                </form>
+                <br><br><br>
+                <a th:href="@{/recipes}">Return to Recipe Dashboard</a>
                 </body>
             </div>
         </div>
