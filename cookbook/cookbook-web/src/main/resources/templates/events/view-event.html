@@ -39,32 +39,28 @@
     <div class="container px-lg-5">
         <div class="p-4 p-lg-5 bg-light rounded-3 text-center">
             <div class="m-4 m-lg-5">
-
-
-                <body>
-                <h1 class="display-5 fw-bold" th:text="'View Events'">View and Edit Events</h1>
+                <h1 class="display-5 fw-bold" th:text="'View Recipe'">View Event</h1>
                 <br>
+                <p class="fs-4">Click View Event Details for more Functionalities</p>
+                <br>
+                <body>
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th scope="col">Event Name</th>
+                        <th scope="col">Event Details</th>
+                        <th scope="col">Event User</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="event :${events}">
+                        <td th:text="${event.eventName}"></td>
+                        <td th:text="${event.eventDetails}"></td>
+                        <td th:text="${event.eventUser}"></td>
+                        <td><a th:href="@{/events/details(id=${event.id})}">View Events</a></td>
+                    </tbody>
 
-                <form th:action="@{/events/processEditEvent}" th:object="${currentEvent}"
-                      method="post" style="max-width: 600px; margin: 0 auto;">
-
-                    <input type="hidden" th:name="id" th:id="id" th:value="${currentEvent.id}" />
-
-                    <label class="col-4 col-form-label" th:text="'Event Name:'">Event Name:</label>
-                    <input type="text" th:name="eventName" th:id="eventName"
-                           th:value="${currentEvent.eventName}" class="form-control" required />
-                    <br>
-
-                    <label class="col-4 col-form-label" th:text="'Event Details:'">Event Details:</label>
-                    <input type="text" th:name="details" th:id="details" th:value="${currentEvent.details}" class="form-control" required />
-                    <br>
-
-                    <label class="col-4 col-form-label" th:text="'Users:'">Users:</label>
-                    <input type="text" th:name="users" th:id="users" th:value="${currentEvent.user}" class="form-control" required />
-                    <br>
-
-                    <button type="submit" class="btn btn-primary">Update Event(s)</button>
-                </form>
+                </table>
                 <br><br><br>
                 <a th:href="@{/recipes}">Return to Recipe Dashboard</a>
                 </body>
