@@ -1,5 +1,6 @@
 package ca.gbc.comp3095.cookbook.controllers;
 
+import ca.gbc.comp3095.cookbook.model.Ingredient;
 import ca.gbc.comp3095.cookbook.model.ShoppingList;
 import ca.gbc.comp3095.cookbook.model.User;
 import ca.gbc.comp3095.cookbook.services.ShoppingListService;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpSession;
+import java.util.HashSet;
 import java.util.Set;
 
 @RequestMapping("/shoppingLists")
@@ -65,5 +67,31 @@ public class ShoppingListController {
             return "/shoppinglist/details";
 
         }
+    }
+
+    @RequestMapping("/createShoppingList")
+    public String createShoppingList(Model model) {
+
+        if (newSessionCheck()) {
+            return "redirect:/users/login";
+        } else {
+
+            model.addAttribute("shoppingList", new ShoppingList());
+            return "/shoppinglist/create-shoppinglist";
+        }
+    }
+
+    @RequestMapping("/processShoppingList")
+    public String processShoppingList(ShoppingList shoppingList) {
+
+        User tempUser = userService.findByUsername(((User) newSession.getAttribute("user")).getUsername());
+        Set<Ingredient> tempIngredientSet = new HashSet<>();
+
+        shoppingList.setShoppingListUser(tempUser);
+        shoppingList.setShopIngredientSet(tempIngredientSet);
+
+        shoppingListService.save(shoppingList);
+
+        return "redirect:/shoppingLists/";
     }
 }
