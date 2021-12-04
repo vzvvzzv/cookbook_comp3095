@@ -48,4 +48,12 @@ public class ShoppingList extends BaseEntity {
     public void setShopIngredientSet(Set<Ingredient> shopIngredientSet) {
         this.shopIngredientSet = shopIngredientSet;
     }
+
+    public User getShoppingListUser() {
+        return shoppingListUser;
+    }
+
+    public void setShoppingListUser(User shoppingListUser) {
+        this.shoppingListUser = shoppingListUser;
+    }
 }

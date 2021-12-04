@@ -35,39 +35,35 @@
     </div>
 </nav>
 <!-- Header-->
-<header class="py-5">
-    <div class="container px-lg-5">
-        <div class="p-4 p-lg-5 bg-light rounded-3 text-center">
-            <div class="m-4 m-lg-5">
-                <h1 class="display-5 fw-bold" th:text="'View Recipe'">View Shopping Lists</h1>
-                <br>
-                <table class="table table-striped">
-                    <thead>
-                    <tr>
-                        <th scope="col">Recipe Name</th>
-                        <th scope="col">Creator</th>
-                        <th scope="col">Serves</th>
-                        <th scope="col">Created On</th>
-                        <th scope="col">Recipe Details</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr th:each="recipe :${recipes}">
-                        <td th:text="${recipe.recipeName}"></td>
-                        <td th:text="${recipe.user.username}"></td>
-                        <td th:text="${recipe.serving}"></td>
-                        <td th:text="${#dates.format(recipe.creationDate, 'yyyy-MM-dd')}"></td>
-                        <td><a th:href="@{/recipes/details(id=${recipe.id})}">View Details</a></td>
-                    </tbody>
+<body>
+    <header class="py-5">
+        <div class="container px-lg-5">
+            <div class="p-4 p-lg-5 bg-light rounded-3 text-center">
+                <div class="m-4 m-lg-5">
+                    <h1 class="display-5 fw-bold" th:text="'View Recipe'">View Shopping Lists</h1>
+                    <br>
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th scope="col">Shopping List Name</th>
+                            <th scope="col">Details</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="shoppinglist :${shoppingLists}">
+                            <td th:text="${shoppinglist.shoppingListName}"></td>
+                            <td><a th:href="@{'/shoppingLists/details/' + ${shoppinglist.id}}">View Details</a></td>
+                        </tbody>
 
-                </table>
-                <br><br><br>
-                <a th:href="@{/recipes}">Return to Recipe Dashboard</a>
-                </body>
+                    </table>
+                    <br><br><br>
+                    <a th:href="@{/recipes}">Return to Recipe Dashboard</a>
+
+                </div>
             </div>
         </div>
-    </div>
-</header>
+    </header>
+</body>
 
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

@@ -39,27 +39,38 @@
     <div class="container px-lg-5">
         <div class="p-4 p-lg-5 bg-light rounded-3 text-center">
             <div class="m-4 m-lg-5">
-                <h1 class="display-5 fw-bold" th:text="'Recipe Dashboard'">Recipe Dashboard</h1>
+                <h1 class="display-5 fw-bold" th:text="'Recipe Details'">Shopping List Details</h1>
                 <br>
                 <body>
-<!--                <h1 th:text="'List Recipes'">Recipes Actions</h1>-->
-                <br><br><br>
-                <h3><a th:href="@{/recipes/profile}">Profile</a></h3><br>
-                <h3><a th:href="@{/recipes/createRecipe}">Create Recipe</a></h3><br>
-                <h3><a th:href="@{/recipes/myRecipe}">Your Recipes</a></h3><br>
-                <h3><a th:href="@{/recipes/favouriteRecipe}">Favourite Recipes</a></h3><br>
-                <h3><a th:href="@{/shoppingLists/index}">Shopping Lists</a></h3><br>
-                <h3><a th:href="@{/recipes/viewRecipe}">View Recipes</a></h3><br>
-                <h3><a th:href="@{/recipes/searchRecipe}">Search Recipe</a></h3><br>
-                <h3><a th:href="@{/recipes/planMeal}">Plan Meal</a></h3><br>
-                <h3><a th:href="@{/recipes/logout}">Log out</a></h3>
+                <h5 th:text="${shoppingList.shoppingListName}"></h5>
+                <br>
 
+                <h5 th:text="${shoppingList.shoppingListUser.username}"></h5>
+                <br>
+
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th scope="col">Ingredient Name</th>
+                        <th scope="col">Quantity</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="ingredient :${ingredients}">
+                        <td th:text="${ingredient.ingredientName}"></td>
+                        <td th:text="${ingredient.quantity}"></td>
+                    </tbody>
+
+                </table>
+                <br>
+
+                <br><br><br>
+                <a th:href="@{/recipes}">Return to Recipe Dashboard</a>
                 </body>
             </div>
         </div>
     </div>
 </header>
-
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
