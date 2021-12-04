@@ -39,72 +39,41 @@
     <div class="container px-lg-5">
         <div class="p-4 p-lg-5 bg-light rounded-3 text-center">
             <div class="m-4 m-lg-5">
-                <h1 class="display-5 fw-bold" th:text="'Recipe Details'">Recipe Details</h1>
+                <h1 class="display-5 fw-bold"
+                    th:text="'Add Ingredient To Shopping List'">Add Ingredient To Shopping List</h1>
                 <br>
                 <body>
-                <h5 th:text="${recipe.recipeName}"></h5>
+                <h5 th:text="${ingredient.ingredientName}"></h5>
+                <br>
+                <h5 th:text="'Quantity'">Quantity:</h5>
+                <p th:text="${ingredient.quantity}"></p>
+
                 <br>
 
-                <table class="table table-striped">
-                    <thead>
-                    <tr>
-                        <th scope="col">Ingredient Name</th>
-                        <th scope="col">Quantity</th>
-                        <th scope="col">Actions</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr th:each="ingredient :${ingredients}">
-                        <td th:text="${ingredient.ingredientName}"></td>
-                        <td th:text="${ingredient.quantity}"></td>
-                        <td>
-                            <form th:action="@{/shoppingLists/addIngredientToList}"
-                                  method="post" style="max-width: 600px; margin: 0 auto;">
+                <form th:action="@{/shoppingLists/processAddToList}" method="post">
+                    <input type="hidden" th:value="${recipeId}" name="recipeId">
+                    <input type="hidden" th:value="${ingredient.id}" name="ingredientId">
 
-                                <input type="hidden" th:name="recipeId"
-                                       th:value="${recipe.id}" class="form-control" required />
 
-                                <input type="hidden" th:name="ingredientId"
-                                       th:value="${ingredient.id}" class="form-control" required />
+                    <select id="shoppingListId" name="shoppingListId">
+                        <option th:each="shoppingList : ${userShoppingLists}" th:value="${shoppingList.id}"
+                                th:text="${shoppingList.shoppingListName}"></option>
+                    </select>
 
-                                <button type="submit" class="btn btn-primary">Add To Shopping List</button>
+                    <button class="btn btn-primary" type="Submit">Save To Shopping List</button>
 
-                            </form>
-                        </td>
-                    </tbody>
-
-                </table>
-                <br>
-
-                <h5 th:text="'Ingredients:'">Ingredients:</h5>
-                <p th:text="${recipe.ingredients}"></p>
-                <h5 th:text="'Instructions:'">Instructions:</h5>
-                <p th:text="${recipe.instructions}"></p>
-                <h5 th:text="'Servings:'">Servings:</h5>
-                <p th:text="${recipe.serving}"></p>
-                <h5 th:text="'Prep Time:'">Prep Time:</h5>
-                <p th:text="${recipe.prepTime}"></p>
-                <h5 th:text="'Cook Time:'">Cook Time:</h5>
-                <p th:text="${recipe.cookTime}"></p>
-                <h5 th:text="'Created On:'">Created On:</h5>
-                <p th:text="${#dates.format(recipe.creationDate, 'yyyy-MM-dd')}"></p>
-
-                <form th:action="@{/recipes/addtofavorites}" method="post">
-                    <input type="hidden" th:value="${recipe.id}" name="recipeId">
-                    <button class="btn btn-primary" type="submit">Add To Favorite</button>
+                    <br><br><br>
+                    <a th:href="@{/recipes}">Return to Recipe Dashboard</a>
                 </form>
-                <br>
-                <form th:action="@{/recipes/planMeal}" method="post">
-                    <input type="hidden" th:value="${recipe.id}" name="recipeId">
-                    <button class="btn btn-primary" type="submit">Plan a Meal With This Recipe</button>
-                </form>
-                <br><br><br>
-                <a th:href="@{/recipes}">Return to Recipe Dashboard</a>
+
                 </body>
+
+
             </div>
         </div>
     </div>
 </header>
+
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>

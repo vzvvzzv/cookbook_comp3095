@@ -3,6 +3,7 @@ package ca.gbc.comp3095.cookbook.controllers;
 import ca.gbc.comp3095.cookbook.model.Ingredient;
 import ca.gbc.comp3095.cookbook.model.ShoppingList;
 import ca.gbc.comp3095.cookbook.model.User;
+import ca.gbc.comp3095.cookbook.services.IngredientService;
 import ca.gbc.comp3095.cookbook.services.ShoppingListService;
 import ca.gbc.comp3095.cookbook.services.UserService;
 import org.springframework.stereotype.Controller;
@@ -22,11 +23,14 @@ public class ShoppingListController {
 
     private final ShoppingListService shoppingListService;
     private final UserService userService;
+    private final IngredientService ingredientService;
     private HttpSession newSession;
 
-    public ShoppingListController(ShoppingListService shoppingListService, UserService userService) {
+    public ShoppingListController(ShoppingListService shoppingListService, UserService userService,
+                                  IngredientService ingredientService) {
         this.shoppingListService = shoppingListService;
         this.userService = userService;
+        this.ingredientService = ingredientService;
         this.newSession = null;
     }
 
@@ -117,5 +121,48 @@ public class ShoppingListController {
         shoppingListService.save(tempShoppingList);
 
         return "redirect:/shoppingLists/details/" + shoppingListId;
+    }
+
+    @RequestMapping("/addIngredientToList")
+    public String addIngredientToList(@RequestParam Long recipeId,
+                                      @RequestParam Long ingredientId, Model model, HttpSession session) {
+
+        if ((session.getAttribute("user") != null) &&
+                (userService.checkCredentials((User) session.getAttribute("user")))) {
+
+            newSession = session;
+
+            User tempUser = userService.findByUsername(((User) newSession.getAttribute("user")).getUsername());
+            Set<ShoppingList> usersShoppingLists = shoppingListService.findAllByUserId(tempUser.getId());
+
+            Ingredient ingredient = ingredientService.findById(ingredientId);
+
+            model.addAttribute("recipeId", recipeId);
+            model.addAttribute("ingredient", ingredient);
+            model.addAttribute("userShoppingLists", usersShoppingLists);
+
+            return "/shoppinglist/add-ingredient";
+        } else {
+            return "redirect:/users/login";
+        }
+    }
+
+    @RequestMapping("/processAddToList")
+    public String processAddToList(@RequestParam Long recipeId,
+                                   @RequestParam Long ingredientId, @RequestParam Long shoppingListId) {
+
+
+        ShoppingList tempShoppingList = shoppingListService.findById(shoppingListId);
+        Set<Ingredient> tempIngredientSet = tempShoppingList.getShopIngredientSet();
+
+        Ingredient ingredient = ingredientService.findById(ingredientId);
+
+        tempIngredientSet.add(ingredient);
+        tempShoppingList.setShopIngredientSet(tempIngredientSet);
+
+        shoppingListService.save(tempShoppingList);
+
+
+        return "redirect:/recipes/details?id=" + recipeId;
     }
 }
