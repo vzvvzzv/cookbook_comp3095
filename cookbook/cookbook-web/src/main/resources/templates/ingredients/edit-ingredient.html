@@ -40,27 +40,30 @@
         <div class="p-4 p-lg-5 bg-light rounded-3 text-center">
             <div class="m-4 m-lg-5">
 
-                <h3 th:text="'Your Recipes'">Your Recipes</h3><br>
-                <table class="table table-striped">
-                    <thead>
-                    <tr>
-                        <th scope="col">Recipe Name</th>
-                        <th scope="col">Creator</th>
-                        <th scope="col">Recipe Details</th>
-                        <th scope="col">Update</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr th:each="recipe :${userRecipes}">
-                        <td th:text="${recipe.recipeName}"></td>
-                        <td th:text="${recipe.user.username}"></td>
-                        <td><a th:href="@{/recipes/details(id=${recipe.id})}">View Details</a></td>
-                        <td><a th:href="@{'/recipes/updateRecipe/' + ${recipe.id}}">Update</a></td>
-                    </tr>
-                    </tbody>
-                </table>
+
+                <body>
+                <h1 class="display-5 fw-bold" th:text="'Edit Ingredient'">Edit Ingredient</h1>
+                <br>
+
+                <form th:action="@{/ingredients/processEditIngredient}" th:object="${currentIngredient}"
+                      method="post" style="max-width: 600px; margin: 0 auto;">
+
+                    <input type="hidden" th:name="id" th:id="id" th:value="${currentIngredient.id}" />
+
+                    <label class="col-4 col-form-label" th:text="'Ingredient Name:'">Ingredient Name:</label>
+                    <input type="text" th:name="ingredientName" th:id="ingredientName"
+                           th:value="${currentIngredient.ingredientName}" class="form-control" required />
+                    <br>
+
+                    <label class="col-4 col-form-label" th:text="'Quantity:'">Quantity:</label>
+                    <input type="text" th:name="quantity" th:id="quantity" th:value="${currentIngredient.quantity}" class="form-control" required />
+                    <br>
+
+                    <button type="submit" class="btn btn-primary">Update Ingredient</button>
+                </form>
                 <br><br><br>
                 <a th:href="@{/recipes}">Return to Recipe Dashboard</a>
+                </body>
             </div>
         </div>
     </div>

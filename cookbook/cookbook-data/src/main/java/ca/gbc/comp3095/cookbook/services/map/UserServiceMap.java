@@ -35,12 +35,12 @@ public class UserServiceMap extends AbstractMapService<User, Long> implements Us
 
     @Override
     public void deleteById(Long id) {
-        super.deleteById(id);
+        super.deleteById(userRepository, id);
     }
 
     @Override
     public void delete(User user) {
-        super.delete(user);
+        super.delete(userRepository, user);
     }
 
     // Saves user to database by calling super.save and passing userRepository & user

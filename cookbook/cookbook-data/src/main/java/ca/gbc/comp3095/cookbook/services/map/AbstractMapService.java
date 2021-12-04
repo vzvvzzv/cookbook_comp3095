@@ -40,10 +40,19 @@ public abstract class AbstractMapService<T, ID extends Long>{
     }
 
     // Possibly change delete methods later
-    void deleteById(ID id){
-        map.remove(id);
+    void deleteById(CrudRepository repo, ID id){
+        try {
+            repo.deleteById(id);
+        } catch (Exception e) {
+
+        }
     }
-    void delete(T object){
-        map.entrySet().removeIf(entry -> entry.getValue().equals(object));
+
+    void delete(CrudRepository repo, T object){
+        try {
+            repo.delete(object);
+        } catch (Exception e) {
+
+        }
     }
 }
