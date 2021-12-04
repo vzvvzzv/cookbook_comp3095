@@ -2,6 +2,7 @@ package ca.gbc.comp3095.cookbook.services.map;
 
 import ca.gbc.comp3095.cookbook.model.Event;
 import ca.gbc.comp3095.cookbook.model.Ingredient;
+import ca.gbc.comp3095.cookbook.model.Recipe;
 import ca.gbc.comp3095.cookbook.repositories.EventRepository;
 import ca.gbc.comp3095.cookbook.services.EventService;
 import org.springframework.stereotype.Service;
@@ -19,8 +20,10 @@ public class EventServiceMap extends AbstractMapService<Event, Long> implements 
 
     @Override
     public Set<Event> findAll() {
-        return null;
+        return super.findAll(eventRepository);
     }
+
+
 
     @Override
     public void deleteById(Long id) {
