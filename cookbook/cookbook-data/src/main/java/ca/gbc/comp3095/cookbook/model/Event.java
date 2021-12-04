@@ -51,7 +51,7 @@ public class Event extends BaseEntity{
         return eventUser;
     }
 
-    public void setEventUser(User eventUser) {
+    public void setEventUser(String eventUser) {
         this.eventUser = eventUser;
     }
 }
