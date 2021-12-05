@@ -20,4 +20,9 @@ public interface UserService extends CrudService<User, Long>{
     // returns user based on given username
     User findByUsername(String username);
 
+    // returns user based on given email
+    User findByEmail(String email);
+
+    // updates user given user data
+    void updateUser(User user);
 }

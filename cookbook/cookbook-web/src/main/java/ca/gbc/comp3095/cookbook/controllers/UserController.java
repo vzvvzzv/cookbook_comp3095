@@ -72,6 +72,41 @@ public class UserController {
         }
     }
 
+    @RequestMapping({"/forgot_password"})
+    public String forgot_password(Model model){
+        User tempUser = new User();
+        model.addAttribute("user", tempUser);
+        return "/users/forgot-password";
+    }
+
+    @PostMapping("/update_user")
+    public String update_user(User user, HttpServletRequest request){
+        newSession = request.getSession();
+        User tempUser = userService.findByUsername(user.getUsername());
+        tempUser.setFirstname(user.getFirstname());
+        tempUser.setLastname(user.getLastname());
+        tempUser.setEmail(user.getEmail());
+        userService.updateUser(tempUser);
+        return "/users/update-user-success";
+    }
+
+    @PostMapping("/change_password")
+    public String change_password(User user, HttpServletRequest request){
+        newSession = request.getSession();
+        newSession.setAttribute("user", user);
+        return "/users/change-password";
+    }
+
+    @PostMapping("/update_password")
+    public String update_password(User user, HttpServletRequest request){
+        newSession = request.getSession();
+        User tempUser = userService.findByEmail(user.getEmail());
+        if(tempUser == null) return "/users/update-password-failure";
+        tempUser.setPassword(user.getPassword());
+        userService.save(tempUser);
+        return "/users/update-password-success";
+    }
+
     // maps method to /users/logout path
     // invalidates session to clear attributes, sets newSession to null. and returns /users/logout
     @RequestMapping("/logout")
