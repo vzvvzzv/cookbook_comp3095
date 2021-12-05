@@ -165,4 +165,9 @@ public class ShoppingListController {
 
         return "redirect:/recipes/details?id=" + recipeId;
     }
+
+    @RequestMapping("/exportShoppingList")
+    public String exportShoppingList() {
+        return null;
+    }
 }
