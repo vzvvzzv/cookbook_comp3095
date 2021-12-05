@@ -39,30 +39,32 @@
     <div class="container px-lg-5">
         <div class="p-4 p-lg-5 bg-light rounded-3 text-center">
             <div class="m-4 m-lg-5">
-                <h1 class="display-5 fw-bold" th:text="'Update Event'">Update Event</h1>
-                <br>
+
 
                 <body>
+                <h1 class="display-5 fw-bold" th:text="'Edit Event'">Edit Event</h1>
+                <br>
 
-
-
-                <form th:action="@{/events/addUpdateEvent}" th:object="${event}"
+                <form th:action="@{/events/processUpdate}" th:object="${currentEvent}"
                       method="post" style="max-width: 600px; margin: 0 auto;">
 
-                    <label class="col-4 col-form-label" th:text="'Event Name:'">Event Name:</label>
-                    <input th:type="hidden" th:name="eventId" th:value="${currentEvent.id}"
-                           class="form-control" required/>
+                    <input type="hidden" th:field="${currentEvent.id}" th:value="${currentEvent.id}" />
 
-                    <label class="col-4 col-form-label" th:text="'Event Details:'">Event Details:</label>
-                    <input type="text" th:field="*{eventDetails}" class="form-control" required />
+                    <label class="col-4 col-form-label" th:text="'Event Name:'">Event Name:</label>
+                    <input type="text" th:name="eventName" th:id="eventName"
+                           th:value="${currentEvent.eventName}" class="form-control" required />
                     <br>
 
+                    <label class="col-4 col-form-label" th:text="'Event Details:'">Event Details:</label>
+                    <textarea th:name="eventDetails" th:id="eventDetails"
+                              class="form-control" th:required="required" rows="15" cols="40"
+                    >[[${currentEvent.eventDetails}]]</textarea>
+                    <br>
+
+                    <input type="hidden" th:field="${currentEvent.eventUser}" th:value="${currentEvent.eventUser}" />
 
                     <button type="submit" class="btn btn-primary">Update Event</button>
-
                 </form>
-
-                </table>
                 <br><br><br>
                 <a th:href="@{/recipes}">Return to Recipe Dashboard</a>
                 </body>

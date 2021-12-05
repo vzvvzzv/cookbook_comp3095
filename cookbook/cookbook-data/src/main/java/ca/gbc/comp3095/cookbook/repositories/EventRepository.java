@@ -8,7 +8,7 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.Set;
 
 public interface EventRepository extends CrudRepository<Event, Long> {
+
     @Query("select i from Event i join i.eventUser r where r.id = :id")
-    Set<Event> getSetByEvent(Long id);
-    // TO DO: query SELECT EVENTS BY USER ID
+    Set<Event> findAllByUserId(Long id);
 }

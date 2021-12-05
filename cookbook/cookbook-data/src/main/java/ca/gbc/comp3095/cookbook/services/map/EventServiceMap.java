@@ -27,26 +27,26 @@ public class EventServiceMap extends AbstractMapService<Event, Long> implements 
 
     @Override
     public void deleteById(Long id) {
-
+        super.deleteById(eventRepository, id);
     }
 
     @Override
     public void delete(Event object) {
-
+        super.delete(eventRepository, object);
     }
 
     @Override
     public Event findById(Long aLong) {
-        return null;
+        return super.findById(eventRepository, aLong);
     }
 
     @Override
-    public Event save(Event Object) {
-        return null;
+    public Event save(Event event) {
+        return super.save(eventRepository, event);
     }
 
     @Override
-    public Set<Event> findAllByEventId(Long eventId) {
-        return eventRepository.getSetByEvent(eventId);
+    public Set<Event> findAllByUserId(Long userId) {
+        return eventRepository.findAllByUserId(userId);
     }
 }
