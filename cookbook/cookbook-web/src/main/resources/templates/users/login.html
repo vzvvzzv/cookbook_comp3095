@@ -40,7 +40,7 @@
         <div class="p-4 p-lg-5 bg-light rounded-3 text-center">
             <div class="m-4 m-lg-5">
                 <h1 class="display-5 fw-bold" th:text="'Login'">Login</h1>
-<br>
+                <br>
                 <body>
 
                 <form th:action="@{/users/process_login}" th:object="${user}"
@@ -55,6 +55,8 @@
                     <br>
 
                     <button type="submit" class="btn btn-primary">Log in</button>
+                    <br><br>
+                    <a th:href="@{/users/forgot_password}">Forgot Password?</a>
                 </form>
                 </body>
                 <br><br><br>

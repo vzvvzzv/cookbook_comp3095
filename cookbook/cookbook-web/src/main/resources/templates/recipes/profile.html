@@ -40,8 +40,10 @@
         <div class="p-4 p-lg-5 bg-light rounded-3 text-center">
             <div class="m-4 m-lg-5">
 
-
-                <h3 th:text="'Profile'">Profile</h3><br>
+                <div>
+                    <h3 th:text="'Profile'">Profile</h3>
+                    <a th:href="@{/recipes/edit_profile}">Edit Profile</a><br>
+                </div>
 
                 <table class="table table-striped">
                     <thead>
