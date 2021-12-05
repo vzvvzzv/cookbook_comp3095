@@ -37,9 +37,7 @@ public class IngredientController {
     }
 
     @RequestMapping("/addIngredient")
-    public String addIngredient(Ingredient ingredient, HttpSession session){
-
-        System.out.println(ingredient.getIngredientName() + " " + ingredient.getQuantity()); // Check
+    public String addIngredient(Ingredient ingredient, HttpSession session) {
 
         Set<Ingredient> recipeIngredients = null;
 
@@ -56,9 +54,7 @@ public class IngredientController {
 
     @RequestMapping("/removeIngredient")
     public String removeIngredient(@RequestParam String ingredientName, @RequestParam String quantity,
-                                   HttpSession session){
-
-        System.out.println(ingredientName + " " + quantity); // Check
+                                   HttpSession session) {
 
         Ingredient ingredientRemove = new Ingredient();
         ingredientRemove.setIngredientName(ingredientName);
@@ -84,19 +80,12 @@ public class IngredientController {
     public String processIngredient(HttpSession session) {
 
         Recipe tempRecipe = (Recipe) session.getAttribute("recipeProcess");
-        Set<Recipe> tempRecipeSet = new HashSet<Recipe>();
+        Set<Recipe> tempRecipeSet = new HashSet<>();
         tempRecipeSet.add(tempRecipe);
         Set<Ingredient> tempIngredients = (Set) session.getAttribute("recipeIngredients");
 
-        Iterator ingredientIterator = tempIngredients.iterator();
-
-        // Save Ingredients to Database
-        while (ingredientIterator.hasNext()) {
-            Ingredient temp = (Ingredient) ingredientIterator.next();
-            System.out.println(temp.getIngredientName());
-            temp.setIngredientRecipeSet(tempRecipeSet);
-            ingredientService.save(temp);
-        }
+        // Save ingredient set to database
+        ingredientService.saveIngredientSet(tempIngredients, tempRecipeSet);
 
         // Save recipe to Database
         recipeService.save(tempRecipe);
@@ -109,8 +98,6 @@ public class IngredientController {
 
     @RequestMapping("/addUpdateIngredient")
     public String addUpdateIngredient(@RequestParam Long recipeId, Ingredient ingredient, HttpSession session){
-
-        System.out.println(ingredient.getIngredientName() + " " + ingredient.getQuantity()); // Check
 
         Set<Ingredient> recipeIngredients = ingredientService.findAllByRecipeId(recipeId);
         Recipe tempRecipe = recipeService.findById(recipeId);
@@ -154,8 +141,7 @@ public class IngredientController {
     @RequestMapping("/editIngredient")
     public String editIngredient(@RequestParam Long recipeId, @RequestParam Long ingredientId,
                                  Model model, HttpSession session) {
-
-        System.out.println(ingredientId);
+        
         Ingredient tempIngredient = ingredientService.findById(ingredientId);
 
         session.setAttribute("recipeId", recipeId);

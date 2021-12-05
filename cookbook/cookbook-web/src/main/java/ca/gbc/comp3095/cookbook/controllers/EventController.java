@@ -24,6 +24,7 @@ import java.util.Set;
 @RequestMapping("/events")
 @Controller
 public class EventController {
+
     // Dependencies
     private final EventService eventService;
     private final UserService userService;
@@ -93,7 +94,6 @@ public class EventController {
 
             Event tempEvent = eventService.findById(eventId);
             model.addAttribute("currentEvent", tempEvent);
-            System.out.println(tempEvent.getEventUser());
 
             return "/events/update-event";
         }
@@ -101,8 +101,6 @@ public class EventController {
 
     @RequestMapping("/processUpdate")
     public String processUpdate(Event event) {
-
-        System.out.println(event.getEventUser());
 
         if (newSessionCheck()) {
             return "redirect:/users/login";

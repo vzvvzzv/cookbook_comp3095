@@ -16,6 +16,6 @@ import java.util.Set;
 
 public interface EventService extends CrudService<Event, Long> {
 
-    // TO DO: Methods which will be overriden
+    // Find all events by user
     Set<Event> findAllByUserId(Long userId);
 }
