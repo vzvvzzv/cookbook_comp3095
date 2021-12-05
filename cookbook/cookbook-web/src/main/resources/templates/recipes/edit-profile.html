@@ -41,8 +41,7 @@
             <div class="m-4 m-lg-5">
 
                 <div>
-                    <h3 th:text="'Profile'">Profile</h3>
-                    <a th:href="@{/recipes/edit_profile}">Edit Profile</a><br>
+                    <h3 th:text="'Edit Profile'">Edit Profile</h3>
                 </div>
 
                 <table class="table table-striped">
@@ -50,42 +49,50 @@
                     <tr>
                         <th scope="col">Id</th>
                         <th scope="col">Username</th>
+                        <th scope="col">Password</th>
                         <th scope="col">First Name</th>
                         <th scope="col">Last Name</th>
+                        <th scope="col">Email</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr th:each="user :${users}">
                         <td th:text="${user.id}"></td>
                         <td th:text="${user.username}"></td>
+                        <td th:text="${user.password}"></td>
                         <td th:text="${user.firstname}"></td>
                         <td th:text="${user.lastname}"></td>
+                        <td th:text="${user.email}"></td>
                     </tbody>
 
                 </table>
-                <br><br><br>
+                <br>
+                <form th:action="@{/users/update_user}" th:object="${users}" method="post" style="max-width: 600px; margin: 0 auto;">
+                    <input type="hidden" th:field="*{id}" th:value="${users.getId()}" name="id">
+                    <input type="hidden" th:field="*{username}" th:value="${users.getUsername()}" name="username">
+                    <input type="hidden" th:field="*{password}" th:value="${users.getPassword()}" name="password">
+                    <label class="col-4 col-form-label">First Name: </label>
+                    <input type="text" th:field="*{firstname}" class="form-control" id="firstname" name="firstname"  value="" required>
+                    <br>
+                    <label class="col-4 col-form-label">Last Name: </label>
+                    <input type="text" th:field="*{lastname}" class="form-control" id="lastname" name="lastname" value="" required>
+                    <br>
+                    <label class="col-4 col-form-label">Email: </label>
+                    <input type="text" th:field="*{email}" class="form-control" id="email" name="email" value="" required>
+                    <br>
+                    <button type="submit" class="btn btn-primary">Update</button>
+                </form>
 
-                <h3 th:text="'Planned Meals'">Planned Meals</h3><br>
-                <table class="table table-striped">
-                    <thead>
-                    <tr>
-                        <th scope="col">Recipe Name</th>
-                        <th scope="col">Creator</th>
-                        <th scope="col">Recipe Details</th>
-                        <th scope="col">Planned Date</th>
-                    </tr>
-                    </thead>
-
-
-                    <tbody>
-                    <tr th:each="meal :${mealSet}">
-                        <td th:text="${meal.meal_recipe.recipeName}"></td>
-                        <td th:text="${meal.meal_recipe.user.username}"></td>
-                        <td><a th:href="@{/recipes/details(id=${meal.meal_recipe.id})}">View Details</a></td>
-                        <td th:text="${#dates.format(meal.meal_date, 'yyyy-MM-dd')}"></td>
-                    </tr>
-                    </tbody>
-                </table>
+                <br>
+                <form th:action="@{/users/change_password}" th:object="${users}" method="post" style="max-width: 600px; margin: 0 auto;">
+                    <input type="hidden" th:field="*{id}" th:value="*{id}" name="id">
+                    <input type="hidden" th:field="*{username}" th:value="*{username}" name="username">
+                    <input type="hidden" th:field="*{password}" th:value="*{password}" name="password">
+                    <input type="hidden" th:field="*{firstname}" th:value="*{firstname}" name="firstname">
+                    <input type="hidden" th:field="*{lastname}" th:value="*{lastname}" name="lastname">
+                    <input type="hidden" th:field="*{email}" th:value="*{email}" name="email">
+                    <button class="btn btn-warning" type="submit">Change Password</button>
+                </form>
                 <br><br><br>
                 <a th:href="@{/recipes}">Return to Recipe Dashboard</a>
             </div>

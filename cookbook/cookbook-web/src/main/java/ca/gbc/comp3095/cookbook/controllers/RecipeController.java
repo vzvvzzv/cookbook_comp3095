@@ -329,4 +329,19 @@ public class RecipeController {
             }
         }
     }
+
+    @RequestMapping("/edit_profile")
+    public String editProfile(Model model){
+
+        if(newSessionCheck()){
+            return "redirect:users/login";
+        } else {
+            //Get user
+            User tempUser = (User) newSession.getAttribute("user");
+            tempUser = userService.findByUsername(tempUser.getUsername());
+
+            model.addAttribute("users", tempUser);
+            return "/recipes/edit-profile";
+        }
+    }
 }

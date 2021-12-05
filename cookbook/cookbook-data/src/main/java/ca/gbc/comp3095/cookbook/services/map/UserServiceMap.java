@@ -61,6 +61,18 @@ public class UserServiceMap extends AbstractMapService<User, Long> implements Us
         return userRepository.findByUsername(username);
     }
 
+    // finds user from database using email
+    @Override
+    public User findByEmail(String email){
+        return userRepository.findByEmail(email);
+    }
+
+    // updates user using user object
+    @Override
+    public void updateUser(User user){
+        userRepository.updateUser(user.getUsername(), user.getFirstname(), user.getLastname(), user.getEmail());
+    }
+
     // Gets a user from the database with matching username & checks if the database_user is equal
     // If it matches return true, if it doesn't match return false
     @Override
