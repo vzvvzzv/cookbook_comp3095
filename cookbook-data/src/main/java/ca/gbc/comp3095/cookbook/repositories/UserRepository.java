@@ -14,6 +14,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
+import org.springframework.transaction.annotation.Transactional;
 
 public interface UserRepository extends CrudRepository<User, Long> {
 
@@ -22,7 +23,12 @@ public interface UserRepository extends CrudRepository<User, Long> {
     @Query("SELECT u FROM User u WHERE u.username = ?1")
     User findByUsername(String username);
 
+    // Returns a user where the database email matches the given email
+    @Query("SELECT u FROM User u WHERE u.email = ?1")
+    User findByEmail(String email);
+
     // Updates a user where the datebase username matches the given username
+    @Transactional
     @Modifying
     @Query("UPDATE User u SET u.firstname = :firstname, u.lastname = :lastname, u.email = :email WHERE u.username = :username")
     void updateUser(@Param("username") String username, @Param("firstname") String firstname, @Param("lastname") String lastname, @Param("email") String email);
