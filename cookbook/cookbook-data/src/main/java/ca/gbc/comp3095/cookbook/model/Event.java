@@ -1,3 +1,12 @@
+/*********************************************************************************
+ * Project: Cookbook App
+ * Assignment: COMP3095 Assignment2
+ * Author(s): Chi Calvin Nguyen, Simon Ung, Deniz Dogan, Armen Levon Armen
+ * Student Number: 101203877, 101032525, 101269485, 101281931
+ * Date: 2021-12-5
+ * Description: Event.java is a model which holds data (used with the h2-database) for the app. The data it pulls from
+ * and saves to is the events table in the database
+ *********************************************************************************/
 package ca.gbc.comp3095.cookbook.model;
 
 import javax.persistence.*;
@@ -17,6 +26,7 @@ public class Event extends BaseEntity{
     private String eventDetails;
 
     // RELATIONSHIPS
+    // ManyToOne relationship with the User (User has many events)
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User eventUser;

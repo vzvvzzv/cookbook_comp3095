@@ -1,9 +1,9 @@
 /*********************************************************************************
  * Project: Cookbook App
- * Assignment: COMP3095 Assignment1
- * Author(s): Chi Calvin Nguyen, Simon Ung, Deniz Dogan
- * Student Number: 101203877, 101032525, 101269485
- * Date: 2021-11-06
+ * Assignment: COMP3095 Assignment2
+ * Author(s): Chi Calvin Nguyen, Simon Ung, Deniz Dogan, Armen Levon Armen
+ * Student Number: 101203877, 101032525, 101269485, 101281931
+ * Date: 2021-12-5
  * Description: RecipeRepository.java extends the CrudRepository allows for CRUD operations to the h2-database.
  * RecipeRepository specifically returns Recipe objects and possesses special queries
  *********************************************************************************/
@@ -32,6 +32,7 @@ public interface RecipeRepository extends CrudRepository<Recipe, Long> {
     @Query("select r from Recipe r where LOWER(r.recipeName) LIKE %:recipeName%")
     Set<Recipe> getSetByKeyword(@Param("recipeName") String recipeName);
 
+    // Returns set of recipes where recipe name matches wildcard (for searching) and user id matches users in fav_users
     @Query("select r from Recipe r join r.fav_users u where lower(r.recipeName) like %:recipeName% and u.id = :id")
     Set<Recipe> getSetFavByKeyword(Long id, @Param("recipeName") String recipeName);
 }

@@ -1,9 +1,9 @@
 /*********************************************************************************
  * Project: Cookbook App
- * Assignment: COMP3095 Assignment1
- * Author(s): Chi Calvin Nguyen, Simon Ung, Deniz Dogan
- * Student Number: 101203877, 101032525, 101269485
- * Date: 2021-11-06
+ * Assignment: COMP3095 Assignment2
+ * Author(s): Chi Calvin Nguyen, Simon Ung, Deniz Dogan, Armen Levon Armen
+ * Student Number: 101203877, 101032525, 101269485, 101281931
+ * Date: 2021-12-5
  * Description: RegisterController displays pages in the /register subdirectory.
  * RegisterController also gets information from the pages & creates users from them.
  *********************************************************************************/

@@ -1,3 +1,12 @@
+/*********************************************************************************
+ * Project: Cookbook App
+ * Assignment: COMP3095 Assignment2
+ * Author(s): Chi Calvin Nguyen, Simon Ung, Deniz Dogan, Armen Levon Armen
+ * Student Number: 101203877, 101032525, 101269485, 101281931
+ * Date: 2021-12-5
+ * Description: ShoppingListController displays pages in the /shoppinglist subdirectory.
+ * ShoppingListController manages the creation, deletion, displaying of shoppinglists
+ *********************************************************************************/
 package ca.gbc.comp3095.cookbook.controllers;
 
 import ca.gbc.comp3095.cookbook.model.Ingredient;

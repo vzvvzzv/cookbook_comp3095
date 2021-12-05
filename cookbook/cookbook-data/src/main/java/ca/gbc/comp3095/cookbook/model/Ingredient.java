@@ -1,3 +1,12 @@
+/*********************************************************************************
+ * Project: Cookbook App
+ * Assignment: COMP3095 Assignment2
+ * Author(s): Chi Calvin Nguyen, Simon Ung, Deniz Dogan, Armen Levon Armen
+ * Student Number: 101203877, 101032525, 101269485, 101281931
+ * Date: 2021-12-5
+ * Description: Ingredient.java is a model which holds data (used with the h2-database) for the app.
+ * The data it pulls from and saves to is the ingredients table in the database
+ *********************************************************************************/
 package ca.gbc.comp3095.cookbook.model;
 
 import javax.persistence.*;
@@ -16,10 +25,11 @@ public class Ingredient extends BaseEntity {
     private String quantity;
 
     // RELATIONSHIPS
+    // ManyToMany relationship with Recipe (Many Recipes can have Many Ingredients)
     @ManyToMany(mappedBy = "recipeIngredientSet")
     private Set<Recipe> ingredientRecipeSet;
 
-    // TO DO RELATIONSHIPS SHOPPING LIST
+    // ManyToMany relationship with ShoppingList (Many ShoppingLists can have Many Ingredients)
     @ManyToMany(mappedBy = "shopIngredientSet")
     private Set<ShoppingList> ingredientShopListSet;
 
@@ -65,6 +75,8 @@ public class Ingredient extends BaseEntity {
         this.ingredientShopListSet = ingredientShopListSet;
     }
 
+    // Methods
+    // equals() method determines if objects are equal based on ingredientName & quantity
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

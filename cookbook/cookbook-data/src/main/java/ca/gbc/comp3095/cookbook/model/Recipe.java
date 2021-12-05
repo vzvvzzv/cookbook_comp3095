@@ -1,9 +1,9 @@
 /*********************************************************************************
  * Project: Cookbook App
- * Assignment: COMP3095 Assignment1
- * Author(s): Chi Calvin Nguyen, Simon Ung, Deniz Dogan
- * Student Number: 101203877, 101032525, 101269485
- * Date: 2021-11-06
+ * Assignment: COMP3095 Assignment2
+ * Author(s): Chi Calvin Nguyen, Simon Ung, Deniz Dogan, Armen Levon Armen
+ * Student Number: 101203877, 101032525, 101269485, 101281931
+ * Date: 2021-12-5
  * Description: Recipe.java is a model which holds data (used with the h2-database) for the app. The data it pulls from
  * and saves to is the recipes table in the database
  *********************************************************************************/
@@ -68,6 +68,7 @@ public class Recipe extends BaseEntity {
     @OneToMany(mappedBy = "meal_recipe")
     private Set<Meal> recipe_plannedMeals;
 
+    // ManyToMany relationship with Ingredient (Many recipes can have many ingredients)
     @ManyToMany
     @JoinTable(name = "recipes_ingredients",
             joinColumns = @JoinColumn(name = "recipe_id"), inverseJoinColumns = @JoinColumn(name = "ingredient_id"))
