@@ -10,6 +10,7 @@
 package ca.gbc.comp3095.cookbook.services;
 
 import ca.gbc.comp3095.cookbook.model.Ingredient;
+import ca.gbc.comp3095.cookbook.model.Recipe;
 
 import java.util.Set;
 
@@ -17,4 +18,9 @@ public interface IngredientService extends CrudService<Ingredient, Long> {
 
     // Find ALl Ingredients by recipe
     Set<Ingredient> findAllByRecipeId(Long recipeId);
+
+    // Save Set of Ingredients to Database
+    void saveIngredientSet(Set<Ingredient> ingredientSet, Set<Recipe> recipeSet);
+
+    //
 }

@@ -10,10 +10,12 @@
 package ca.gbc.comp3095.cookbook.services.map;
 
 import ca.gbc.comp3095.cookbook.model.Ingredient;
+import ca.gbc.comp3095.cookbook.model.Recipe;
 import ca.gbc.comp3095.cookbook.repositories.IngredientRepository;
 import ca.gbc.comp3095.cookbook.services.IngredientService;
 import org.springframework.stereotype.Service;
 
+import java.util.Iterator;
 import java.util.Set;
 
 @Service // Annotates this class as a Service to be managed by Spring Boot
@@ -55,5 +57,17 @@ public class IngredientServiceMap extends AbstractMapService<Ingredient, Long> i
     @Override
     public Set<Ingredient> findAllByRecipeId(Long recipeId) {
         return ingredientRepository.getSetByRecipe(recipeId);
+    }
+
+    @Override
+    public void saveIngredientSet(Set<Ingredient> ingredientSet, Set<Recipe> recipeSet) {
+        Iterator ingredientIterator = ingredientSet.iterator();
+
+        // Save Ingredients to Database
+        while (ingredientIterator.hasNext()) {
+            Ingredient temp = (Ingredient) ingredientIterator.next();
+            temp.setIngredientRecipeSet(recipeSet);
+            this.save(temp);
+        }
     }
 }

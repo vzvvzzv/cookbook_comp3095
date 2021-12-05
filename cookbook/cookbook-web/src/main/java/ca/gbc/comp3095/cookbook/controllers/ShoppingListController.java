@@ -69,18 +69,22 @@ public class ShoppingListController {
     @RequestMapping("/details/{id}")
     public String details(@PathVariable Long id, Model model) {
 
-
-        ShoppingList tempShoppingList = shoppingListService.findById(id);
-
-        if (tempShoppingList.getId() == -1L) {
-            return "redirect:/shoppingLists/";
+        if (newSessionCheck()) {
+            return "redirect:/users/login";
         } else {
 
-            model.addAttribute("shoppingList", tempShoppingList);
-            model.addAttribute("ingredients", tempShoppingList.getShopIngredientSet());
+            ShoppingList tempShoppingList = shoppingListService.findById(id);
 
-            return "/shoppinglist/details";
+            if (tempShoppingList.getId() == -1L) {
+                return "redirect:/shoppingLists/";
+            } else {
 
+                model.addAttribute("shoppingList", tempShoppingList);
+                model.addAttribute("ingredients", tempShoppingList.getShopIngredientSet());
+
+                return "/shoppinglist/details";
+
+            }
         }
     }
 
