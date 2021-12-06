@@ -48,6 +48,7 @@
                     <input type="text" name="key" class="form-control" />
                     <br>
                     <button type="submit" class="btn btn-primary">Search</button>
+                    <br>
                 </form>
 
                 <table class="table table-striped">
@@ -59,7 +60,7 @@
                     </tr>
                     </thead>
 
-                    <tbody>
+                    <tbody class="custom-text">
                     <tr th:each="recipe :${favRecipes}">
                         <td th:text="${recipe.recipeName}"></td>
                         <td th:text="${recipe.user.username}"></td>

@@ -61,7 +61,7 @@
                         <th scope="col">Recipe Details</th>
                     </tr>
                     </thead>
-                    <tbody>
+                    <tbody class="custom-text">
                     <tr th:each="recipe :${recipeSet}">
                         <td th:text="${recipe.recipeName}"></td>
                         <td th:text="${recipe.user.username}"></td>

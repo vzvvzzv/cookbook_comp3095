@@ -54,7 +54,7 @@
                         <th scope="col">Last Name</th>
                     </tr>
                     </thead>
-                    <tbody>
+                    <tbody class="custom-text">
                     <tr th:each="user :${users}">
                         <td th:text="${user.id}"></td>
                         <td th:text="${user.username}"></td>
@@ -77,7 +77,7 @@
                     </thead>
 
 
-                    <tbody>
+                    <tbody class="custom-text">
                     <tr th:each="meal :${mealSet}">
                         <td th:text="${meal.meal_recipe.recipeName}"></td>
                         <td th:text="${meal.meal_recipe.user.username}"></td>

@@ -49,7 +49,7 @@
                             <th scope="col">Details</th>
                         </tr>
                         </thead>
-                        <tbody>
+                        <tbody class="custom-text">
                         <tr th:each="shoppinglist :${shoppingLists}">
                             <td th:text="${shoppinglist.shoppingListName}"></td>
                             <td><a th:href="@{'/shoppingLists/details/' + ${shoppinglist.id}}">View Details</a></td>

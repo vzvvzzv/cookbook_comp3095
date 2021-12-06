@@ -44,7 +44,7 @@
                 <p class="fs-4">Click View Details to Plan a Meal in advance and or favourite a recipe!</p>
                 <br>
                 <body>
-                <table class="table table-striped">
+                <table class="table table-striped ">
                     <thead>
                     <tr>
                         <th scope="col">Recipe Name</th>
@@ -54,7 +54,7 @@
                         <th scope="col">Recipe Details</th>
                     </tr>
                     </thead>
-                    <tbody>
+                    <tbody class="custom-text">
                     <tr th:each="recipe :${recipes}">
                         <td th:text="${recipe.recipeName}"></td>
                         <td th:text="${recipe.user.username}"></td>

@@ -12,6 +12,10 @@
     background-color: #2B48A1;
 }
 
+.custom-text {
+    color: #72C1D5 !important;
+}
+
 body {
     font-family: 'Poppins', sans-serif;
     font-weight: 300;
