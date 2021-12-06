@@ -17,11 +17,13 @@ import ca.gbc.comp3095.cookbook.services.ShoppingListService;
 import ca.gbc.comp3095.cookbook.services.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
@@ -138,20 +140,31 @@ public class ShoppingListController {
 
     @RequestMapping("/addIngredientToList")
     public String addIngredientToList(@RequestParam Long recipeId,
-                                      @RequestParam Long ingredientId, Model model, HttpSession session) {
+                                      @ModelAttribute("ingredientIds") ArrayList<String> ingredientIds,
+                                      Model model, HttpSession session) {
 
         if ((session.getAttribute("user") != null) &&
                 (userService.checkCredentials((User) session.getAttribute("user")))) {
 
             newSession = session;
 
+            System.out.println(ingredientIds);
+
             User tempUser = userService.findByUsername(((User) newSession.getAttribute("user")).getUsername());
             Set<ShoppingList> usersShoppingLists = shoppingListService.findAllByUserId(tempUser.getId());
 
-            Ingredient ingredient = ingredientService.findById(ingredientId);
+            Set<Ingredient> tempIngredientSet = null;
+
+            Iterator listIterator = ingredientIds.iterator();
+
+            while (listIterator.hasNext()) {
+                System.out.println(listIterator.next());
+                //Ingredient temp = ingredientService.findById((Long) listIterator.next());
+                //tempIngredientSet.add((temp));
+            }
 
             model.addAttribute("recipeId", recipeId);
-            model.addAttribute("ingredient", ingredient);
+            model.addAttribute("ingredients", tempIngredientSet);
             model.addAttribute("userShoppingLists", usersShoppingLists);
 
             return "/shoppinglist/add-ingredient";

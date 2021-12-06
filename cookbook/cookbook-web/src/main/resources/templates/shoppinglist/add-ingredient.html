@@ -43,16 +43,25 @@
                     th:text="'Add Ingredient To Shopping List'">Add Ingredient To Shopping List</h1>
                 <br>
                 <body>
-                <h5 th:text="${ingredient.ingredientName}"></h5>
-                <br>
-                <h5 th:text="'Quantity'">Quantity:</h5>
-                <p th:text="${ingredient.quantity}"></p>
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th scope="col">Ingredient Name</th>
+                        <th scope="col">Quantity</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="ingredient :${ingredients}">
+                        <td th:text="${ingredient.ingredientName}"></td>
+                        <td th:text="${ingredient.quantity}"></td>
+                    </tbody>
+
+                </table>
 
                 <br>
 
                 <form th:action="@{/shoppingLists/processAddToList}" method="post">
                     <input type="hidden" th:value="${recipeId}" name="recipeId">
-                    <input type="hidden" th:value="${ingredient.id}" name="ingredientId">
 
 
                     <select id="shoppingListId" name="shoppingListId">
