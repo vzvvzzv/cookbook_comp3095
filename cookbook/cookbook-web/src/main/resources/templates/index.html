@@ -2,7 +2,8 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
@@ -13,12 +14,12 @@
     <!-- Bootstrap icons-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet" />
     <!-- Core theme CSS (includes Bootstrap)-->
-    <link href="css/style.css" rel="stylesheet" />
+    <link th:href="@{/../css/style.css}" rel="stylesheet" />
 </head>
-<body>
+<body class="background">
 <!-- Responsive navbar-->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="container px-lg-5">
+    <div class="container px-lg-5 ">
         <a class="navbar-brand" th:href="@{/}"href="#!">CookBookPro</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -34,13 +35,13 @@
     </div>
 </nav>
 <!-- Header-->
-<header class="py-5">
+<header class="py-5 ">
     <div class="container px-lg-5">
-        <div class="p-4 p-lg-5 bg-light rounded-3 text-center">
+        <div class="p-4 p-lg-5 rounded-3 text-center card-box">
             <div class="m-4 m-lg-5">
-                <h1 class="display-5 fw-bold">Welcome to CookBookPro!</h1>
+                <h1 class="display-5 fw-bold ">Welcome to CookBookPro!</h1>
                 <br>
-                <p class="fs-4">Store all your favorite recipes in one place! CookBookPro is a recipe manager that allows recipes to be created, searched for, favourited, and planned in advance!</p>
+                <p class="fs-4 ">Store all your favorite recipes in one place! CookBookPro is a recipe manager that allows recipes to be created, searched for, favourited, and planned in advance!</p>
 <!--                <br><img src="static/indexlogo.jpg" alt="cookbookpro" >-->
 
             </div>
@@ -51,17 +52,17 @@
 <section class="pt-4">
     <div class="container px-lg-5">
         <!-- Page Features-->
-        <div class="row gx-lg-5">
-            <div class="col-lg-6 col-xxl-4 mb-5">
-                <div class="card bg-light border-0 h-100">
+        <div class="row gx-lg-5 ">
+            <div class="col-lg-6 col-xxl-4 mb-5 ">
+                <div class="card border-0 h-100 card-box">
                     <div class="card-body text-center p-4 p-lg-5 pt-0 pt-lg-0">
                         <a class="nav-link"th:href="@{/register}"href="#">Register</a>
-                        <p class="mb-0">Register with CookBookPro with a username, password, first name, and last name!</p>
+                        <span class="mb-0">Register with CookBookPro with a username, password, first name, and last name!</span>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-6 col-xxl-4 mb-5">
-                <div class="card bg-light border-0 h-100">
+            <div class="col-lg-6 col-xxl-4 mb-5 ">
+                <div class="card border-0 h-100 card-box">
                     <div class="card-body text-center p-4 p-lg-5 pt-0 pt-lg-0">
                         <a class="nav-link" th:href="@{/users/login}"href="#">Login</a>
                         <p class="mb-0">Login and access all the features we have to offer with your username and password!</p>
@@ -69,16 +70,16 @@
                 </div>
             </div>
 
-            <div class="col-lg-6 col-xxl-4 mb-5">
-                <div class="card bg-light border-0 h-100">
-                    <div class="card-body text-center p-4 p-lg-5 pt-0 pt-lg-0">
+            <div class="col-lg-6 col-xxl-4 mb-5 ">
+                <div class="card  border-0 h-100 card-box">
+                    <div class="card-body text-center p-4 p-lg-5 pt-0 pt-lg-0 ">
                         <a class="nav-link" th:href="@{/users}"href="#">Users</a>
                         <p class="mb-0">CookBookPro Users List</p>
                     </div>
                 </div>
             </div>
             <div class="col-lg-6 col-xxl-4 mb-5">
-                <div class="card bg-light border-0 h-100">
+                <div class="card border-0 h-100 card-box ">
                     <div class="card-body text-center p-4 p-lg-5 pt-0 pt-lg-0">
                         <a class="nav-link" th:href="@{/recipes}"href="#">Recipes</a>
                         <p class="mb-0">View and Create your Own CookBookPro Recipes!</p>
