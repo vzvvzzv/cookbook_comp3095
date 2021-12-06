@@ -1,0 +1,44 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700,800,900');
+
+
+.background {
+    background: linear-gradient(#141e30, #243b55) center;
+}
+
+.card-box {
+    box-sizing: border-box;
+    box-shadow: 0 15px 25px rgba(0,0,0,.6);
+    border-radius: 15px;
+    background-color: #2B48A1;
+}
+
+.custom-text {
+    color: #72C1D5 !important;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 300;
+    font-size: 16px;
+    line-height: 1.7;
+    color: #72C1D5;
+    background-color: #1f2029;
+    overflow-x: hidden;
+}
+
+/* A link that has not been visited */
+a:link {
+    color: pink;
+}
+/* A link that has been visited */
+a:visited {
+    color: #B891CA;
+}
+/* A link that is hovered on */
+a:hover {
+    color: #B25771;
+}
+/* A link that is selected */
+a:active {
+    color: #2F879D;
+}
