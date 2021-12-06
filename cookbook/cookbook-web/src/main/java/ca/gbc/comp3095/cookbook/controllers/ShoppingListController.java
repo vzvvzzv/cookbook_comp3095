@@ -17,14 +17,13 @@ import ca.gbc.comp3095.cookbook.services.ShoppingListService;
 import ca.gbc.comp3095.cookbook.services.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Set;
+import java.util.*;
 
 @RequestMapping("/shoppingLists")
 @Controller
@@ -138,7 +137,8 @@ public class ShoppingListController {
 
     @RequestMapping("/addIngredientToList")
     public String addIngredientToList(@RequestParam Long recipeId,
-                                      @RequestParam Long ingredientId, Model model, HttpSession session) {
+                                      @RequestParam List<String> ingredientIdList,
+                                      Model model, HttpSession session) {
 
         if ((session.getAttribute("user") != null) &&
                 (userService.checkCredentials((User) session.getAttribute("user")))) {
@@ -148,10 +148,22 @@ public class ShoppingListController {
             User tempUser = userService.findByUsername(((User) newSession.getAttribute("user")).getUsername());
             Set<ShoppingList> usersShoppingLists = shoppingListService.findAllByUserId(tempUser.getId());
 
-            Ingredient ingredient = ingredientService.findById(ingredientId);
+            Set<Ingredient> tempIngredientSet = new HashSet<>();
+
+            Iterator<String> listIterator = ingredientIdList.iterator();
+
+            while (listIterator.hasNext()) {
+                String tempString = listIterator.next();
+                Long tempId = Long.parseLong(tempString);
+                Ingredient temp = ingredientService.findById(tempId);
+                tempIngredientSet.add((temp));
+
+            }
+
+            session.setAttribute("ingredientsToShopping", tempIngredientSet);
 
             model.addAttribute("recipeId", recipeId);
-            model.addAttribute("ingredient", ingredient);
+            model.addAttribute("ingredients", tempIngredientSet);
             model.addAttribute("userShoppingLists", usersShoppingLists);
 
             return "/shoppinglist/add-ingredient";
@@ -162,16 +174,19 @@ public class ShoppingListController {
 
     @RequestMapping("/processAddToList")
     public String processAddToList(@RequestParam Long recipeId,
-                                   @RequestParam Long ingredientId, @RequestParam Long shoppingListId) {
+                                   @RequestParam Long shoppingListId, HttpSession session) {
 
+
+        Set<Ingredient> tempIngredientSet = (Set<Ingredient>) session.getAttribute("ingredientsToShopping");
+        System.out.println(tempIngredientSet);
 
         ShoppingList tempShoppingList = shoppingListService.findById(shoppingListId);
-        Set<Ingredient> tempIngredientSet = tempShoppingList.getShopIngredientSet();
 
-        Ingredient ingredient = ingredientService.findById(ingredientId);
+        Iterator<Ingredient> tempIterator = tempIngredientSet.iterator();
 
-        tempIngredientSet.add(ingredient);
-        tempShoppingList.setShopIngredientSet(tempIngredientSet);
+        while (tempIterator.hasNext()) {
+            tempShoppingList.getShopIngredientSet().add(tempIterator.next());
+        }
 
         shoppingListService.save(tempShoppingList);
 

@@ -44,36 +44,32 @@
                 <body>
                 <h5 th:text="${recipe.recipeName}"></h5>
                 <br>
-
-                <table class="table table-striped">
-                    <thead>
-                    <tr>
-                        <th scope="col">Ingredient Name</th>
-                        <th scope="col">Quantity</th>
-                        <th scope="col">Actions</th>
-                    </tr>
-                    </thead>
-                    <tbody class="custom-text">
-                    <tr th:each="ingredient :${ingredients}">
-                        <td th:text="${ingredient.ingredientName}"></td>
-                        <td th:text="${ingredient.quantity}"></td>
-                        <td>
-                            <form th:action="@{/shoppingLists/addIngredientToList}"
-                                  method="post" style="max-width: 600px; margin: 0 auto;">
-
+                  
+                <form th:action="@{/shoppingLists/addIngredientToList}" method="post">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th scope="col">Ingredient Name</th>
+                            <th scope="col">Quantity</th>
+                            <th scope="col">Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="ingredient :${ingredients}">
+                            <td th:text="${ingredient.ingredientName}"></td>
+                            <td th:text="${ingredient.quantity}"></td>
+                            <td>
                                 <input type="hidden" th:name="recipeId"
                                        th:value="${recipe.id}" class="form-control" required />
 
-                                <input type="hidden" th:name="ingredientId"
-                                       th:value="${ingredient.id}" class="form-control" required />
+                                <input type="checkbox" th:name="ingredientIdList"
+                                       th:value="${ingredient.id}" class="form-control" />
+                            </td>
+                        </tbody>
 
-                                <button type="submit" class="btn btn-primary">Add To Shopping List</button>
-
-                            </form>
-                        </td>
-                    </tbody>
-
-                </table>
+                    </table>
+                    <button type="submit" class="btn btn-primary">Add To Shopping List</button>
+                </form>
                 <br>
 
                 <h5 th:text="'Ingredients:'">Ingredients:</h5>
